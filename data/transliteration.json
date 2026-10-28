@@ -1,0 +1,29 @@
+{
+  "file": "transliteration",
+  "version": 1,
+  "updated": "2026-10-28",
+  "description": "คลังทับศัพท์ชื่อเฉพาะ เทวตำนาน และเวทมนตร์ (เสาหลักที่ 3) — ใช้เมื่อเป็นชื่อเฉพาะ/ศัพท์เฉพาะที่ไม่มีคำแปลตรงตัว ห้ามแปลแถจนความหมายเพี้ยน และห้ามทับศัพท์ผิดรูป",
+  "schema": {
+    "source": "ชื่อเฉพาะภาษาอังกฤษ",
+    "thai": "รูปทับศัพท์ที่ถูกต้อง",
+    "wrong": "รูปทับศัพท์ที่เพี้ยน (optional)",
+    "context": "ที่มา/บริบท (optional)"
+  },
+  "entries": [
+    { "source": "Ragnarok", "thai": "แร็กนาร็อค", "context": "เทวตำนานนอร์ส" },
+    { "source": "Gungnir", "thai": "กุงเนียร์", "context": "หอกของโอดิน" },
+    { "source": "Megiddo", "thai": "เมกิดโด" },
+    { "source": "Overdrive", "thai": "โอเวอร์ไดรฟ์" },
+    { "source": "Firaga", "thai": "ฟิเรก้า" },
+    { "source": "Wrath of El Dorado", "thai": "โทสะแห่งเอลโดราโด" },
+    { "source": "Spirit of the Djinn", "thai": "ดวงวิญญาณแห่งญิน" },
+    { "source": "Indra's Eternity", "thai": "วัชระนิรันดร์แห่งพระอินทร์" },
+    { "source": "Shield of Asgard", "thai": "โล่แห่งแอสการ์ด" },
+    { "source": "Staff of Ayar Manco", "thai": "คทาแห่งอายาร์ มันโก" },
+    { "source": "Cintamani Stone", "thai": "ศิลาจินดามณี" },
+    { "source": "The Tusk of Ganesh", "thai": "งาพระคเณศ / งาพระพิฆเนศ", "wrong": ["ทัสก์", "ทัสค์", "งาทัสก์"], "context": "ดูเพิ่ม data/mt-traps.json: tusk-of-ganesh" },
+    { "source": "Hoysala / Hoysala Empire", "thai": "โฮยซาลา / จักรวรรดิโฮยซาลา", "wrong": ["ฮอยซาลา"] },
+    { "source": "Gunsway / Ganj-i-Sawai", "thai": "กันจ์-อิ-ซาวาย (Gunsway)" },
+    { "source": "Swiftsure", "thai": "เรือสวิฟต์ชัวร์ (Swiftsure)", "wrong": ["เรือแน่นอน", "รวดเร็วแน่นอน"] }
+  ]
+}

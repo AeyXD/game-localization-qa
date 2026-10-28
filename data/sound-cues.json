@@ -1,0 +1,20 @@
+{
+  "file": "sound-cues",
+  "version": 1,
+  "updated": "2026-10-28",
+  "description": "การแปลแท็กเสียงประกอบและท่าทางกำกับในซับไตเติล (เสาหลักที่ 6) — แท็กที่ไม่ใช่โค้ดเอนจิ้นต้องแปลเป็นภาษาไทยอย่างสละสลวย",
+  "engine_tag_exception": "แท็กโค้ดของเอนจิ้นเกม เช่น [IT], [TU], [GR], [beat] ต้องคงเดิม ห้ามแปล",
+  "entries": [
+    { "source": "[Screams]", "thai": "[เสียงกรีดร้อง]" },
+    { "source": "[Crying]", "thai": "[เสียงร้องไห้]" },
+    { "source": "[Laughter]", "thai": "[เสียงหัวเราะ]", "variants": ["[laugh]", "[Laughs]"], "thai_variants": ["[หัวเราะ]"] },
+    { "source": "[Gasp]", "thai": "[อ้าปากค้าง]" },
+    { "source": "[sigh] / [Sighs]", "thai": "[ถอนหายใจ]" },
+    { "source": "[Yawning]", "thai": "[หาว]" },
+    { "source": "[small breath]", "thai": "[สูดหายใจเบาๆ]" },
+    { "source": "[sarcastically]", "thai": "[ประชด]" },
+    { "source": "[Spits]", "thai": "[ถ่มน้ำลาย]" },
+    { "source": "[coughing]", "thai": "[ไอ]" },
+    { "source": "[louder]", "thai": "[เสียงดังขึ้น]" }
+  ]
+}
