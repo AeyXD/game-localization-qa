@@ -10,6 +10,7 @@
   },
   "cases": [
     { "id": "persona-female-knight", "pillar": 1, "category": "persona", "source": "I will not fail, my lord.", "context": "ตัวละครหญิง อัศวินหญิง พูดกับผู้บังคับบัญชาชาย (เกมแฟนตาซี)", "bad_mt": "ผมจะไม่พลาดครับ ท่าน", "accept": ["ฉันจะไม่พลาด", "ข้าจะไม่พลาด"], "reject": ["ผมจะไม่พลาดครับ"], "checker_testable": false },
+    { "id": "persona-system-voice-tutorial", "pillar": 1, "category": "system-voice", "source": "Press X to jump.", "context": "บทช่วยสอน — เสียงของระบบ ห้ามบุรุษที่ 1 (MT ใส่ประธาน I ให้ต้นฉบับที่ไม่มีประธาน)", "bad_mt": "ฉันต้องกด X เพื่อที่จะกระโดด", "accept": ["กด X เพื่อกระโดด", "กดปุ่ม X"], "reject": ["ฉันต้องกด"], "checker_testable": false },
     { "id": "persona-pawn-master", "pillar": 1, "category": "persona", "source": "Master, your orders?", "context": "พอว์นผู้รับใช้พูดกับเจ้านายในระบบ Pawn (แนว Dragon's Dogma)", "bad_mt": "อาจารย์ครับ มีคำสั่งอะไรครับ", "accept": ["นายท่าน"], "reject": ["อาจารย์"], "checker_testable": false },
     { "id": "persona-radio-officer", "pillar": 1, "category": "persona", "source": "This is Falcon, I copy that.", "context": "เจ้าหน้าที่วิทยุประจำยาน (แนวไซไฟ/การทหาร)", "bad_mt": "ข้าคือฟาลคอน ข้ารับทราบ", "accept": ["ฉันรับทราบ", "ทางนี้รับทราบ", "คัดลอก"], "reject": ["ข้าคือฟาลคอน"], "checker_testable": false },
 
