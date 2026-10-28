@@ -24,11 +24,14 @@ description: Master protocol for game translation Quality Assurance (The 7 QA Pi
 | Codex / หนังสือ / บันทึกในเกม | `references/pillar-7-codex-readables.md` + `data/mt-traps.json` (`codex-readable`) |
 | **ทุกงานที่แตะไฟล์แปลจริง** | ทำตาม 🛠️ Autonomous Execution Workflow ด้านล่างเสมอ |
 | วัดผล / ทดสอบสกิลหรือเครื่องมือ | `eval/run_eval.py` (`selftest`, `checker`, `template`, `translations`) + `eval/cases.json` |
+| ตรวจทานรอบสุดท้ายก่อนส่งมอบ | `references/qa-checklist.md` |
 
 **⭐ กฎเหล็กสากลที่ต้องยึดทุกงาน (ไม่ต้องรอเปิด reference):**
 1. อ่าน ตรวจ และแปล **ทุกประโยค ทุกบรรทัด 100%** ห้ามข้าม ห้ามย่อความ ห้ามแต่งเติมเอง
 2. ห้ามลบ แก้ หรือแปลแท็กของ game engine เด็ดขาด และคงจำนวนแท็ก/บรรทัด/encoding เดิมเป๊ะ
 3. ใช้ data files เป็นคลังคำตอบก่อนตัดสินใจแปล และเมื่อพบกับดักใหม่ให้เพิ่มเข้า data files ทันที (ดู Self-Upgrade Protocol)
+4. เมื่อหลักการขัดกัน ตัดสินตามลำดับความสำคัญ: **ความหมายและ Logic ต้นฉบับ > ความชัดเจน/ธรรมชาติตามบริบท > ความกระชับ > ความสละสลวย**
+5. ใช้ความรู้ความเข้าใจเกมเป็น "บริบทตีความ" เท่านั้น — ห้ามเติมเนื้อเรื่อง เฉลย หรือเปลี่ยนเงื่อนไข/เจตนาที่ต้นฉบับไม่ได้ระบุ
 
 ---
 
