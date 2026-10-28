@@ -5,7 +5,7 @@
 ## 1. พิธีสารแยกแยะบริบท Checkpoint 2 กรณี (Dual-Context Checkpoint Protocol)
 
 🟢 **กรณีที่ 1: กลไกเซฟเกม / จุดเกิดใหม่ / UI ความคืบหน้า (Save Mechanic / Respawn / UI Progress):**
-- สัญญาณ: `reached`, `last`, `previous`, `restart`, `reload`, `save at`, `progress`, `race` หรือคำว่า `checkpoint` เดี่ยวๆ
+- สัญญาณ: `reached`, `last`, `previous`, `restart`, `reload`, `save at`, `progress`, `race` หรือคำว่า `checkpoint` เดี่ยว ๆ
 - ✅ **ต้องแปลว่า:** **"เช็คพอยท์"** หรือ **"จุดเช็คพอยท์"** | ❌ **ห้ามแปลว่า:** "จุดตรวจ" / "ด่านตรวจ"
 - ตัวอย่าง: `Checkpoint reached` ➔ `ถึงจุดเช็คพอยท์แล้ว`, `Restart from checkpoint` ➔ `เริ่มใหม่จากจุดเช็คพอยท์`
 

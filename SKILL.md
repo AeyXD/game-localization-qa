@@ -11,7 +11,7 @@ description: Master protocol for game translation Quality Assurance (The 7 QA Pi
 
 ## 🗂️ โครงสร้างแบบ Progressive Disclosure (อ่านเฉพาะสิ่งที่งานต้องใช้)
 
-ไฟล์นี้คือแกนกลาง — **ก่อนลงมือทำงานใดๆ ให้เปิดอ่าน reference และ data ตามตารางนี้เสมอ** ไม่ต้องอ่านทุกไฟล์:
+ไฟล์นี้คือแกนกลาง — **ก่อนลงมือทำงานใด ๆ ให้เปิดอ่าน reference และ data ตามตารางนี้เสมอ** ไม่ต้องอ่านทุกไฟล์:
 
 | ลักษณะงาน | ไฟล์ที่ต้องอ่านก่อนลงมือ |
 | :--- | :--- |
@@ -103,7 +103,7 @@ sequenceDiagram
 
 ## 🔄 พิธีสารการอัปเกรดต่อเนื่องแบบ Data-Driven (Continuous Evolution & Self-Upgrade Protocol v2)
 
-เมื่อ AI หรือผู้ใช้พบสถานการณ์ใดๆ ต่อไปนี้ระหว่างทำงานแปลเกม:
+เมื่อ AI หรือผู้ใช้พบสถานการณ์ใด ๆ ต่อไปนี้ระหว่างทำงานแปลเกม:
 1. **ศัพท์เกม/สแลงใหม่** เช่น Soulslike, Extraction Shooter, Gacha, MMORPG
 2. **กับดัก MT ตัวใหม่** คล้ายกรณี Checkpoint, Strike, Breeches
 3. **เทคนิค Game Engine ใหม่** เช่น Unreal Locres, Unity TextMeshPro Sprite Tags, RE Engine MSG, Naninovel, RPG Maker, Ren'Py, GameMaker
