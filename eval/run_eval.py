@@ -135,7 +135,10 @@ def cmd_checker(args):
         if not c.get("checker_testable"):
             continue
         text = c["bad_mt"]
-        fixed, issues = q.check_line(text, DATA, set())
+        source = c.get("source", "")
+        # ส่ง source เป็น source_text ให้ context-dependent traps ทำงานได้
+        # (source ของ pillar 6 เป็นไทย — context_keywords เป็นอังกฤษจะไม่ match จึงไม่เกิดผลข้างเคียง)
+        fixed, issues = q.check_line(text, DATA, set(), source_text=source)
         caught = bool(issues)
         per_pillar[c["pillar"]][1] += 1
         if caught:

@@ -261,13 +261,15 @@ class TestMispasteDetection(unittest.TestCase):
 
 class TestMtTrapScan(unittest.TestCase):
     def test_strike_trap(self):
-        _, issues = fix("การโจมตีแบบนัดหยุดงาน")
+        _, issues = q.check_line("การโจมตีแบบนัดหยุดงาน", DATA, set(),
+                                 source_text="Strike the enemy when their guard is down.")
         hit = [i for i in issues if i["rule"] == "mt-trap:strike-mechanics"]
         self.assertTrue(hit)
         self.assertIn("ฟาดฟัน", hit[0]["note"])
 
     def test_cooldown_trap(self):
-        _, issues = fix("สกิลกำลังเย็นลง")
+        _, issues = q.check_line("สกิลกำลังเย็นลง", DATA, set(),
+                                 source_text="This skill is on cooldown.")
         self.assertTrue(any(i["rule"] == "mt-trap:cooldown" for i in issues))
 
     def test_game_tags_never_touched(self):
@@ -368,6 +370,54 @@ class TestFileSafety(unittest.TestCase):
         self.assertEqual(rows[0][0], "File")
         self.assertEqual(rows[0][5], "Before")
         self.assertTrue(any("ปรากฎ" in r for r in rows[1:]))
+
+
+class TestMtTrapContextFilter(unittest.TestCase):
+    """context_keywords: กับดัก MT ที่ใช้คำสามัญต้องแจ้งเตือนเฉพาะเมื่อ source EN มี keyword ด้วย"""
+
+    def test_winch_trapped_with_source(self):
+        _, issues = q.check_line("ใช้แม่มดดึงรถออกมา", DATA, set(),
+                                 source_text="Use the winch to pull the truck out.")
+        self.assertTrue(any(i["rule"] == "mt-trap:winch" for i in issues))
+
+    def test_winch_not_trapped_without_source(self):
+        """'แม่มด' ไม่แจ้งเตือนเมื่อไม่มี source EN (เกมแฟนตาซีที่มีแม่มดจริง ๆ)"""
+        _, issues = q.check_line("ตามหาแม่มดด้วยตัวเองหรือถามหาจากชาวบ้าน", DATA, set())
+        self.assertFalse(any(i["rule"] == "mt-trap:winch" for i in issues))
+
+    def test_winch_not_trapped_wrong_source(self):
+        _, issues = q.check_line("ตามหาแม่มด", DATA, set(),
+                                 source_text="Find the witch in the forest.")
+        self.assertFalse(any(i["rule"] == "mt-trap:winch" for i in issues))
+
+    def test_piton_trapped_with_source(self):
+        _, issues = q.check_line("ใช้ท่อปีนผา", DATA, set(),
+                                 source_text="Use the climbing piton.")
+        self.assertTrue(any(i["rule"] == "mt-trap:piton" for i in issues))
+
+    def test_piton_not_trapped_without_source(self):
+        _, issues = q.check_line("ท่อระบายน้ำใต้ดิน", DATA, set())
+        self.assertFalse(any(i["rule"] == "mt-trap:piton" for i in issues))
+
+    def test_non_context_trap_still_works(self):
+        """กับดักที่ไม่มี context_keywords ยังทำงานปกติไม่ต้องมี source (เช่น lifesteal)"""
+        _, issues = q.check_line("สกิลขโมยชีวิต", DATA, set())
+        self.assertTrue(any(i["rule"] == "mt-trap:lifesteal" for i in issues))
+
+
+class TestDisableTrap(unittest.TestCase):
+    """--disable-trap <id>: ผู้ใช้ปิดกับดักเฉพาะได้"""
+
+    def test_disabled_trap_not_fired(self):
+        d = q.QAData(q.DEFAULT_DATA_DIR, disabled_traps=["winch"])
+        _, issues = q.check_line("ใช้แม่มดดึงรถ", d, set(),
+                                 source_text="Use the winch to pull the truck out.")
+        self.assertFalse(any(i["rule"] == "mt-trap:winch" for i in issues))
+
+    def test_other_traps_still_work(self):
+        d = q.QAData(q.DEFAULT_DATA_DIR, disabled_traps=["winch"])
+        _, issues = q.check_line("สกิลขโมยชีวิต", d, set())
+        self.assertTrue(any(i["rule"] == "mt-trap:lifesteal" for i in issues))
 
 
 class TestListRules(unittest.TestCase):

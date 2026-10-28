@@ -14,109 +14,1241 @@
     "note": "หมายเหตุเพิ่มเติม (optional)"
   },
   "entries": [
-    { "id": "twixt-rock-hard-place", "pillar": 2, "category": "idiom", "source": "'Twixt a rock and a hard place", "correct": "กลืนไม่เข้าคายไม่ออก", "forbidden": ["ระหว่างหินกับที่แคบ"] },
-    { "id": "no-spoils-left-behind", "pillar": 2, "category": "idiom", "source": "No spoils left behind", "correct": "ไม่ทิ้งของมีค่าไว้เบื้องหลัง", "forbidden": ["ไม่มีของที่ระลึกถูกทิ้งไว้"] },
-    { "id": "short-sighted-ambition", "pillar": 2, "category": "idiom", "source": "Short-sighted ambition", "correct": "ความทะเยอทะยานอันมืดบอด", "forbidden": ["ความทะเยอทะยานสายตาสั้น"] },
-    { "id": "sculptors-block", "pillar": 2, "category": "idiom", "source": "Sculptor's block", "correct": "ทางตันของประติมากร", "forbidden": ["กรณีสมองตันของประติมากร"] },
-    { "id": "bite-the-bullet", "pillar": 2, "category": "idiom", "source": "Bite the bullet", "correct": ["กัดฟันสู้", "ยอมรับชะตากรรม"], "forbidden": ["กัดกระสุน"] },
-    { "id": "fingers-in-every-pie", "pillar": 2, "category": "idiom", "source": "Fingers in every pie", "correct": "แทรกซึมชักใยอยู่เบื้องหลังทุกวงการ", "forbidden": ["มืออยู่ในทุกพาย"] },
-    { "id": "earned-your-rest", "pillar": 2, "category": "idiom", "source": "Earned your rest", "correct": "เหน็ดเหนื่อยมามากพอแล้ว... จงสู่สุคติเถิด", "forbidden": ["ได้มาซึ่งการพักผ่อนของเจ้า"] },
-    { "id": "a-local-miser", "pillar": 2, "category": "idiom", "source": "A local miser", "correct": "เจ้าชายตกยากในท้องถิ่น", "forbidden": ["คนขี้เหนียวท้องถิ่น"], "context": "Historical Context" },
-    { "id": "ruined-by-curiosity", "pillar": 2, "category": "idiom", "source": "Ruined by curiosity", "correct": "ความใคร่รู้คือหายนะของข้าแท้ ๆ", "forbidden": ["ถูกทำลายด้วยความอยากรู้อยากเห็น"] },
-    { "id": "not-use-term-lightly", "pillar": 2, "category": "idiom", "source": "I do not use that term lightly", "correct": "ไม่ได้ใช้คำยกย่องนี้พร่ำเพรื่อ", "forbidden": ["ไม่ได้ใช้คำนั้นอย่างเบาๆ"] },
-    { "id": "draw-fire", "pillar": 2, "category": "idiom", "source": "Draw fire / Draw their fire", "correct": ["ล่อเป้า", "ดึงความสนใจศัตรู"], "forbidden": ["ยิงไฟ", "วาดไฟ"] },
-    { "id": "call-shotgun", "pillar": 2, "category": "idiom", "source": "I call shotgun!", "correct": "ฉันขอนั่งเบาะหน้า!", "forbidden": ["ฉันเรียกปืนลูกซอง!"], "context": "Seating Slang" },
-    { "id": "sic-parvis-magna", "pillar": 2, "category": "idiom", "source": "Sic Parvis Magna", "correct": "จากจุดเริ่มต้นเล็ก ๆ สู่ความยิ่งใหญ่ (Sic Parvis Magna)", "forbidden": ["ทับศัพท์เพียงอย่างเดียวโดยไม่แปลความหมาย"], "context": "Motto" },
-
-    { "id": "whirlwind-slash", "pillar": 3, "category": "skill-name", "source": "Whirlwind Slash", "correct": ["ดาบวายุหมุน", "ฟันรอบทิศ"], "forbidden": ["การฟันลมกรด"], "note": "วลีผสม 2-6 พยางค์ที่เห็นภาพการเคลื่อนไหว" },
-    { "id": "shield-drum", "pillar": 3, "category": "skill-name", "source": "Shield Drum", "correct": "เคาะโล่ท้าทาย", "forbidden": ["กลองโล่"] },
-    { "id": "indomitable-lash", "pillar": 3, "category": "skill-name", "source": "Indomitable Lash", "correct": "ดาบฟาดไร้พ่าย", "forbidden": ["แส้ไร้พ่าย"] },
-    { "id": "heavenly-shot", "pillar": 3, "category": "skill-name", "source": "Heavenly Shot", "correct": "ศรทิพย์ทะลวงสวรรค์", "forbidden": ["การยิงจากสวรรค์"] },
-    { "id": "flame-strike", "pillar": 3, "category": "skill-name", "source": "Flame Strike", "correct": ["ดาบเพลิงพิฆาต", "เพลิงจู่โจม"], "forbidden": [] },
-    { "id": "shadow-dance", "pillar": 3, "category": "skill-name", "source": "Shadow Dance", "correct": "ระบำเงา", "forbidden": [] },
-    { "id": "thunder-wrath", "pillar": 3, "category": "skill-name", "source": "Thunder Wrath", "correct": "อสุนีบาตฟาด", "forbidden": [] },
-    { "id": "divine-retribution", "pillar": 3, "category": "skill-name", "source": "Divine Retribution", "correct": "ทัณฑ์เทวา", "forbidden": [] },
-
-    { "id": "strike-mechanics", "pillar": 3, "category": "skill-mechanics", "source": "Strike", "correct": ["ฟาดฟัน", "จู่โจม", "ประหาร"], "forbidden": ["นัดหยุดงาน", "ประท้วงหยุดงาน"] },
-    { "id": "cast-casting", "pillar": 3, "category": "skill-mechanics", "source": "Cast / Casting", "correct": ["ร่าย", "กำลังร่ายเวท"], "forbidden": ["หล่อโลหะ", "คัดเลือกนักแสดง"] },
-    { "id": "cooldown", "pillar": 3, "category": "skill-mechanics", "source": "Cooldown", "correct": ["คูลดาวน์", "เวลารอใช้ใหม่"], "forbidden": ["เย็นลง", "การระบายความร้อน"] },
-    { "id": "passive-skill", "pillar": 3, "category": "skill-mechanics", "source": "Passive Skill", "correct": ["สกิลติดตัว", "ทักษะติดตัว"], "forbidden": ["ทักษะเฉยชา", "ไม่กระตือรือร้น"] },
-    { "id": "active-skill", "pillar": 3, "category": "skill-mechanics", "source": "Active Skill", "correct": ["สกิลกดใช้", "ทักษะกดใช้"], "forbidden": ["ทักษะคล่องแคล่ว", "กระตือรือร้น"] },
-    { "id": "critical-hit", "pillar": 3, "category": "skill-mechanics", "source": "Critical Hit", "correct": ["คริติคอล", "โจมตีติดคริ"], "forbidden": ["การโจมตีวิกฤต", "วิกฤตการณ์"] },
-    { "id": "bleed-bleeding", "pillar": 3, "category": "skill-mechanics", "source": "Bleed / Bleeding", "correct": ["ติดเลือดไหล", "เลือดออก"], "forbidden": ["ตกเลือด", "เลือดออกทางแผล"] },
-    { "id": "stun", "pillar": 3, "category": "skill-mechanics", "source": "Stun", "correct": ["สตัน", "มึนงง"], "forbidden": ["ทำให้ตกตะลึง", "ทำให้ประหลาดใจ"] },
-    { "id": "lifesteal", "pillar": 3, "category": "skill-mechanics", "source": "Lifesteal", "correct": "ดูดเลือด", "forbidden": ["ขโมยชีวิต"] },
-    { "id": "respawn", "pillar": 3, "category": "skill-mechanics", "source": "Respawn", "correct": ["เกิดใหม่", "จุดเกิดใหม่"], "forbidden": ["วางไข่", "การฟักตัว"] },
-    { "id": "tank-buster", "pillar": 3, "category": "skill-mechanics", "source": "Tank Buster", "correct": ["จอมทลายแทงก์", "มือปราบตัวชน"], "forbidden": ["นักทำลายรถถัง"], "context": "เกมซอมบี้หรือแฟนตาซี ไม่ใช่สงครามยานยนต์" },
-    { "id": "block-charge", "pillar": 3, "category": "skill-mechanics", "source": "Block Charge", "correct": "พุ่งชนขณะบล็อก", "forbidden": ["บล็อกการชาร์จ"], "note": "ห้ามแปลกลับด้านกลไก" },
-    { "id": "bash", "pillar": 3, "category": "skill-mechanics", "source": "Bash", "correct": "พุ่งชนทะลวง", "forbidden": ["ทุบ"], "note": "ห้ามแปลซ้ำซ้อนกับ Smash (ทุบ)" },
-    { "id": "suicider", "pillar": 3, "category": "skill-mechanics", "source": "Suicider / Suiciders", "correct": "ตัวระเบิดพลีชีพ", "forbidden": ["ผู้ฆ่าตัวตาย"], "context": "ซอมบี้เกม" },
-    { "id": "eagle-sense", "pillar": 3, "category": "skill-mechanics", "source": "Eagle Sense", "correct": "สัมผัสอินทรี (Eagle Sense)", "forbidden": ["อีเกิลเซนส์"], "note": "ห้ามแปล 'in GOLD' เป็น 'ในโกลด์'" },
-    { "id": "eagle-vision", "pillar": 3, "category": "skill-mechanics", "source": "Eagle Vision", "correct": "สายตาอินทรี (Eagle Vision)", "forbidden": ["อีเกิลวิชัน"], "note": "ห้ามแปล Dismiss เป็น 'ไล่ออก'" },
-    { "id": "hook-and-run-throw", "pillar": 3, "category": "skill-mechanics", "source": "Hook and Run / Hook and Throw", "correct": ["เกี่ยวตัวข้าม (Hook and Run)", "เกี่ยวทุ่ม (Hook and Throw)"], "forbidden": ["เกี่ยวและวิ่ง", "เกี่ยวและโยน"] },
-    { "id": "counter-combo-kill", "pillar": 3, "category": "skill-mechanics", "source": "Counter Kill / Combo Kill", "correct": ["สังหารสวนกลับ (Counter Kill)", "สังหารต่อเนื่อง (Combo Kill)"], "forbidden": ["เคาน์เตอร์คิล", "คอมโบคิล"] },
-    { "id": "leap-of-faith", "pillar": 3, "category": "skill-mechanics", "source": "Leap of Faith", "correct": "ดิ่งพสุธา (Leap of Faith)", "forbidden": ["การก้าวกระโดดแห่งศรัทธา"] },
-    { "id": "den-defense-siege-engine", "pillar": 3, "category": "skill-mechanics", "source": "Den Defense / Siege Engine", "correct": ["ศึกป้องกันรังภาคี (Den Defense)", "ยุทโธปกรณ์ปิดล้อม"], "forbidden": ["ป้องกันรัง", "เครื่องยนต์ปิดล้อม"] },
-
-    { "id": "checkpoint-save-mechanic", "pillar": 4, "category": "checkpoint", "source": "Checkpoint reached / Restart from checkpoint", "correct": ["เช็คพอยท์", "จุดเช็คพอยท์"], "forbidden": ["จุดตรวจ", "ด่านตรวจ"], "context": "กลไกเซฟเกม/จุดเกิดใหม่/UI — สัญญาณ: reached, last, previous, restart, reload, save at, progress, race หรือคำว่า checkpoint เดี่ยว ๆ", "note": "ตัวอย่าง: Checkpoint reached = ถึงจุดเช็คพอยท์แล้ว, Restart from checkpoint = เริ่มใหม่จากจุดเช็คพอยท์" },
-    { "id": "checkpoint-military-outpost", "pillar": 4, "category": "checkpoint", "source": "Enemy checkpoint / Guards at the checkpoint", "correct": ["ด่านตรวจ", "จุดตรวจ"], "forbidden": ["เช็คพอยท์"], "context": "ด่านตรวจทหาร/ตำรวจ/ศัตรู/ชายแดนในโลกจริงของเนื้อเรื่อง — สัญญาณ: military, police, border, enemy, soldier, guards, outpost, infiltrate, stationed (และคำไทย: ทหาร, ตำรวจ, ชายแดน, ศัตรู, ยาม, บุก, กวาดล้าง)", "note": "Enemy checkpoint = ด่านตรวจของศัตรู, Guards at the checkpoint = ยามที่ด่านตรวจ" },
-    { "id": "weapon-model-code", "pillar": 4, "category": "firearms-item", "source": "Weapon Model Codes (M60, M4A1, AK-47, Glock 19, RPG-7, Barrett .50 Cal, XM25, MP5)", "correct": "คงรหัสรุ่นสากลและตัวเลขอารบิกเดิมเสมอ อนุญาตใส่คำนำหน้าประเภทภาษาไทย เช่น ปืนกล M60, ปืนเล็กยาว M4A1, ปืนพก Glock 19, กระสุน 9mm / 5.56mm / 7.62mm / .45 ACP", "forbidden": ["เอ็ม 60", "เอ็มหกสิบ", "เอเค 47", "กล็อก 19", "อาร์พีจี 7", "เอ็กซ์เอ็ม 25", "เอ็มสี่"] },
-    { "id": "burst-fire", "pillar": 4, "category": "firearms-item", "source": "Burst Fire / Burst Carbine", "correct": ["ยิงชุด", "ปืนคาร์ไบน์ยิงชุด"], "forbidden": ["ยิงระเบิด"] },
-    { "id": "boomstick", "pillar": 4, "category": "firearms-item", "source": "Boomstick", "correct": "บูมสติ๊ก", "forbidden": ["ไม้ตีกอล์ฟ"] },
-    { "id": "nailbiter", "pillar": 4, "category": "firearms-item", "source": "Nailbiter (Unique Nailgun)", "correct": "ปืนตะปูเนลไบเตอร์", "forbidden": ["นักกัดเล็บ", "คนกัดเล็บ"] },
-    { "id": "numbing-kit", "pillar": 4, "category": "firearms-item", "source": "Numbing Kit", "correct": "ชุดยาชา", "forbidden": ["ชุดชา"], "note": "ห้ามสับสนกับ Tea" },
-    { "id": "keycard", "pillar": 4, "category": "firearms-item", "source": "Keycard", "correct": "คีย์การ์ด", "forbidden": ["การ์ดคีย์"], "note": "ห้ามเรียงคำกลับด้าน" },
-    { "id": "muzzle-brake", "pillar": 4, "category": "firearms-item", "source": "Muzzle Brake", "correct": "ปลอกลดแรงสะท้อนปากกระบอก", "forbidden": ["เบรกปากกระบอก"] },
-    { "id": "high-caliber", "pillar": 4, "category": "firearms-item", "source": "High-Caliber", "correct": "กระสุนขนาดใหญ่พิเศษ", "forbidden": ["ลำกล้องใหญ่"] },
-    { "id": "legal-acronyms", "pillar": 4, "category": "firearms-item", "source": "Legal & Municipal Acronyms (L.A.M.C. / C.V.C. / LAPD)", "correct": "คงตัวย่อภาษาอังกฤษเดิม", "forbidden": ["ล.อ.ม.ซ.", "ค.ว.ซ.", "ส.ต.ล."] },
-    { "id": "hidden-blade", "pillar": 4, "category": "firearms-item", "source": "Hidden Blade", "correct": "ใบมีดลับ (Hidden Blade)", "forbidden": ["ฮิดเดนเบลด"] },
-    { "id": "hidden-gun", "pillar": 4, "category": "firearms-item", "source": "Hidden Gun", "correct": "ปืนซ่อนข้อมือ (Hidden Gun)", "forbidden": ["ปืนฮิดเดน"] },
-    { "id": "war-hammer", "pillar": 4, "category": "firearms-item", "source": "War Hammer", "correct": "ค้อนสงคราม (War Hammer)", "forbidden": ["สงครามค้อน"] },
-    { "id": "bearded-axe", "pillar": 4, "category": "firearms-item", "source": "Bearded Axe", "correct": "ขวานเคราศึกโบราณ (Bearded Axe)", "forbidden": ["ขวานมีเครา"] },
-    { "id": "riding-spaulders", "pillar": 4, "category": "firearms-item", "source": "Riding Spaulders", "correct": "สนับไหล่ขี่ม้า (Riding Spaulders)", "forbidden": ["ขี่สปอลเดอร์ส"] },
-    { "id": "chest-guard", "pillar": 4, "category": "firearms-item", "source": "Chest Guard", "correct": "เกราะอก (Chest Guard)", "forbidden": ["เครื่องป้องกันหน้าอก"] },
-    { "id": "medicine-bullet-pouch", "pillar": 4, "category": "firearms-item", "source": "Medicine Pouch / Bullet Pouch", "correct": ["ถุงบรรจุยา", "ถุงกระสุน"], "forbidden": ["กระเป๋ายา", "กระเป๋ากระสุน"], "context": "เกมพีเรียดยุคกลาง/เรเนซองส์ — ห้ามหลุดยุคปัจจุบัน" },
-    { "id": "truck-callsign", "pillar": 4, "category": "firearms-item", "source": "Truck (Callsign)", "correct": "ทรัค", "forbidden": ["รถบรรทุก"], "note": "สัญญาณเรียกขานทหาร ไม่ใช่ยานพาหนะ" },
-    { "id": "enemy-bird", "pillar": 4, "category": "firearms-item", "source": "Enemy bird", "correct": ["ฮ. ศัตรู", "เฮลิคอปเตอร์ศัตรู"], "forbidden": ["นกศัตรู"], "note": "สแลงการบินทหาร" },
-    { "id": "mother-hen", "pillar": 4, "category": "firearms-item", "source": "Mother Hen", "correct": "มาเธอร์เฮน", "forbidden": ["แม่ไก่"], "note": "รหัสวิทยุฐานบัญชาการ/ยานแม่" },
-    { "id": "winch", "pillar": 4, "category": "firearms-item", "source": "Winch (Vehicle Recovery Gear)", "correct": ["วินช์ (Winch)", "สลิงดึงรถ"], "forbidden": ["แม่มด"], "note": "ห้ามสับสนกับ Witch" },
-    { "id": "piton", "pillar": 4, "category": "firearms-item", "source": "Piton / Climbing Piton", "correct": "ลิ่มปีนผา", "forbidden": ["หมุด", "ท่อ"] },
-    { "id": "lockpick", "pillar": 4, "category": "firearms-item", "source": "Lockpick", "correct": "ที่สะเดาะกลอน", "forbidden": ["ตัวเลือกล็อค"] },
-    { "id": "shotgun", "pillar": 4, "category": "firearms-item", "source": "Shotgun", "correct": "ปืนลูกซอง", "forbidden": ["ช็อตกัน"] },
-    { "id": "breeches", "pillar": 4, "category": "fantasy-item", "source": "Breeches (เช่น Apprentice's Breeches)", "correct": "กางเกง... (เช่น กางเกงผู้ฝึกเวท)", "forbidden": ["กางเกงขาสั้นเด็กฝึกงาน"], "note": "กางเกงรัดเข่าโบราณ — อย่าแปลหลุดออฟฟิศ" },
-    { "id": "hosen", "pillar": 4, "category": "fantasy-item", "source": "Hosen (เช่น Mercenary Hosen)", "correct": "กางเกง... (เช่น กางเกงทหารรับจ้าง)", "forbidden": ["ถุงน่องทหารรับจ้าง"] },
-    { "id": "ring-of-insomnolence", "pillar": 4, "category": "fantasy-item", "source": "Ring of Insomnolence", "correct": "แหวนต้านนิทรา", "forbidden": ["แหวนแห่งการนอนไม่หลับ"] },
-    { "id": "ring-of-assurance", "pillar": 4, "category": "fantasy-item", "source": "Ring of Assurance", "correct": "แหวนพิทักษ์ชีพ", "forbidden": ["แหวนประกันชีวิต"] },
-
-    { "id": "saddle-up-for", "pillar": 5, "category": "quest-title", "source": "Saddle Up for <Location>", "correct": ["มุ่งหน้าสู่...", "เตรียมบุกสู่..."], "forbidden": ["อานม้าสู่..."], "context": "เกมยุคปัจจุบัน/ไม่มีม้า" },
-    { "id": "boardwalk", "pillar": 5, "category": "quest-title", "source": "Boardwalk / Boardwalking Dead", "correct": ["ทางเดินเลียบหาด", "ซอมบี้เลียบหาด"], "forbidden": ["เดินกระดาน"] },
-    { "id": "creature-comforts", "pillar": 5, "category": "quest-title", "source": "Creature Comforts", "correct": ["สิ่งอำนวยความสุขสำราญ", "ของใช้สำราญใจ"], "forbidden": ["ความสบายของสัตว์ประหลาด"] },
-    { "id": "scooped", "pillar": 5, "category": "quest-title", "source": "Scooped!", "correct": "ชิงข่าวเด็ด!", "forbidden": ["ตักมาแล้ว!"], "context": "บริบทนักข่าว/สื่อมวลชน" },
-    { "id": "blood-drive", "pillar": 5, "category": "quest-title", "source": "Blood Drive", "correct": ["บลัดไดรฟ์", "ปฏิบัติการบลัดไดรฟ์"], "forbidden": ["เครื่องเจาะเลือด"], "context": "อุปกรณ์ตรวจเลือดทางวิทยาศาสตร์" },
-    { "id": "drunk-and-disorderly", "pillar": 5, "category": "quest-title", "source": "Drunk and Disorderly", "correct": "เมาแล้วอาละวาด", "forbidden": ["เมาแล้วไม่เป็นระเบียบ"], "note": "ตามข้อหาคดีอาญา" },
-    { "id": "rainy-day-stash", "pillar": 5, "category": "quest-title", "source": "Rainy Day Stash", "correct": ["คลังลับยามฉุกเฉิน", "เซฟลับยามยาก"], "forbidden": ["ของสะสมวันฝนตก"] },
-    { "id": "rage-quit", "pillar": 5, "category": "quest-title", "source": "Rage Quit", "correct": "หัวร้อนถอนตัว", "forbidden": ["เลิกเล่น"] },
-    { "id": "goat-pen", "pillar": 5, "category": "quest-title", "source": "The GOAT Pen", "correct": "คฤหาสน์โกทเพน", "forbidden": ["คอกแพะ"], "context": "บ้านรวมคอนเทนต์ครีเอเตอร์/เกมเมอร์" },
-    { "id": "missing-person-prefix", "pillar": 5, "category": "quest-rule", "source": "Missing Person Quests", "correct": "ใช้คำนำหน้ามาตรฐานเดียวกัน 100% ทั้งโปสเตอร์ กระดานงาน และสมุดเควสต์: คนหาย: [ชื่อบุคคล]", "forbidden": ["สูญหาย:", "หายตัว:", "คนหาย สลับสับปนกัน"] },
-    { "id": "dlc-entitlement-ref", "pillar": 5, "category": "quest-rule", "source": "DLC Entitlement Prerequisite References", "correct": "ข้อความระบุเงื่อนไขปลดล็อกสิทธิ์ DLC ต้องตรงกับชื่อเควสต์ที่แปลจริงทุกตัวอักษร 100%", "forbidden": ["หลุดชื่อเก่าหรือภาษาอังกฤษค้าง"] },
-    { "id": "escape-mission-title", "pillar": 5, "category": "quest-rule", "source": "ESCAPE / Escape (ชื่อภารกิจ)", "correct": "การหลบหนี", "forbidden": ["Esc (ปุ่มคีย์บอร์ด)"], "note": "ห้ามทึกทักว่าเป็นปุ่มคีย์บอร์ดในบริบทชื่อภารกิจ/หัวข้อคู่มือ/แบนเนอร์" },
-    { "id": "cistern-landmark", "pillar": 5, "category": "quest-rule", "source": "Cistern (โบราณสถานขนาดมหึมา)", "correct": ["อุโมงค์ส่งน้ำ", "อุโมงค์เก็บน้ำใต้ดิน"], "forbidden": ["ถังเก็บน้ำ"], "note": "ห้ามลดทอนสเกลประวัติศาสตร์" },
-    { "id": "forum-of-the-ox", "pillar": 5, "category": "quest-rule", "source": "Forum of the Ox", "correct": "จัตุรัสฟอรัมแห่งวัว", "forbidden": ["ลานกระทิง", "ฟอรัมวัว", "ฟอรัมแห่งวัว"], "note": "รวบรวมการแปลสะเปะสะปะให้เป็นหนึ่งเดียวทั้งเกม" },
-    { "id": "subject-16-17", "pillar": 5, "category": "quest-rule", "source": "Subject 16 / Subject 17", "correct": ["ตัวทดลองที่ 16", "ร่างทดลองที่ 16"], "forbidden": ["เป้าหมายที่ 16", "หัวข้อสิบหก"], "context": "มนุษย์ทดลองพันธุกรรมของห้องวิจัย เช่น Abstergo Animus" },
-
-    { "id": "moved-to-ascension", "pillar": 7, "category": "codex-readable", "source": "Moved to Ascension", "correct": ["สู่การจุติ", "ก้าวข้ามสู่การจุติ"], "forbidden": ["การเลื่อนขั้น"], "context": "ลัทธิบูชาความตาย/พิธีสังเวย" },
-    { "id": "flesh-gate", "pillar": 7, "category": "codex-readable", "source": "Flesh Gate / Fleshy Walls", "correct": ["ประตูกายาเนื้อหนัง", "กำแพงเนื้อหนังอันลึกลับ"], "forbidden": ["ประตูเนื้อ"], "context": "เกมสยองขวัญชีวะ" },
-    { "id": "thunk-crossbow", "pillar": 7, "category": "codex-readable", "source": "THUNK of a crossbow bolt", "correct": "[เสียงลูกดอกหน้าไม้ปักฉึก!]", "forbidden": ["เสียงธนู crossbow ปัก"], "note": "หน้าไม้ยิงลูกดอก ไม่ใช่คันธนู" },
-    { "id": "vulnus-sclopetarium", "pillar": 7, "category": "codex-readable", "source": "Vulnus Sclopetarium", "correct": "บาดแผลฉกรรจ์จากกระสุนปืน (Vulnus Sclopetarium)", "forbidden": ["ตัดศัพท์ละตินทิ้ง"], "context": "บันทึกชันสูตรนิติเวช" },
-    { "id": "maim-limbs", "pillar": 7, "category": "codex-readable", "source": "MAIM its limbs!", "correct": "ตัดฟันแขนขามันซะ!", "forbidden": ["ทำให้พิการ", "ฉีกแขนขา"], "context": "คู่มือการต่อสู้ด้วยอาวุธมีคม" },
-    { "id": "crawler", "pillar": 7, "category": "codex-readable", "source": "Crawler", "correct": "ครอว์เลอร์ (ซอมบี้คลาน)", "forbidden": ["ตัวคลาน"], "context": "สารานุกรมมอนสเตอร์" },
-    { "id": "putrefied-slobber", "pillar": 7, "category": "codex-readable", "source": "Putrefied Slobber / Bile Blob", "correct": ["สล็อบเบอร์เน่าเปื่อย", "ก้อนน้ำดีพิษ"], "forbidden": ["ทิ้งภาษาอังกฤษล้วนไม่แปล"] },
-    { "id": "bimodal-organism", "pillar": 7, "category": "codex-readable", "source": "Bimodal Organism / Janus Species", "correct": ["สิ่งมีชีวิตแบบสองสถานะ", "สายพันธุ์สองหน้าดั่งเทพเจนัส"], "context": "บันทึกพันธุศาสตร์เชิงปรัชญา" },
-    { "id": "mon-pate-de-poulet", "pillar": 7, "category": "codex-readable", "source": "mon pâté de poulet <3", "correct": "พายไก่น้อยของฉัน <3", "forbidden": ["ไก่พายของฉัน"], "context": "จดหมายรักบอกลา" },
-    { "id": "tusk-of-ganesh", "pillar": 7, "category": "codex-readable", "source": "The Tusk of Ganesh / The Tusk", "correct": ["งาพระคเณศ", "งาพระพิฆเนศ"], "forbidden": ["ทัสก์", "ทัสค์", "งาทัสก์"] },
-    { "id": "hoysala", "pillar": 7, "category": "codex-readable", "source": "Hoysala / Hoysala Empire", "correct": ["โฮยซาลา", "จักรวรรดิโฮยซาลา"], "forbidden": ["ฮอยซาลา"] },
-    { "id": "founders-england", "pillar": 7, "category": "codex-readable", "source": "Founders / Founder England (Libertalia Pirate Captains)", "correct": ["ผู้ก่อตั้ง", "ผู้ก่อตั้งอิงแลนด์"], "forbidden": ["ผู้ก่อตั้งประเทศอังกฤษ"] },
-    { "id": "swiftsure", "pillar": 7, "category": "codex-readable", "source": "Swiftsure (Pirate Warship)", "correct": "เรือสวิฟต์ชัวร์ (Swiftsure)", "forbidden": ["เรือแน่นอน", "รวดเร็วแน่นอน"] },
-    { "id": "gunsway", "pillar": 7, "category": "codex-readable", "source": "Gunsway / Ganj-i-Sawai", "correct": "กันจ์-อิ-ซาวาย (Gunsway)", "context": "บันทึกประวัติศาสตร์การปล้นเรือสมบัติโมกุล" }
+    {
+      "id": "twixt-rock-hard-place",
+      "pillar": 2,
+      "category": "idiom",
+      "source": "'Twixt a rock and a hard place",
+      "correct": "กลืนไม่เข้าคายไม่ออก",
+      "forbidden": [
+        "ระหว่างหินกับที่แคบ"
+      ]
+    },
+    {
+      "id": "no-spoils-left-behind",
+      "pillar": 2,
+      "category": "idiom",
+      "source": "No spoils left behind",
+      "correct": "ไม่ทิ้งของมีค่าไว้เบื้องหลัง",
+      "forbidden": [
+        "ไม่มีของที่ระลึกถูกทิ้งไว้"
+      ]
+    },
+    {
+      "id": "short-sighted-ambition",
+      "pillar": 2,
+      "category": "idiom",
+      "source": "Short-sighted ambition",
+      "correct": "ความทะเยอทะยานอันมืดบอด",
+      "forbidden": [
+        "ความทะเยอทะยานสายตาสั้น"
+      ]
+    },
+    {
+      "id": "sculptors-block",
+      "pillar": 2,
+      "category": "idiom",
+      "source": "Sculptor's block",
+      "correct": "ทางตันของประติมากร",
+      "forbidden": [
+        "กรณีสมองตันของประติมากร"
+      ]
+    },
+    {
+      "id": "bite-the-bullet",
+      "pillar": 2,
+      "category": "idiom",
+      "source": "Bite the bullet",
+      "correct": [
+        "กัดฟันสู้",
+        "ยอมรับชะตากรรม"
+      ],
+      "forbidden": [
+        "กัดกระสุน"
+      ]
+    },
+    {
+      "id": "fingers-in-every-pie",
+      "pillar": 2,
+      "category": "idiom",
+      "source": "Fingers in every pie",
+      "correct": "แทรกซึมชักใยอยู่เบื้องหลังทุกวงการ",
+      "forbidden": [
+        "มืออยู่ในทุกพาย"
+      ]
+    },
+    {
+      "id": "earned-your-rest",
+      "pillar": 2,
+      "category": "idiom",
+      "source": "Earned your rest",
+      "correct": "เหน็ดเหนื่อยมามากพอแล้ว... จงสู่สุคติเถิด",
+      "forbidden": [
+        "ได้มาซึ่งการพักผ่อนของเจ้า"
+      ]
+    },
+    {
+      "id": "a-local-miser",
+      "pillar": 2,
+      "category": "idiom",
+      "source": "A local miser",
+      "correct": "เจ้าชายตกยากในท้องถิ่น",
+      "forbidden": [
+        "คนขี้เหนียวท้องถิ่น"
+      ],
+      "context": "Historical Context"
+    },
+    {
+      "id": "ruined-by-curiosity",
+      "pillar": 2,
+      "category": "idiom",
+      "source": "Ruined by curiosity",
+      "correct": "ความใคร่รู้คือหายนะของข้าแท้ ๆ",
+      "forbidden": [
+        "ถูกทำลายด้วยความอยากรู้อยากเห็น"
+      ]
+    },
+    {
+      "id": "not-use-term-lightly",
+      "pillar": 2,
+      "category": "idiom",
+      "source": "I do not use that term lightly",
+      "correct": "ไม่ได้ใช้คำยกย่องนี้พร่ำเพรื่อ",
+      "forbidden": [
+        "ไม่ได้ใช้คำนั้นอย่างเบาๆ"
+      ]
+    },
+    {
+      "id": "draw-fire",
+      "pillar": 2,
+      "category": "idiom",
+      "source": "Draw fire / Draw their fire",
+      "correct": [
+        "ล่อเป้า",
+        "ดึงความสนใจศัตรู"
+      ],
+      "forbidden": [
+        "ยิงไฟ",
+        "วาดไฟ"
+      ],
+      "context_keywords": [
+        "draw fire",
+        "draw their fire",
+        "drawing fire"
+      ]
+    },
+    {
+      "id": "call-shotgun",
+      "pillar": 2,
+      "category": "idiom",
+      "source": "I call shotgun!",
+      "correct": "ฉันขอนั่งเบาะหน้า!",
+      "forbidden": [
+        "ฉันเรียกปืนลูกซอง!"
+      ],
+      "context": "Seating Slang"
+    },
+    {
+      "id": "sic-parvis-magna",
+      "pillar": 2,
+      "category": "idiom",
+      "source": "Sic Parvis Magna",
+      "correct": "จากจุดเริ่มต้นเล็ก ๆ สู่ความยิ่งใหญ่ (Sic Parvis Magna)",
+      "forbidden": [
+        "ทับศัพท์เพียงอย่างเดียวโดยไม่แปลความหมาย"
+      ],
+      "context": "Motto"
+    },
+    {
+      "id": "whirlwind-slash",
+      "pillar": 3,
+      "category": "skill-name",
+      "source": "Whirlwind Slash",
+      "correct": [
+        "ดาบวายุหมุน",
+        "ฟันรอบทิศ"
+      ],
+      "forbidden": [
+        "การฟันลมกรด"
+      ],
+      "note": "วลีผสม 2-6 พยางค์ที่เห็นภาพการเคลื่อนไหว"
+    },
+    {
+      "id": "shield-drum",
+      "pillar": 3,
+      "category": "skill-name",
+      "source": "Shield Drum",
+      "correct": "เคาะโล่ท้าทาย",
+      "forbidden": [
+        "กลองโล่"
+      ]
+    },
+    {
+      "id": "indomitable-lash",
+      "pillar": 3,
+      "category": "skill-name",
+      "source": "Indomitable Lash",
+      "correct": "ดาบฟาดไร้พ่าย",
+      "forbidden": [
+        "แส้ไร้พ่าย"
+      ]
+    },
+    {
+      "id": "heavenly-shot",
+      "pillar": 3,
+      "category": "skill-name",
+      "source": "Heavenly Shot",
+      "correct": "ศรทิพย์ทะลวงสวรรค์",
+      "forbidden": [
+        "การยิงจากสวรรค์"
+      ]
+    },
+    {
+      "id": "flame-strike",
+      "pillar": 3,
+      "category": "skill-name",
+      "source": "Flame Strike",
+      "correct": [
+        "ดาบเพลิงพิฆาต",
+        "เพลิงจู่โจม"
+      ],
+      "forbidden": []
+    },
+    {
+      "id": "shadow-dance",
+      "pillar": 3,
+      "category": "skill-name",
+      "source": "Shadow Dance",
+      "correct": "ระบำเงา",
+      "forbidden": []
+    },
+    {
+      "id": "thunder-wrath",
+      "pillar": 3,
+      "category": "skill-name",
+      "source": "Thunder Wrath",
+      "correct": "อสุนีบาตฟาด",
+      "forbidden": []
+    },
+    {
+      "id": "divine-retribution",
+      "pillar": 3,
+      "category": "skill-name",
+      "source": "Divine Retribution",
+      "correct": "ทัณฑ์เทวา",
+      "forbidden": []
+    },
+    {
+      "id": "strike-mechanics",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Strike",
+      "correct": [
+        "ฟาดฟัน",
+        "จู่โจม",
+        "ประหาร"
+      ],
+      "forbidden": [
+        "นัดหยุดงาน",
+        "ประท้วงหยุดงาน"
+      ],
+      "context_keywords": [
+        "strike",
+        "striking",
+        "struck"
+      ]
+    },
+    {
+      "id": "cast-casting",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Cast / Casting",
+      "correct": [
+        "ร่าย",
+        "กำลังร่ายเวท"
+      ],
+      "forbidden": [
+        "หล่อโลหะ",
+        "คัดเลือกนักแสดง"
+      ]
+    },
+    {
+      "id": "cooldown",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Cooldown",
+      "correct": [
+        "คูลดาวน์",
+        "เวลารอใช้ใหม่"
+      ],
+      "forbidden": [
+        "เย็นลง",
+        "การระบายความร้อน"
+      ],
+      "context_keywords": [
+        "cooldown",
+        "cool down",
+        "cool-down"
+      ]
+    },
+    {
+      "id": "passive-skill",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Passive Skill",
+      "correct": [
+        "สกิลติดตัว",
+        "ทักษะติดตัว"
+      ],
+      "forbidden": [
+        "ทักษะเฉยชา",
+        "ไม่กระตือรือร้น"
+      ]
+    },
+    {
+      "id": "active-skill",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Active Skill",
+      "correct": [
+        "สกิลกดใช้",
+        "ทักษะกดใช้"
+      ],
+      "forbidden": [
+        "ทักษะคล่องแคล่ว",
+        "กระตือรือร้น"
+      ],
+      "context_keywords": [
+        "active skill"
+      ]
+    },
+    {
+      "id": "critical-hit",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Critical Hit",
+      "correct": [
+        "คริติคอล",
+        "โจมตีติดคริ"
+      ],
+      "forbidden": [
+        "การโจมตีวิกฤต",
+        "วิกฤตการณ์"
+      ]
+    },
+    {
+      "id": "bleed-bleeding",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Bleed / Bleeding",
+      "correct": [
+        "ติดเลือดไหล",
+        "เลือดออก"
+      ],
+      "forbidden": [
+        "ตกเลือด",
+        "เลือดออกทางแผล"
+      ],
+      "context_keywords": [
+        "bleed",
+        "bleeding"
+      ]
+    },
+    {
+      "id": "stun",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Stun",
+      "correct": [
+        "สตัน",
+        "มึนงง"
+      ],
+      "forbidden": [
+        "ทำให้ตกตะลึง",
+        "ทำให้ประหลาดใจ"
+      ],
+      "context_keywords": [
+        "stun",
+        "stunned",
+        "stunning"
+      ]
+    },
+    {
+      "id": "lifesteal",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Lifesteal",
+      "correct": "ดูดเลือด",
+      "forbidden": [
+        "ขโมยชีวิต"
+      ]
+    },
+    {
+      "id": "respawn",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Respawn",
+      "correct": [
+        "เกิดใหม่",
+        "จุดเกิดใหม่"
+      ],
+      "forbidden": [
+        "วางไข่",
+        "การฟักตัว"
+      ],
+      "context_keywords": [
+        "respawn",
+        "respawning",
+        "respawned"
+      ]
+    },
+    {
+      "id": "tank-buster",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Tank Buster",
+      "correct": [
+        "จอมทลายแทงก์",
+        "มือปราบตัวชน"
+      ],
+      "forbidden": [
+        "นักทำลายรถถัง"
+      ],
+      "context": "เกมซอมบี้หรือแฟนตาซี ไม่ใช่สงครามยานยนต์"
+    },
+    {
+      "id": "block-charge",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Block Charge",
+      "correct": "พุ่งชนขณะบล็อก",
+      "forbidden": [
+        "บล็อกการชาร์จ"
+      ],
+      "note": "ห้ามแปลกลับด้านกลไก"
+    },
+    {
+      "id": "bash",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Bash",
+      "correct": "พุ่งชนทะลวง",
+      "forbidden": [
+        "ทุบ"
+      ],
+      "note": "ห้ามแปลซ้ำซ้อนกับ Smash (ทุบ)",
+      "context_keywords": [
+        "bash"
+      ]
+    },
+    {
+      "id": "suicider",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Suicider / Suiciders",
+      "correct": "ตัวระเบิดพลีชีพ",
+      "forbidden": [
+        "ผู้ฆ่าตัวตาย"
+      ],
+      "context": "ซอมบี้เกม"
+    },
+    {
+      "id": "eagle-sense",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Eagle Sense",
+      "correct": "สัมผัสอินทรี (Eagle Sense)",
+      "forbidden": [
+        "อีเกิลเซนส์"
+      ],
+      "note": "ห้ามแปล 'in GOLD' เป็น 'ในโกลด์'"
+    },
+    {
+      "id": "eagle-vision",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Eagle Vision",
+      "correct": "สายตาอินทรี (Eagle Vision)",
+      "forbidden": [
+        "อีเกิลวิชัน"
+      ],
+      "note": "ห้ามแปล Dismiss เป็น 'ไล่ออก'"
+    },
+    {
+      "id": "hook-and-run-throw",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Hook and Run / Hook and Throw",
+      "correct": [
+        "เกี่ยวตัวข้าม (Hook and Run)",
+        "เกี่ยวทุ่ม (Hook and Throw)"
+      ],
+      "forbidden": [
+        "เกี่ยวและวิ่ง",
+        "เกี่ยวและโยน"
+      ]
+    },
+    {
+      "id": "counter-combo-kill",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Counter Kill / Combo Kill",
+      "correct": [
+        "สังหารสวนกลับ (Counter Kill)",
+        "สังหารต่อเนื่อง (Combo Kill)"
+      ],
+      "forbidden": [
+        "เคาน์เตอร์คิล",
+        "คอมโบคิล"
+      ]
+    },
+    {
+      "id": "leap-of-faith",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Leap of Faith",
+      "correct": "ดิ่งพสุธา (Leap of Faith)",
+      "forbidden": [
+        "การก้าวกระโดดแห่งศรัทธา"
+      ]
+    },
+    {
+      "id": "den-defense-siege-engine",
+      "pillar": 3,
+      "category": "skill-mechanics",
+      "source": "Den Defense / Siege Engine",
+      "correct": [
+        "ศึกป้องกันรังภาคี (Den Defense)",
+        "ยุทโธปกรณ์ปิดล้อม"
+      ],
+      "forbidden": [
+        "ป้องกันรัง",
+        "เครื่องยนต์ปิดล้อม"
+      ]
+    },
+    {
+      "id": "checkpoint-save-mechanic",
+      "pillar": 4,
+      "category": "checkpoint",
+      "source": "Checkpoint reached / Restart from checkpoint",
+      "correct": [
+        "เช็คพอยท์",
+        "จุดเช็คพอยท์"
+      ],
+      "forbidden": [
+        "จุดตรวจ",
+        "ด่านตรวจ"
+      ],
+      "context": "กลไกเซฟเกม/จุดเกิดใหม่/UI — สัญญาณ: reached, last, previous, restart, reload, save at, progress, race หรือคำว่า checkpoint เดี่ยว ๆ",
+      "note": "ตัวอย่าง: Checkpoint reached = ถึงจุดเช็คพอยท์แล้ว, Restart from checkpoint = เริ่มใหม่จากจุดเช็คพอยท์",
+      "context_keywords": [
+        "checkpoint reached",
+        "restart from checkpoint",
+        "checkpoint",
+        "save"
+      ]
+    },
+    {
+      "id": "checkpoint-military-outpost",
+      "pillar": 4,
+      "category": "checkpoint",
+      "source": "Enemy checkpoint / Guards at the checkpoint",
+      "correct": [
+        "ด่านตรวจ",
+        "จุดตรวจ"
+      ],
+      "forbidden": [
+        "เช็คพอยท์"
+      ],
+      "context": "ด่านตรวจทหาร/ตำรวจ/ศัตรู/ชายแดนในโลกจริงของเนื้อเรื่อง — สัญญาณ: military, police, border, enemy, soldier, guards, outpost, infiltrate, stationed (และคำไทย: ทหาร, ตำรวจ, ชายแดน, ศัตรู, ยาม, บุก, กวาดล้าง)",
+      "note": "Enemy checkpoint = ด่านตรวจของศัตรู, Guards at the checkpoint = ยามที่ด่านตรวจ",
+      "context_keywords": [
+        "enemy checkpoint",
+        "military checkpoint",
+        "police checkpoint",
+        "border checkpoint",
+        "checkpoint",
+        "outpost",
+        "guards"
+      ]
+    },
+    {
+      "id": "weapon-model-code",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Weapon Model Codes (M60, M4A1, AK-47, Glock 19, RPG-7, Barrett .50 Cal, XM25, MP5)",
+      "correct": "คงรหัสรุ่นสากลและตัวเลขอารบิกเดิมเสมอ อนุญาตใส่คำนำหน้าประเภทภาษาไทย เช่น ปืนกล M60, ปืนเล็กยาว M4A1, ปืนพก Glock 19, กระสุน 9mm / 5.56mm / 7.62mm / .45 ACP",
+      "forbidden": [
+        "เอ็ม 60",
+        "เอ็มหกสิบ",
+        "เอเค 47",
+        "กล็อก 19",
+        "อาร์พีจี 7",
+        "เอ็กซ์เอ็ม 25",
+        "เอ็มสี่"
+      ]
+    },
+    {
+      "id": "burst-fire",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Burst Fire / Burst Carbine",
+      "correct": [
+        "ยิงชุด",
+        "ปืนคาร์ไบน์ยิงชุด"
+      ],
+      "forbidden": [
+        "ยิงระเบิด"
+      ]
+    },
+    {
+      "id": "boomstick",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Boomstick",
+      "correct": "บูมสติ๊ก",
+      "forbidden": [
+        "ไม้ตีกอล์ฟ"
+      ]
+    },
+    {
+      "id": "nailbiter",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Nailbiter (Unique Nailgun)",
+      "correct": "ปืนตะปูเนลไบเตอร์",
+      "forbidden": [
+        "นักกัดเล็บ",
+        "คนกัดเล็บ"
+      ]
+    },
+    {
+      "id": "numbing-kit",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Numbing Kit",
+      "correct": "ชุดยาชา",
+      "forbidden": [
+        "ชุดชา"
+      ],
+      "note": "ห้ามสับสนกับ Tea"
+    },
+    {
+      "id": "keycard",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Keycard",
+      "correct": "คีย์การ์ด",
+      "forbidden": [
+        "การ์ดคีย์"
+      ],
+      "note": "ห้ามเรียงคำกลับด้าน"
+    },
+    {
+      "id": "muzzle-brake",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Muzzle Brake",
+      "correct": "ปลอกลดแรงสะท้อนปากกระบอก",
+      "forbidden": [
+        "เบรกปากกระบอก"
+      ]
+    },
+    {
+      "id": "high-caliber",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "High-Caliber",
+      "correct": "กระสุนขนาดใหญ่พิเศษ",
+      "forbidden": [
+        "ลำกล้องใหญ่"
+      ]
+    },
+    {
+      "id": "legal-acronyms",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Legal & Municipal Acronyms (L.A.M.C. / C.V.C. / LAPD)",
+      "correct": "คงตัวย่อภาษาอังกฤษเดิม",
+      "forbidden": [
+        "ล.อ.ม.ซ.",
+        "ค.ว.ซ.",
+        "ส.ต.ล."
+      ]
+    },
+    {
+      "id": "hidden-blade",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Hidden Blade",
+      "correct": "ใบมีดลับ (Hidden Blade)",
+      "forbidden": [
+        "ฮิดเดนเบลด"
+      ]
+    },
+    {
+      "id": "hidden-gun",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Hidden Gun",
+      "correct": "ปืนซ่อนข้อมือ (Hidden Gun)",
+      "forbidden": [
+        "ปืนฮิดเดน"
+      ]
+    },
+    {
+      "id": "war-hammer",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "War Hammer",
+      "correct": "ค้อนสงคราม (War Hammer)",
+      "forbidden": [
+        "สงครามค้อน"
+      ]
+    },
+    {
+      "id": "bearded-axe",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Bearded Axe",
+      "correct": "ขวานเคราศึกโบราณ (Bearded Axe)",
+      "forbidden": [
+        "ขวานมีเครา"
+      ]
+    },
+    {
+      "id": "riding-spaulders",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Riding Spaulders",
+      "correct": "สนับไหล่ขี่ม้า (Riding Spaulders)",
+      "forbidden": [
+        "ขี่สปอลเดอร์ส"
+      ]
+    },
+    {
+      "id": "chest-guard",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Chest Guard",
+      "correct": "เกราะอก (Chest Guard)",
+      "forbidden": [
+        "เครื่องป้องกันหน้าอก"
+      ]
+    },
+    {
+      "id": "medicine-bullet-pouch",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Medicine Pouch / Bullet Pouch",
+      "correct": [
+        "ถุงบรรจุยา",
+        "ถุงกระสุน"
+      ],
+      "forbidden": [
+        "กระเป๋ายา",
+        "กระเป๋ากระสุน"
+      ],
+      "context": "เกมพีเรียดยุคกลาง/เรเนซองส์ — ห้ามหลุดยุคปัจจุบัน"
+    },
+    {
+      "id": "truck-callsign",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Truck (Callsign)",
+      "correct": "ทรัค",
+      "forbidden": [
+        "รถบรรทุก"
+      ],
+      "note": "สัญญาณเรียกขานทหาร ไม่ใช่ยานพาหนะ",
+      "context_keywords": [
+        "truck"
+      ]
+    },
+    {
+      "id": "enemy-bird",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Enemy bird",
+      "correct": [
+        "ฮ. ศัตรู",
+        "เฮลิคอปเตอร์ศัตรู"
+      ],
+      "forbidden": [
+        "นกศัตรู"
+      ],
+      "note": "สแลงการบินทหาร",
+      "context_keywords": [
+        "enemy bird",
+        "bird"
+      ]
+    },
+    {
+      "id": "mother-hen",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Mother Hen",
+      "correct": "มาเธอร์เฮน",
+      "forbidden": [
+        "แม่ไก่"
+      ],
+      "note": "รหัสวิทยุฐานบัญชาการ/ยานแม่",
+      "context_keywords": [
+        "mother hen",
+        "mother-hen"
+      ]
+    },
+    {
+      "id": "winch",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Winch (Vehicle Recovery Gear)",
+      "correct": [
+        "วินช์ (Winch)",
+        "สลิงดึงรถ"
+      ],
+      "forbidden": [
+        "แม่มด"
+      ],
+      "note": "ห้ามสับสนกับ Witch",
+      "context_keywords": [
+        "winch",
+        "winching"
+      ]
+    },
+    {
+      "id": "piton",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Piton / Climbing Piton",
+      "correct": "ลิ่มปีนผา",
+      "forbidden": [
+        "หมุด",
+        "ท่อ"
+      ],
+      "context_keywords": [
+        "piton",
+        "climbing piton"
+      ]
+    },
+    {
+      "id": "lockpick",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Lockpick",
+      "correct": "ที่สะเดาะกลอน",
+      "forbidden": [
+        "ตัวเลือกล็อค"
+      ]
+    },
+    {
+      "id": "shotgun",
+      "pillar": 4,
+      "category": "firearms-item",
+      "source": "Shotgun",
+      "correct": "ปืนลูกซอง",
+      "forbidden": [
+        "ช็อตกัน"
+      ]
+    },
+    {
+      "id": "breeches",
+      "pillar": 4,
+      "category": "fantasy-item",
+      "source": "Breeches (เช่น Apprentice's Breeches)",
+      "correct": "กางเกง... (เช่น กางเกงผู้ฝึกเวท)",
+      "forbidden": [
+        "กางเกงขาสั้นเด็กฝึกงาน"
+      ],
+      "note": "กางเกงรัดเข่าโบราณ — อย่าแปลหลุดออฟฟิศ"
+    },
+    {
+      "id": "hosen",
+      "pillar": 4,
+      "category": "fantasy-item",
+      "source": "Hosen (เช่น Mercenary Hosen)",
+      "correct": "กางเกง... (เช่น กางเกงทหารรับจ้าง)",
+      "forbidden": [
+        "ถุงน่องทหารรับจ้าง"
+      ]
+    },
+    {
+      "id": "ring-of-insomnolence",
+      "pillar": 4,
+      "category": "fantasy-item",
+      "source": "Ring of Insomnolence",
+      "correct": "แหวนต้านนิทรา",
+      "forbidden": [
+        "แหวนแห่งการนอนไม่หลับ"
+      ]
+    },
+    {
+      "id": "ring-of-assurance",
+      "pillar": 4,
+      "category": "fantasy-item",
+      "source": "Ring of Assurance",
+      "correct": "แหวนพิทักษ์ชีพ",
+      "forbidden": [
+        "แหวนประกันชีวิต"
+      ]
+    },
+    {
+      "id": "saddle-up-for",
+      "pillar": 5,
+      "category": "quest-title",
+      "source": "Saddle Up for <Location>",
+      "correct": [
+        "มุ่งหน้าสู่...",
+        "เตรียมบุกสู่..."
+      ],
+      "forbidden": [
+        "อานม้าสู่..."
+      ],
+      "context": "เกมยุคปัจจุบัน/ไม่มีม้า"
+    },
+    {
+      "id": "boardwalk",
+      "pillar": 5,
+      "category": "quest-title",
+      "source": "Boardwalk / Boardwalking Dead",
+      "correct": [
+        "ทางเดินเลียบหาด",
+        "ซอมบี้เลียบหาด"
+      ],
+      "forbidden": [
+        "เดินกระดาน"
+      ]
+    },
+    {
+      "id": "creature-comforts",
+      "pillar": 5,
+      "category": "quest-title",
+      "source": "Creature Comforts",
+      "correct": [
+        "สิ่งอำนวยความสุขสำราญ",
+        "ของใช้สำราญใจ"
+      ],
+      "forbidden": [
+        "ความสบายของสัตว์ประหลาด"
+      ]
+    },
+    {
+      "id": "scooped",
+      "pillar": 5,
+      "category": "quest-title",
+      "source": "Scooped!",
+      "correct": "ชิงข่าวเด็ด!",
+      "forbidden": [
+        "ตักมาแล้ว!"
+      ],
+      "context": "บริบทนักข่าว/สื่อมวลชน"
+    },
+    {
+      "id": "blood-drive",
+      "pillar": 5,
+      "category": "quest-title",
+      "source": "Blood Drive",
+      "correct": [
+        "บลัดไดรฟ์",
+        "ปฏิบัติการบลัดไดรฟ์"
+      ],
+      "forbidden": [
+        "เครื่องเจาะเลือด"
+      ],
+      "context": "อุปกรณ์ตรวจเลือดทางวิทยาศาสตร์"
+    },
+    {
+      "id": "drunk-and-disorderly",
+      "pillar": 5,
+      "category": "quest-title",
+      "source": "Drunk and Disorderly",
+      "correct": "เมาแล้วอาละวาด",
+      "forbidden": [
+        "เมาแล้วไม่เป็นระเบียบ"
+      ],
+      "note": "ตามข้อหาคดีอาญา"
+    },
+    {
+      "id": "rainy-day-stash",
+      "pillar": 5,
+      "category": "quest-title",
+      "source": "Rainy Day Stash",
+      "correct": [
+        "คลังลับยามฉุกเฉิน",
+        "เซฟลับยามยาก"
+      ],
+      "forbidden": [
+        "ของสะสมวันฝนตก"
+      ]
+    },
+    {
+      "id": "rage-quit",
+      "pillar": 5,
+      "category": "quest-title",
+      "source": "Rage Quit",
+      "correct": "หัวร้อนถอนตัว",
+      "forbidden": [
+        "เลิกเล่น"
+      ],
+      "context_keywords": [
+        "rage quit",
+        "ragequit",
+        "rage-quitting"
+      ]
+    },
+    {
+      "id": "goat-pen",
+      "pillar": 5,
+      "category": "quest-title",
+      "source": "The GOAT Pen",
+      "correct": "คฤหาสน์โกทเพน",
+      "forbidden": [
+        "คอกแพะ"
+      ],
+      "context": "บ้านรวมคอนเทนต์ครีเอเตอร์/เกมเมอร์"
+    },
+    {
+      "id": "missing-person-prefix",
+      "pillar": 5,
+      "category": "quest-rule",
+      "source": "Missing Person Quests",
+      "correct": "ใช้คำนำหน้ามาตรฐานเดียวกัน 100% ทั้งโปสเตอร์ กระดานงาน และสมุดเควสต์: คนหาย: [ชื่อบุคคล]",
+      "forbidden": [
+        "สูญหาย:",
+        "หายตัว:",
+        "คนหาย สลับสับปนกัน"
+      ]
+    },
+    {
+      "id": "dlc-entitlement-ref",
+      "pillar": 5,
+      "category": "quest-rule",
+      "source": "DLC Entitlement Prerequisite References",
+      "correct": "ข้อความระบุเงื่อนไขปลดล็อกสิทธิ์ DLC ต้องตรงกับชื่อเควสต์ที่แปลจริงทุกตัวอักษร 100%",
+      "forbidden": [
+        "หลุดชื่อเก่าหรือภาษาอังกฤษค้าง"
+      ]
+    },
+    {
+      "id": "escape-mission-title",
+      "pillar": 5,
+      "category": "quest-rule",
+      "source": "ESCAPE / Escape (ชื่อภารกิจ)",
+      "correct": "การหลบหนี",
+      "forbidden": [
+        "Esc (ปุ่มคีย์บอร์ด)"
+      ],
+      "note": "ห้ามทึกทักว่าเป็นปุ่มคีย์บอร์ดในบริบทชื่อภารกิจ/หัวข้อคู่มือ/แบนเนอร์"
+    },
+    {
+      "id": "cistern-landmark",
+      "pillar": 5,
+      "category": "quest-rule",
+      "source": "Cistern (โบราณสถานขนาดมหึมา)",
+      "correct": [
+        "อุโมงค์ส่งน้ำ",
+        "อุโมงค์เก็บน้ำใต้ดิน"
+      ],
+      "forbidden": [
+        "ถังเก็บน้ำ"
+      ],
+      "note": "ห้ามลดทอนสเกลประวัติศาสตร์"
+    },
+    {
+      "id": "forum-of-the-ox",
+      "pillar": 5,
+      "category": "quest-rule",
+      "source": "Forum of the Ox",
+      "correct": "จัตุรัสฟอรัมแห่งวัว",
+      "forbidden": [
+        "ลานกระทิง",
+        "ฟอรัมวัว",
+        "ฟอรัมแห่งวัว"
+      ],
+      "note": "รวบรวมการแปลสะเปะสะปะให้เป็นหนึ่งเดียวทั้งเกม"
+    },
+    {
+      "id": "subject-16-17",
+      "pillar": 5,
+      "category": "quest-rule",
+      "source": "Subject 16 / Subject 17",
+      "correct": [
+        "ตัวทดลองที่ 16",
+        "ร่างทดลองที่ 16"
+      ],
+      "forbidden": [
+        "เป้าหมายที่ 16",
+        "หัวข้อสิบหก"
+      ],
+      "context": "มนุษย์ทดลองพันธุกรรมของห้องวิจัย เช่น Abstergo Animus"
+    },
+    {
+      "id": "moved-to-ascension",
+      "pillar": 7,
+      "category": "codex-readable",
+      "source": "Moved to Ascension",
+      "correct": [
+        "สู่การจุติ",
+        "ก้าวข้ามสู่การจุติ"
+      ],
+      "forbidden": [
+        "การเลื่อนขั้น"
+      ],
+      "context": "ลัทธิบูชาความตาย/พิธีสังเวย"
+    },
+    {
+      "id": "flesh-gate",
+      "pillar": 7,
+      "category": "codex-readable",
+      "source": "Flesh Gate / Fleshy Walls",
+      "correct": [
+        "ประตูกายาเนื้อหนัง",
+        "กำแพงเนื้อหนังอันลึกลับ"
+      ],
+      "forbidden": [
+        "ประตูเนื้อ"
+      ],
+      "context": "เกมสยองขวัญชีวะ"
+    },
+    {
+      "id": "thunk-crossbow",
+      "pillar": 7,
+      "category": "codex-readable",
+      "source": "THUNK of a crossbow bolt",
+      "correct": "[เสียงลูกดอกหน้าไม้ปักฉึก!]",
+      "forbidden": [
+        "เสียงธนู crossbow ปัก"
+      ],
+      "note": "หน้าไม้ยิงลูกดอก ไม่ใช่คันธนู"
+    },
+    {
+      "id": "vulnus-sclopetarium",
+      "pillar": 7,
+      "category": "codex-readable",
+      "source": "Vulnus Sclopetarium",
+      "correct": "บาดแผลฉกรรจ์จากกระสุนปืน (Vulnus Sclopetarium)",
+      "forbidden": [
+        "ตัดศัพท์ละตินทิ้ง"
+      ],
+      "context": "บันทึกชันสูตรนิติเวช"
+    },
+    {
+      "id": "maim-limbs",
+      "pillar": 7,
+      "category": "codex-readable",
+      "source": "MAIM its limbs!",
+      "correct": "ตัดฟันแขนขามันซะ!",
+      "forbidden": [
+        "ทำให้พิการ",
+        "ฉีกแขนขา"
+      ],
+      "context": "คู่มือการต่อสู้ด้วยอาวุธมีคม"
+    },
+    {
+      "id": "crawler",
+      "pillar": 7,
+      "category": "codex-readable",
+      "source": "Crawler",
+      "correct": "ครอว์เลอร์ (ซอมบี้คลาน)",
+      "forbidden": [
+        "ตัวคลาน"
+      ],
+      "context": "สารานุกรมมอนสเตอร์"
+    },
+    {
+      "id": "putrefied-slobber",
+      "pillar": 7,
+      "category": "codex-readable",
+      "source": "Putrefied Slobber / Bile Blob",
+      "correct": [
+        "สล็อบเบอร์เน่าเปื่อย",
+        "ก้อนน้ำดีพิษ"
+      ],
+      "forbidden": [
+        "ทิ้งภาษาอังกฤษล้วนไม่แปล"
+      ]
+    },
+    {
+      "id": "bimodal-organism",
+      "pillar": 7,
+      "category": "codex-readable",
+      "source": "Bimodal Organism / Janus Species",
+      "correct": [
+        "สิ่งมีชีวิตแบบสองสถานะ",
+        "สายพันธุ์สองหน้าดั่งเทพเจนัส"
+      ],
+      "context": "บันทึกพันธุศาสตร์เชิงปรัชญา"
+    },
+    {
+      "id": "mon-pate-de-poulet",
+      "pillar": 7,
+      "category": "codex-readable",
+      "source": "mon pâté de poulet <3",
+      "correct": "พายไก่น้อยของฉัน <3",
+      "forbidden": [
+        "ไก่พายของฉัน"
+      ],
+      "context": "จดหมายรักบอกลา"
+    },
+    {
+      "id": "tusk-of-ganesh",
+      "pillar": 7,
+      "category": "codex-readable",
+      "source": "The Tusk of Ganesh / The Tusk",
+      "correct": [
+        "งาพระคเณศ",
+        "งาพระพิฆเนศ"
+      ],
+      "forbidden": [
+        "ทัสก์",
+        "ทัสค์",
+        "งาทัสก์"
+      ]
+    },
+    {
+      "id": "hoysala",
+      "pillar": 7,
+      "category": "codex-readable",
+      "source": "Hoysala / Hoysala Empire",
+      "correct": [
+        "โฮยซาลา",
+        "จักรวรรดิโฮยซาลา"
+      ],
+      "forbidden": [
+        "ฮอยซาลา"
+      ]
+    },
+    {
+      "id": "founders-england",
+      "pillar": 7,
+      "category": "codex-readable",
+      "source": "Founders / Founder England (Libertalia Pirate Captains)",
+      "correct": [
+        "ผู้ก่อตั้ง",
+        "ผู้ก่อตั้งอิงแลนด์"
+      ],
+      "forbidden": [
+        "ผู้ก่อตั้งประเทศอังกฤษ"
+      ]
+    },
+    {
+      "id": "swiftsure",
+      "pillar": 7,
+      "category": "codex-readable",
+      "source": "Swiftsure (Pirate Warship)",
+      "correct": "เรือสวิฟต์ชัวร์ (Swiftsure)",
+      "forbidden": [
+        "เรือแน่นอน",
+        "รวดเร็วแน่นอน"
+      ]
+    },
+    {
+      "id": "gunsway",
+      "pillar": 7,
+      "category": "codex-readable",
+      "source": "Gunsway / Ganj-i-Sawai",
+      "correct": "กันจ์-อิ-ซาวาย (Gunsway)",
+      "context": "บันทึกประวัติศาสตร์การปล้นเรือสมบัติโมกุล"
+    }
   ]
 }

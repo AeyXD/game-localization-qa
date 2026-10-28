@@ -110,7 +110,7 @@ HANDLERS = {
 class QAData:
     """โหลดกฎทั้งหมดจาก data/*.json ครั้งเดียว"""
 
-    def __init__(self, data_dir):
+    def __init__(self, data_dir, disabled_traps=None):
         self.dir = Path(data_dir)
         self.ortho = self._load("thai-orthography.json")
         self.traps = self._load("mt-traps.json")
@@ -148,11 +148,22 @@ class QAData:
                 self.cjk_hints[src] = e["thai"]
 
         # กับดัก MT: สแกนหาคำแปลต้องห้าม (แจ้งเตือนอย่างเดียว — ต้องดูบริบทก่อนเสมอ)
-        self.trap_scan = []  # (forbidden, entry)
+        # แยกเป็น 2 ชุด: ไม่ต้องการ context กับต้องการ (context_keywords)
+        self.trap_scan = []         # (forbidden, entry) — ใช้ได้ทันที ไม่ต้องมี source
+        self.trap_scan_ctx = []     # (forbidden, entry, keywords) — ต้องมี source EN มี keyword ด้วย
         for e in self.traps["entries"]:
+            kws = e.get("context_keywords")
             for f in e.get("forbidden", []):
                 if len(f) >= 2:
-                    self.trap_scan.append((f, e))
+                    if kws:
+                        self.trap_scan_ctx.append((f, e, kws))
+                    else:
+                        self.trap_scan.append((f, e))
+        # --disable-trap <id>: ลบกับดักที่ผู้ใช้ปิด
+        if disabled_traps:
+            self.trap_scan = [(f, e) for f, e in self.trap_scan if e["id"] not in disabled_traps]
+            self.trap_scan_ctx = [(f, e, k) for f, e, k in self.trap_scan_ctx
+                                  if e["id"] not in disabled_traps]
 
     def _load(self, name):
         path = self.dir / name
@@ -165,8 +176,12 @@ class QAData:
 # หัวใจ: ตรวจ + แก้ข้อความ "หนึ่งบรรทัด"
 # ---------------------------------------------------------------------------
 
-def check_line(text, data, unknown_rules):
-    """คืน (ข้อความที่แก้แล้ว, รายการ issues) — ทุกการแก้เป็นการแทนที่ในบรรทัดเท่านั้น"""
+def check_line(text, data, unknown_rules, source_text=None):
+    """คืน (ข้อความที่แก้แล้ว, รายการ issues) — ทุกการแก้เป็นการแทนที่ในบรรทัดเท่านั้น
+
+    source_text (optional): ข้อความต้นฉบับภาษาอังกฤษ — ใช้ยืนยัน context ของกับดัก MT
+    ที่มี context_keywords (เช่น "แม่มด" จะถูกแจ้งเตือนเฉพาะเมื่อ source มี "winch")
+    """
     issues = []
     out = text
 
@@ -234,17 +249,27 @@ def check_line(text, data, unknown_rules):
                              m.group(0), "", "บทหลุดจาก MT จีน→ไทย" + hint))
 
     # 5) กับดัก MT (คำแปลต้องห้ามปรากฏในบทแปล)
+    #    แยกสองชุด: ไม่ต้องการ context กับต้องการ (แจ้งเตือนเฉพาะเมื่อ source มี keyword)
+    src_lower = (source_text or "").lower()
     for forbidden, entry in data.trap_scan:
         if forbidden in out:
-            correct = entry["correct"]
-            if isinstance(correct, list):
-                correct = " หรือ ".join(correct)
-            issues.append(_issue(
-                "mt-trap:%s" % entry["id"], "กับดัก MT: %s" % entry["source"],
-                "warning", False, forbidden, "",
-                "ห้ามใช้ '%s' — แปลที่ถูกคือ: %s" % (forbidden, correct)))
+            _report_trap(issues, forbidden, entry)
+    if src_lower:
+        for forbidden, entry, keywords in data.trap_scan_ctx:
+            if forbidden in out and any(k in src_lower for k in keywords):
+                _report_trap(issues, forbidden, entry)
 
     return out, issues
+
+
+def _report_trap(issues, forbidden, entry):
+    correct = entry["correct"]
+    if isinstance(correct, list):
+        correct = " หรือ ".join(correct)
+    issues.append(_issue(
+        "mt-trap:%s" % entry["id"], "กับดัก MT: %s" % entry["source"],
+        "warning", False, forbidden, "",
+        "ห้ามใช้ '%s' — แปลที่ถูกคือ: %s" % (forbidden, correct)))
 
 
 # ---------------------------------------------------------------------------
@@ -386,7 +411,8 @@ def run_csv_mode(path, args, data, report, unknown_rules):
             continue
 
         target = row[tc]
-        fixed, issues = check_line(target, data, unknown_rules)
+        source = row[sc] if (sc is not None and len(row) > sc) else None
+        fixed, issues = check_line(target, data, unknown_rules, source_text=source)
 
         # บทพูดหลุดภาษาอังกฤษ 100% (คำแปลเหมือนต้นฉบับ)
         if sc is not None and len(row) > sc and fixed.strip() == row[sc].strip() \
@@ -512,13 +538,15 @@ def main(argv=None):
     p.add_argument("--target-col", type=int, default=2, metavar="N",
                    help="หมายเลขคอลัมน์คำแปล (1-based, default: 2)")
     p.add_argument("--data-dir", default=str(DEFAULT_DATA_DIR), help="โฟลเดอร์ data/*.json")
+    p.add_argument("--disable-trap", action="append", default=None, metavar="ID",
+                   help="ปิดกับดัก MT เฉพาะตัว (ใช้ซ้ำได้ เช่น --disable-trap winch --disable-trap piton)")
     p.add_argument("--report", metavar="CSV", help="เขียนรายงาน Audit Trail เป็นไฟล์ CSV")
     p.add_argument("--list-rules", action="store_true",
                    help="แสดงสิ่งที่ตรวจทั้งหมด 4 ชั้น (auto-fix / แจ้งเตือน / โหมด CSV / ความปลอดภัยไฟล์)")
     p.add_argument("--quiet", action="store_true", help="พิมพ์แค่สรุปผล")
     args = p.parse_args(argv)
 
-    data = QAData(args.data_dir)
+    data = QAData(args.data_dir, disabled_traps=args.disable_trap)
 
     if args.list_rules:
         print_rule_inventory(data)
