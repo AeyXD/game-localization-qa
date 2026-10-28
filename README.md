@@ -67,6 +67,7 @@ game-localization-qa/
     ├── transcreation.json     # ตัวอย่างขัดเกลาระดับประโยค (ก่อน➔หลัง + เทคนิค)
     ├── transliteration.json   # คลังทับศัพท์ชื่อเฉพาะ/เวทมนตร์
     ├── pronouns-matrix.json   # เมทริกซ์สรรพนามตามยุค/ความสัมพันธ์
+    ├── persona-archetypes.json # ต้นแบบเสียงตัวละคร 6 ประเภท (พร้อมบทพูดตัวอย่าง)
     ├── thai-orthography.json  # ฎ/ฏ, ๆ, วรรณยุกต์-สระลอย, การผสานคำ (พร้อม regex)
     ├── cjk-residue.json       # อักษร CJK ตกค้างจาก MT จีน→ไทย
     └── sound-cues.json        # แท็กเสียงประกอบซับไตเติล
