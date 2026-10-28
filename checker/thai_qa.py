@@ -51,7 +51,8 @@ RE_DUP_MARK = re.compile("([%s])\\1+" % THAI_MARK.replace("\\", "\\\\"))
 RE_ORPHAN_MARK = re.compile("(^|\\s)([%s])" % THAI_MARK)
 RE_HTML_SEP = re.compile(">([%s])" % THAI_MARK)
 RE_CJK = re.compile("[\u4E00-\u9FFF\u3040-\u30FF\uAC00-\uD7AF]")
-RE_YAMOK_STACK = re.compile("ๆ(?:[ \\t]*ๆ)+")   # ๆๆ และ ๆ ๆ คั่นวรรค — ผิดทั้งคู่
+RE_LAUGH_YAMOK = re.compile("(?<![ก-๙])(ฮ่า|ฮา|หึ|เหอ|อิฮิ|คิฮิ|555)(?:[ \\t]*ๆ)+")
+RE_YAMOK_SPACED_JOIN = re.compile("ๆ(?:[ \\t]+ๆ)+")   # ๆ ๆ คั่นวรรค → รวมเป็น ๆๆ (การซ้อนถูกต้อง)
 RE_YAMOK_NO_SPACE = re.compile("([^\\sๆ])ๆ")
 RE_YAMOK_AFTER = re.compile("(ๆ+)(?=[^\\s.,!?…:;\"”'’)\\]}<ๆ])")  # เติมช่องว่างหลัง ๆ ยกเว้นเครื่องหมาย/แท็ก
 RE_YAMOK_LINE_START = re.compile("^ๆ")
@@ -198,10 +199,17 @@ def check_line(text, data, unknown_rules):
     out = data.pair_pattern.sub(_pair_repl, out)
 
     # 3) ไม้ยมก (ๆ) — แนวทางกฎครบชุดจากโปรเจกต์ ThaiW3Setup
-    out, found = _mk_flag(
-        RE_YAMOK_STACK,
-        "ห้ามใช้ ๆ ซ้อน (ทั้ง ๆๆ และ ๆ ๆ คั่นวรรค) — ตรวจว่าต้นฉบับสื่อคำซ้ำกี่ครั้ง แล้วซ่อมเป็น 'คำ ๆ คำ ๆ'")(
-        out, {"id": "mai-yamok-stacked", "name": "ๆ ซ้อนกัน"})
+    # 3.1) เสียงหัวเราะ/เลียนเสียง: เขียนซ้ำเต็มคำตามหลักภาษาไทยทั่วไป (ฮ่า ๆๆ ➔ ฮ่า ฮ่า ฮ่า)
+    out, found = _mk_fix(
+        RE_LAUGH_YAMOK,
+        lambda m: " ".join([m.group(1)] * (m.group().count("ๆ") + 1)))(
+        out, {"id": "mai-yamok-laughter", "name": "เสียงหัวเราะใช้ ๆ — เขียนเต็มคำ",
+              "fix": "เลียนเสียงหัวเราะต้องเขียนซ้ำเต็มคำ เช่น ฮ่า ๆๆ ➔ ฮ่า ฮ่า ฮ่า"})
+    issues.extend(found)
+    # 3.2) ๆ ซ้อนสื่อการซ้ำหลายครั้ง — ถูกต้อง แต่ถ้าคั่นด้วยช่องว่างต้องรวมเป็น ๆๆ
+    out, found = _mk_fix(RE_YAMOK_SPACED_JOIN, lambda m: "ๆ" * m.group().count("ๆ"))(
+        out, {"id": "mai-yamok-join", "name": "ๆ ๆ คั่นวรรค",
+              "fix": "รวมเป็น ๆๆ — การซ้อนสื่อการซ้ำหลายครั้ง (ไม่ใช่ข้อผิดพลาด)"})
     issues.extend(found)
     out, found = _mk_fix(RE_YAMOK_NO_SPACE, lambda m: m.group(1) + " ๆ")(
         out, {"id": "mai-yamok-no-space", "name": "ๆ ไร้ช่องว่างนำหน้า",

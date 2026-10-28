@@ -98,11 +98,44 @@ class TestMaiYamok(unittest.TestCase):
         self.assertEqual(fixed, "เร็ว ๆ ไปเถอะ")
         self.assertTrue(any(i["rule"] == "mai-yamok-no-space" and i["fixed"] for i in issues))
 
-    def test_stacked_flagged_not_fixed(self):
+    def test_stacked_yamok_is_valid(self):
+        """ๆๆ ซ้อนกันสื่อการซ้ำหลายครั้ง — ถูกต้อง ห้ามแจ้งเตือนหรือแก้"""
         text = "รีบ ๆๆ"
         fixed, issues = fix(text)
         self.assertEqual(fixed, text)
-        self.assertTrue(any(i["rule"] == "mai-yamok-stacked" and not i["fixed"] for i in issues))
+        self.assertFalse([i for i in issues if i["rule"].startswith("mai-yamok")])
+
+    def test_spaced_yamok_joined(self):
+        """ๆ ๆ คั่นวรรคต้องรวมเป็น ๆๆ (แนวทาง ThaiW3Setup — join ไม่ใช่ flag)"""
+        fixed, issues = fix("มาก ๆ ๆ")
+        self.assertEqual(fixed, "มาก ๆๆ")
+        self.assertTrue(any(i["rule"] == "mai-yamok-join" and i["fixed"] for i in issues))
+
+    def test_laughter_full_word(self):
+        """เสียงหัวเราะเขียนซ้ำเต็มคำ: ฮ่า ๆๆ! ➔ ฮ่า ฮ่า ฮ่า!"""
+        fixed, issues = fix("ฮ่า ๆๆ!")
+        self.assertEqual(fixed, "ฮ่า ฮ่า ฮ่า!")
+        self.assertTrue(any(i["rule"] == "mai-yamok-laughter" and i["fixed"] for i in issues))
+
+    def test_laughter_spaced_yamok(self):
+        fixed, _ = fix("ฮ่า ๆ ๆ!")
+        self.assertEqual(fixed, "ฮ่า ฮ่า ฮ่า!")
+
+    def test_laughter_single_yamok(self):
+        fixed, _ = fix("ฮา ๆ")
+        self.assertEqual(fixed, "ฮา ฮา")
+
+    def test_non_laughter_not_expanded(self):
+        """คำปกติที่ใช้ ๆ ต้องไม่ถูกขยายเป็นคำซ้ำเต็ม"""
+        for text in ("เดินเร็ว ๆ ไป", "ซื้อของเยอะ ๆๆ"):
+            fixed, _ = fix(text)
+            self.assertEqual(fixed, text)
+
+    def test_compound_word_not_laughter(self):
+        """ฮา ที่เป็นส่วนของคำประสม (เฮฮา) ต้องไม่ถูกขยาย"""
+        text = "งานเฮฮา ๆๆ"
+        fixed, _ = fix(text)
+        self.assertEqual(fixed, text)
 
     def test_orphan_line_start(self):
         fixed, issues = fix("ๆไป")
@@ -184,9 +217,10 @@ class TestThaiW3Rules(unittest.TestCase):
         self.assertEqual(fixed, "เบื้องบนและเบื้องล่างของแม่น้ำ")
 
     def test_yamok_spaced_stacked_flagged(self):
-        text = "มาก ๆ ๆ"
-        fixed, issues = fix(text)
-        self.assertTrue(any(i["rule"] == "mai-yamok-stacked" and not i["fixed"] for i in issues))
+        """Regression v1.2.1: 'ๆ ๆ' คั่นวรรคต้องถูกรวมเป็น ๆๆ — ไม่ใช่แจ้งเตือน"""
+        fixed, issues = fix("มาก ๆ ๆ")
+        self.assertEqual(fixed, "มาก ๆๆ")
+        self.assertTrue(any(i["rule"] == "mai-yamok-join" and i["fixed"] for i in issues))
 
     def test_yamok_after_space(self):
         fixed, issues = fix("เขาเดินเร็ว ๆแล้วหยุดพัก")
