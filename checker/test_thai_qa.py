@@ -95,7 +95,7 @@ class TestRorTor(unittest.TestCase):
 class TestMaiYamok(unittest.TestCase):
     def test_space_inserted_before(self):
         fixed, issues = fix("เร็วๆไปเถอะ")
-        self.assertEqual(fixed, "เร็ว ๆไปเถอะ")
+        self.assertEqual(fixed, "เร็ว ๆ ไปเถอะ")
         self.assertTrue(any(i["rule"] == "mai-yamok-no-space" and i["fixed"] for i in issues))
 
     def test_stacked_flagged_not_fixed(self):
@@ -149,6 +149,82 @@ class TestCommonMisspellings(unittest.TestCase):
         self.assertFalse([i for i in issues if i["fixed"]])
 
 
+class TestThaiW3Rules(unittest.TestCase):
+    """กฎที่ประยุกต์จากโปรเจกต์ ThaiW3Setup (ตัวติดตั้งภาษาไทย The Witcher 3)"""
+
+    def test_thin_than(self):
+        fixed, _ = fix("ชุมชนถิ่งฐานเดิม")
+        self.assertEqual(fixed, "ชุมชนถิ่นฐานเดิม")
+
+    def test_thue_pattern_with_exceptions(self):
+        fixed, issues = fix("สถานทึ่นั้น")
+        self.assertEqual(fixed, "สถานที่นั้น")
+        self.assertTrue(any(i["rule"] == "thue-without-ng-m" and i["fixed"] for i in issues))
+        for correct in ("น่าทึ่งมาก", "รสชาติทึ่มไปหน่อย"):
+            fixed, issues = fix(correct)
+            self.assertEqual(fixed, correct)
+            self.assertFalse([i for i in issues if i["fixed"]])
+
+    def test_pra_la_pattern(self):
+        fixed, _ = fix("สัตว์ประหลาขนาดใหญ่")
+        self.assertEqual(fixed, "สัตว์ประหลาดขนาดใหญ่")
+        fixed, _ = fix("สัตว์ประหลาดโบราณ")
+        self.assertEqual(fixed, "สัตว์ประหลาดโบราณ")
+
+    def test_wet_ordering_longest_first(self):
+        fixed, _ = fix("พลังเวทย์มนต์ของโรงเรียนเวทย์")
+        self.assertEqual(fixed, "พลังเวทมนตร์ของโรงเรียนเวท")
+
+    def test_fai_klai(self):
+        fixed, _ = fix("ความไฝ่ฝันสูงสุด")
+        self.assertEqual(fixed, "ความใฝ่ฝันสูงสุด")
+
+    def test_beuang(self):
+        fixed, _ = fix("เบื่องบนและเบื่องล่างของแม่น้ำ")
+        self.assertEqual(fixed, "เบื้องบนและเบื้องล่างของแม่น้ำ")
+
+    def test_yamok_spaced_stacked_flagged(self):
+        text = "มาก ๆ ๆ"
+        fixed, issues = fix(text)
+        self.assertTrue(any(i["rule"] == "mai-yamok-stacked" and not i["fixed"] for i in issues))
+
+    def test_yamok_after_space(self):
+        fixed, issues = fix("เขาเดินเร็ว ๆแล้วหยุดพัก")
+        self.assertEqual(fixed, "เขาเดินเร็ว ๆ แล้วหยุดพัก")
+        self.assertTrue(any(i["rule"] == "mai-yamok-after-space" and i["fixed"] for i in issues))
+
+    def test_yamok_after_space_exceptions(self):
+        """ไม่แทรกช่องว่างหลัง ๆ เมื่อตามด้วยเครื่องหมายวรรคตอน/วงเล็บปิด/แท็ก"""
+        for text in ("หยุดเดี๋ยวนี้เร็ว ๆ!", "รอแป๊บ ๆ…", "โจมตีเร็ว ๆ</COLOR>", "ซื้อของเยอะ ๆ)"):
+            fixed, _ = fix(text)
+            self.assertEqual(fixed, text)
+
+
+class TestMispasteDetection(unittest.TestCase):
+    """ตรวจวางคำแปลผิดแถวเชิงสถิติ (แนวทาง mispaste_report.py ของ ThaiW3Setup)"""
+
+    def test_length_anomaly(self):
+        issues = q.detect_mispaste([(
+            1, "The ancient forest whispers secrets of the old world to those who listen carefully.",
+            "ป่ากระซิบความลับ")])
+        self.assertTrue(any(i["rule"] == "length-anomaly" and i["row"] == 1 for i in issues))
+
+    def test_mispaste_suspect(self):
+        th = "คำแปลยาวมากที่ถูกวางซ้ำกันสองแถวโดยไม่ได้ตั้งใจให้เหมือนกันเลยสักนิด"
+        issues = q.detect_mispaste([
+            (2, "Geralt drew his silver sword and prepared to fight the ghoul in the swamp.", th),
+            (5, "OK", th)])
+        hit = [i for i in issues if i["rule"] == "mispaste-suspect"]
+        self.assertTrue(hit)
+        self.assertEqual(hit[0]["row"], 5)
+
+    def test_normal_rows_clean(self):
+        issues = q.detect_mispaste([
+            (1, "Hello traveler, welcome to our village.", "สวัสดีพ่อค้า ยินดีต้อนรับสู่หมู่บ้านของเรา"),
+            (2, "Goodbye and safe travels, my friend.", "ลาก่อน ขอให้เดินทางปลอดภัยนะเพื่อน")])
+        self.assertFalse(issues)
+
+
 class TestMtTrapScan(unittest.TestCase):
     def test_strike_trap(self):
         _, issues = fix("การโจมตีแบบนัดหยุดงาน")
@@ -192,7 +268,7 @@ class TestFileSafety(unittest.TestCase):
         fixed = f.read_text(encoding="utf-8")
         self.assertEqual(len(fixed.splitlines()), 3)
         self.assertIn("บรรทัดแรกปรากฏตัว", fixed)
-        self.assertIn("เร็ว ๆมาก", fixed)
+        self.assertIn("เร็ว ๆ มาก", fixed)
         self.assertIn("ปกติดี", fixed)
 
     def test_bom_preserved(self):

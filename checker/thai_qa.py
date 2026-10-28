@@ -51,8 +51,9 @@ RE_DUP_MARK = re.compile("([%s])\\1+" % THAI_MARK.replace("\\", "\\\\"))
 RE_ORPHAN_MARK = re.compile("(^|\\s)([%s])" % THAI_MARK)
 RE_HTML_SEP = re.compile(">([%s])" % THAI_MARK)
 RE_CJK = re.compile("[\u4E00-\u9FFF\u3040-\u30FF\uAC00-\uD7AF]")
-RE_YAMOK_STACK = re.compile("ๆ{2,}")
+RE_YAMOK_STACK = re.compile("ๆ(?:[ \\t]*ๆ)+")   # ๆๆ และ ๆ ๆ คั่นวรรค — ผิดทั้งคู่
 RE_YAMOK_NO_SPACE = re.compile("([^\\sๆ])ๆ")
+RE_YAMOK_AFTER = re.compile("(ๆ+)(?=[^\\s.,!?…:;\"”'’)\\]}<ๆ])")  # เติมช่องว่างหลัง ๆ ยกเว้นเครื่องหมาย/แท็ก
 RE_YAMOK_LINE_START = re.compile("^ๆ")
 RE_HAS_LATIN_WORD = re.compile("[A-Za-z]{3}")
 
@@ -129,6 +130,11 @@ class QAData:
             self.pair_fixes.append((p["wrong"], p["right"], "common-misspelling",
                                     "คำทับศัพท์สะกดผิด (%s ➔ %s)" % (p["wrong"], p["right"]),
                                     p.get("guard", "")))
+        # กฎแก้แบบมีข้อยกเว้น (negative-exception) เช่น ทึ่(?![งม]) ➔ ที่ (ทึ่ง/ทึ่ม เป็นคำจริง)
+        self.conditional_fixes = [
+            (re.compile(r["detect"]), r["replace"], r)
+            for r in self.ortho.get("conditional_fixes", {}).get("fixes", [])
+        ]
         self.pair_fixes.sort(key=lambda t: len(t[0]), reverse=True)
         self.pair_pattern = re.compile("|".join(
             g + re.escape(w) for w, _, _, _, g in self.pair_fixes))
@@ -172,6 +178,14 @@ def check_line(text, data, unknown_rules):
         out, found = handler(out, rule)
         issues.extend(found)
 
+    # 1.5) กฎแก้แบบมีข้อยกเว้น (conditional fixes — แนวทางจากโปรเจกต์ ThaiW3Setup)
+    for rx, repl, rule in data.conditional_fixes:
+        def _cond_repl(m, _rule=rule, _repl=repl):
+            issues.append(_issue(_rule["id"], _rule.get("name", _rule["id"]), "error", True,
+                                 m.group(0), _repl, _rule.get("note", "")))
+            return _repl
+        out = rx.sub(_cond_repl, out)
+
     # 2) กฎแบบคู่คำ (ฎ/ฏ, การผสานคำ) — single-pass ยาว→สั้น ไม่สแกนซ้ำข้อความที่เพิ่งแก้
     def _pair_repl(m):
         wrong = m.group(0)
@@ -183,18 +197,23 @@ def check_line(text, data, unknown_rules):
 
     out = data.pair_pattern.sub(_pair_repl, out)
 
-    # 3) ไม้ยมก (ๆ)
+    # 3) ไม้ยมก (ๆ) — แนวทางกฎครบชุดจากโปรเจกต์ ThaiW3Setup
+    out, found = _mk_flag(
+        RE_YAMOK_STACK,
+        "ห้ามใช้ ๆ ซ้อน (ทั้ง ๆๆ และ ๆ ๆ คั่นวรรค) — ตรวจว่าต้นฉบับสื่อคำซ้ำกี่ครั้ง แล้วซ่อมเป็น 'คำ ๆ คำ ๆ'")(
+        out, {"id": "mai-yamok-stacked", "name": "ๆ ซ้อนกัน"})
+    issues.extend(found)
     out, found = _mk_fix(RE_YAMOK_NO_SPACE, lambda m: m.group(1) + " ๆ")(
         out, {"id": "mai-yamok-no-space", "name": "ๆ ไร้ช่องว่างนำหน้า",
               "fix": "แทรกช่องว่างก่อน ๆ"})
     issues.extend(found)
-    for pattern, rule, name, note in (
-            (RE_YAMOK_STACK, "mai-yamok-stacked", "ๆ ซ้อนกัน",
-             "ห้ามใช้ ๆ ซ้อน — ตรวจว่าต้นฉบับสื่อคำซ้ำกี่ครั้ง แล้วซ่อมเป็น 'คำ ๆ คำ ๆ'"),
-            (RE_YAMOK_LINE_START, "mai-yamok-orphan", "ๆ ขึ้นต้นบรรทัด",
-             "ย้ายการตัดบรรทัดไปหลัง 'คำ ๆ'")):
-        out, found = _mk_flag(pattern, note)(out, {"id": rule, "name": name})
-        issues.extend(found)
+    out, found = _mk_fix(RE_YAMOK_AFTER, lambda m: m.group(1) + " ")(
+        out, {"id": "mai-yamok-after-space", "name": "ๆ ไม่มีช่องว่างท้ายเมื่อมีคำต่อ",
+              "fix": "แทรกช่องว่างหลัง ๆ (ยกเว้นก่อนเครื่องหมายวรรคตอน/วงเล็บปิด/แท็ก)"})
+    issues.extend(found)
+    out, found = _mk_flag(RE_YAMOK_LINE_START, "ย้ายการตัดบรรทัดไปหลัง 'คำ ๆ'")(
+        out, {"id": "mai-yamok-orphan", "name": "ๆ ขึ้นต้นบรรทัด"})
+    issues.extend(found)
 
     # 4) อักษร CJK ตกค้าง
     for m in RE_CJK.finditer(out):
@@ -218,6 +237,61 @@ def check_line(text, data, unknown_rules):
                 "ห้ามใช้ '%s' — แปลที่ถูกคือ: %s" % (forbidden, correct)))
 
     return out, issues
+
+
+# ---------------------------------------------------------------------------
+# การตรวจ "วางคำแปลผิดแถว" เชิงสถิติ (Statistical Mispaste Detection)
+# แนวทางจาก mispaste_report.py ของโปรเจกต์ ThaiW3Setup (ตัวติดตั้งภาษาไทย The Witcher 3)
+# ---------------------------------------------------------------------------
+
+def _norm_text(s):
+    """ตัดแท็กและรวมช่องว่าง — เตรียมเทียบความยาว/ความคล้าย"""
+    return re.sub(r"<[^>]+>|\s+", " ", s).strip()
+
+
+def detect_mispaste(entries, ratio_band=(0.2, 3.5), dup_min_len=40, src_sim_max=0.6):
+    """ตรวจแถวที่คำแปลน่าจะถูก copy มาวางผิดแถว โดยไม่ต้องเข้าใจความหมาย
+
+    entries: [(row_number, source, target)]
+    1. length-anomaly: อัตราส่วนความยาว ไทย/อังกฤษ ออกนอกช่วง ratio_band (ปกติ 0.2-3.5)
+    2. mispaste-suspect: คำแปลยาว (>= dup_min_len) ซ้ำกันหลายแถว แต่ต้นฉบับอังกฤษต่างกันชัด
+       (ความคล้าย < src_sim_max) -> แถวที่อัตราส่วนความยาวห่างจาก 1.0 มากที่สุดคือผู้ต้องสงสัย
+    คืน list ของ dict — ทุกรายการเป็น "การแจ้งเตือน" เท่านั้น ต้องตรวจด้วยตาก่อนเสมอ
+    """
+    import difflib
+    issues = []
+    by_target = {}
+    for row, src, tgt in entries:
+        en, th = _norm_text(src), _norm_text(tgt)
+        if len(en) >= 15 and len(th) >= 15 and re.search("[ก-๙]", th):
+            ratio = len(th) / len(en)
+            if not ratio_band[0] <= ratio <= ratio_band[1]:
+                issues.append(dict(
+                    row=row, rule="length-anomaly", name="อัตราส่วนความยาวผิดปกติ",
+                    before="",
+                    note="ไทย/อังกฤษ = %.2f (ปกติ %.1f-%.1f) — อาจวางผิดแถว แปลไม่ครบ หรือแปลเกินจำเป็น"
+                    % (ratio, ratio_band[0], ratio_band[1])))
+        if len(th) >= dup_min_len:
+            by_target.setdefault(th, []).append((row, en))
+    for th, rows in by_target.items():
+        if len(rows) < 2:
+            continue
+        min_sim, pair = 1.0, None
+        for i in range(len(rows)):
+            for j in range(i + 1, len(rows)):
+                sim = difflib.SequenceMatcher(None, rows[i][1].lower(), rows[j][1].lower()).ratio()
+                if sim < min_sim:
+                    min_sim, pair = sim, (rows[i], rows[j])
+        if pair is None or min_sim > src_sim_max:
+            continue
+        bad = max(pair, key=lambda r: abs(len(th) / max(len(r[1]), 1) - 1.0))
+        others = ", ".join(str(r[0]) for r in rows if r[0] != bad[0])
+        issues.append(dict(
+            row=bad[0], rule="mispaste-suspect", name="สงสัยวางคำแปลผิดแถว",
+            before=th[:50],
+            note="คำแปลยาวชุดนี้ซ้ำกับแถว %s แต่ต้นฉบับอังกฤษต่างกันชัด (ความคล้าย %.2f) — ตรวจด้วยตาก่อน"
+            % (others, min_sim)))
+    return issues
 
 
 # ---------------------------------------------------------------------------
@@ -290,6 +364,7 @@ def run_csv_mode(path, args, data, report, unknown_rules):
     sc = args.source_col - 1 if args.source_col else None
     tc = args.target_col - 1
     n_fixed = n_flag = 0
+    mispaste_rows = []
 
     for idx, row in enumerate(rows, 1):
         if len(row) <= tc or not row[tc].strip():
@@ -321,6 +396,16 @@ def run_csv_mode(path, args, data, report, unknown_rules):
             report.append(iss)
             n_fixed += 1 if iss["fixed"] else 0
             n_flag += 0 if iss["fixed"] else 1
+        if sc is not None and len(row) > sc and row[sc].strip():
+            mispaste_rows.append((idx, row[sc], fixed))
+
+    # ตรวจ "วางคำแปลผิดแถว" เชิงสถิติ (ต้องระบุ --source-col)
+    if sc is not None:
+        for m in detect_mispaste(mispaste_rows):
+            iss = _issue(m["rule"], m["name"], "warning", False, m["before"], "", m["note"])
+            iss.update(location="row %d" % m["row"], file=str(path))
+            report.append(iss)
+            n_flag += 1
 
     if args.fix:
         buf = io.StringIO()
