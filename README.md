@@ -77,6 +77,21 @@ game-localization-qa/
 
 ## 📥 วิธีติดตั้งและนำไปใช้งาน (Installation Guide)
 
+### ⚡ ติดตั้งด้วยสคริปต์ (แนะนำ)
+
+```bash
+git clone https://github.com/memolyviza2012-max/game-localization-qa.git
+cd game-localization-qa
+./install.sh                        # ติดตั้งทุก agent (~/.claude/skills + ~/.gemini/config/skills)
+./install.sh --agent claude         # เฉพาะ Claude Code
+./install.sh --dir /path/to/skills  # ปลายทางกำหนดเอง
+```
+
+Windows: `powershell -File install.ps1` (รับพารามิเตอร์ `-Agent` / `-Dir` เหมือนกัน) — สคริปต์คัดลอกทั้งโฟลเดอร์ (SKILL.md + references/ + data/ + checker/ + eval/) ให้อัตโนมัติ และพิมพ์คำสั่งตรวจสอบการติดตั้งตอนจบ
+
+<details>
+<summary>📋 ติดตั้งด้วยมือ (Manual)</summary>
+
 ### 1. ติดตั้งใน Google Antigravity (AGY)
 คัดลอกทั้งโฟลเดอร์ skill ไปยังโฟลเดอร์สกิลของระบบ (รันจาก root ของ repo):
 ```powershell
@@ -111,6 +126,8 @@ Copy-Item "SKILL.md","references","data" -Recurse -Force -Destination "$env:USER
 
 ### 4. ติดตั้งใน ChatGPT / Custom GPT / LLM อื่นๆ
 นำเนื้อหาจาก `SKILL.md` ไปใส่ใน **System Prompt** หรือ **Custom Instructions** ของ Agent
+
+</details>
 
 ---
 
@@ -192,4 +209,5 @@ AI สามารถนำเทคนิคใหม่นั้นมา **ap
 ## 📄 License
 
 ลิขสิทธิ์เผยแพร่ภายใต้สัญญาอนุญาต [MIT License](LICENSE)  
-พัฒนาและเรียบเรียงโดย **Danaiwit (memolyviza2012-max)** & Modder Community
+พัฒนาและเรียบเรียงโดย **Danaiwit (memolyviza2012-max)** & Modder Community  
+ดูประวัติเวอร์ชันทั้งหมดได้ที่ [CHANGELOG.md](CHANGELOG.md)
