@@ -1,0 +1,102 @@
+{
+  "file": "transcreation",
+  "version": 1,
+  "updated": "2026-10-28",
+  "description": "คลังตัวอย่างขัดเกลาบทแปลระดับประโยค (Sentence-Level Transcreation) — เทียบ คำแปลตรงตัวแบบ MT (mt) กับงานขัดเกลา (polished) พร้อมเทคนิคที่ใช้ ตัวอย่างเป็นสถานการณ์เกมสมมุติ ไม่ผูกกับเกมใด",
+  "schema": {
+    "source": "ประโยคต้นฉบับภาษาอังกฤษ",
+    "mt": "คำแปลตรงตัวแบบ Machine Translation (ผิด/แข็งทื่อ)",
+    "polished": "งานขัดเกลาที่ควรเป็น (มีได้หลายรูปแบบ — นี่คือแบบอย่าง ไม่ใช่คำตอบเดียว)",
+    "technique": "เทคนิคหลักที่ใช้ (ดู taxonomy ใน references/pillar-2 ส่วนที่ 6)",
+    "note": "เหตุผล/คำอธิบายเพิ่ม (optional)"
+  },
+  "entries": [
+    {
+      "id": "drop-repeated-subject",
+      "source": "The old soldier drew his sword. He said nothing.",
+      "mt": "ทหารชราชักดาบของเขา เขาไม่ได้พูดอะไร",
+      "polished": "ทหารชราชักดาบออกมาโดยไม่กล่าววาจาใด ๆ",
+      "technique": "ตัดประธาน/กรรมซ้ำ + รวบสองประโยคเป็นหนึ่ง",
+      "note": "เขา/ของเขา ในภาษาอังกฤษจำเป็น แต่ภาษาไทยไม่ต้องทวนประธานเมื่อยังเป็นผู้เดียวกัน"
+    },
+    {
+      "id": "cut-every-and",
+      "source": "And then he turned and walked to the door and opened it.",
+      "mt": "และแล้วเขาก็หันและเดินไปที่ประตูและเปิดมัน",
+      "polished": "แล้วเขาก็หันหลังเดินไปเปิดประตู",
+      "technique": "ตัดคำเชื่อม and/then ทุกตัว + รวมกริยาชุดเดียวกัน"
+    },
+    {
+      "id": "passive-to-active",
+      "source": "The village was destroyed by the dragon three winters ago.",
+      "mt": "หมู่บ้านได้ถูกทำลายโดยมังกรเมื่อสามฤดูหนาวที่แล้ว",
+      "polished": "มังกรทำลายหมู่บ้านนี้ลงเมื่อสามฤดูหนาวก่อน",
+      "technique": "เปลี่ยน passive เป็น active — ภาษาไทยเล่าเหตุการณ์นิยมผู้กระทำนำ"
+    },
+    {
+      "id": "there-is-frame",
+      "source": "There's something I need to tell you before we go.",
+      "mt": "มีบางสิ่งที่ฉันต้องบอกคุณก่อนที่เราจะไป",
+      "polished": "มีเรื่องต้องบอกเจ้าก่อนออกเดินทาง",
+      "technique": "ตัดโครง There is + ปรับสรรพนามตามยุคสมัยของเกม"
+    },
+    {
+      "id": "question-flow",
+      "source": "Do you really think we can win this war?",
+      "mt": "คุณคิดจริง ๆ ว่าเราสามารถชนะสงครามนี้ได้หรือ",
+      "polished": "เจ้าเชื่อจริง ๆ หรือว่าพวกเราจะชนะสงครามครั้งนี้ได้",
+      "technique": "ปรับโครงคำถามให้เป็นธรรมชาติไทย + ตัดกริยาช่วยที่ MT ใส่เกิน"
+    },
+    {
+      "id": "double-negative",
+      "source": "It's not that I don't trust you. But the walls have ears.",
+      "mt": "มันไม่ใช่ว่าฉันไม่ไว้ใจคุณ แต่กำแพงมีหู",
+      "polished": "ไม่ใช่ว่าข้าไม่ไว้ใจเจ้า แต่กังว่ากำแพงมีหูเอาการ",
+      "technique": "คง double negative ตามเจตนาเดิมแต่ใช้โครงไทย + แปล idiom ให้เข้ากับระดับภาษาโบราณ",
+      "note": "ห้ามแก้ปฏิเสธซ้ำจนความหมายกลับด้าน — นี่คือตัวอย่างการคง modality ตามหลักการแปลกลาง"
+    },
+    {
+      "id": "broken-rhythm",
+      "source": "I don't know. Maybe. It doesn't matter anymore.",
+      "mt": "ฉันไม่รู้ อาจจะ มันไม่สำคัญอีกต่อไปแล้ว",
+      "polished": "ไม่รู้สิ... อาจจะ... ช่างมันเถอะ",
+      "technique": "รักษาจังหวะขาดห้วงของต้นฉบับ + ตัดประธาน + ถ่ายทอดความหมางเย็นด้วยคำเศร้า ๆ ไม่ใช่ประโยคเต็มเหมือนเอกสาร"
+    },
+    {
+      "id": "sarcastic-praise",
+      "source": "Great. Just what I needed today.",
+      "mt": "ยอดเยี่ยม นั่นคือสิ่งที่ฉันต้องการวันนี้",
+      "polished": "ดีแล้ว... วันนี้กำลังต้องการพอดีเลย",
+      "technique": "ถ่ายทอบการประชดจากน้ำเสียง ไม่แปลคำว่า great เป็นคำชมตรง ๆ"
+    },
+    {
+      "id": "scene-narration",
+      "source": "The rain fell on the battlefield where thousands had died.",
+      "mt": "ฝนตกลงมาบนสนามรบที่ซึ่งคนนับพันได้ตาย",
+      "polished": "สายฝนโปรยร่วงลงบนสนามรบ อันเคยเป็นที่สิ้นใจของผู้คนนับพัน",
+      "technique": "ยกระดับบรรยายด้วยคำเลือกที่ไพเราะตามระดับภาษาของเอกสาร (Codex register เสาหลัก 7)"
+    },
+    {
+      "id": "threat-register",
+      "source": "Give me the map, or I'll take it from your corpse.",
+      "mt": "ให้ฉันแผนที่ หรือฉันจะเอามันจากศพของคุณ",
+      "polished": "ยื่นแผนที่มา ไม่งั้นขี้นเอาจากซากของแกเอง",
+      "technique": "ปรับสรรพนามตามความสัมพันธ์ศัตรู (ข้า-แก) + ตัดกรรม 'มัน' ที่ไทยไม่ต้องใช้"
+    },
+    {
+      "id": "system-vs-dialogue",
+      "source": "You have been defeated. Return to the last checkpoint?",
+      "mt": "คุณได้รับการพ่ายแพ้ กลับไปที่เช็คพอยท์สุดท้ายหรือไม่",
+      "polished": "คุณพ่ายแพ้ — กลับไปที่จุดเช็คพอยท์ล่าสุด?",
+      "technique": "เสียงของระบบ (System Voice): ตัดกริยาพาดพิงการบอกเล่า (ได้รับการ) + ใช้ คุณ ตามค่าเริ่มต้น + กระชับ",
+      "note": "เชื่อมกับ data/pronouns-matrix.json → system_voice และงบตัวอักษร UI เสาหลัก 6"
+    },
+    {
+      "id": "bargain-tone",
+      "source": "That's my final offer. Take it or leave it.",
+      "mt": "นั่นคือข้อเสนอสุดท้ายของฉัน รับมันหรือปล่อยมัน",
+      "polished": "นี่ข้อเสนอสุดท้ายแล้ว รับหรือไม่รับ ตัดสินเถอะ",
+      "technique": "แปล idiom take it or leave it เป็นสำนวนไทยที่ใช้จริง + ตัด มัน ที่ MT แปลตามตัว it"
+    }
+  ]
+}

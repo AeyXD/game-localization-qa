@@ -64,6 +64,7 @@ game-localization-qa/
 │   └── pillar-7-codex-readables.md
 └── data/             # คลังข้อมูลเชิงเครื่อง (canonical — เป้าหมายของ self-upgrade)
     ├── mt-traps.json          # กับดัก MT ทุกหมวด (idiom/skill/item/quest/codex)
+    ├── transcreation.json     # ตัวอย่างขัดเกลาระดับประโยค (ก่อน➔หลัง + เทคนิค)
     ├── transliteration.json   # คลังทับศัพท์ชื่อเฉพาะ/เวทมนตร์
     ├── pronouns-matrix.json   # เมทริกซ์สรรพนามตามยุค/ความสัมพันธ์
     ├── thai-orthography.json  # ฎ/ฏ, ๆ, วรรณยุกต์-สระลอย, การผสานคำ (พร้อม regex)
