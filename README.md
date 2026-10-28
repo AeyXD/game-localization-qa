@@ -65,6 +65,7 @@ game-localization-qa/
 └── data/             # คลังข้อมูลเชิงเครื่อง (canonical — เป้าหมายของ self-upgrade)
     ├── mt-traps.json          # กับดัก MT ทุกหมวด (idiom/skill/item/quest/codex)
     ├── transcreation.json     # ตัวอย่างขัดเกลาระดับประโยค (ก่อน➔หลัง + เทคนิค)
+    ├── codex-weaving.json      # ตัวอย่างร้อยเรียงย่อหน้า codex 5 ประเภท (Anti-Choppy + Flow)
     ├── transliteration.json   # คลังทับศัพท์ชื่อเฉพาะ/เวทมนตร์
     ├── pronouns-matrix.json   # เมทริกซ์สรรพนามตามยุค/ความสัมพันธ์
     ├── persona-archetypes.json # ต้นแบบเสียงตัวละคร 6 ประเภท (พร้อมบทพูดตัวอย่าง)

@@ -21,7 +21,7 @@ description: Master protocol for game translation Quality Assurance (The 7 QA Pi
 | ไอเท็ม / อาวุธปืน / ศัพท์ระบบ / Checkpoint | `references/pillar-4-items-firearms.md` + `data/mt-traps.json` (`checkpoint`, `firearms-item`, `fantasy-item`) |
 | ชื่อเควสต์ / ความสอดคล้อง | `references/pillar-5-quest-consistency.md` + `data/mt-traps.json` (`quest-title`, `quest-rule`) |
 | บทหลุด / สระลอย / ฎ-ฏ / ๆ / CJK / ความยาว UI / จังหวะซับ | `references/pillar-6-leak-typography.md` + `data/thai-orthography.json` + `data/cjk-residue.json` + `data/sound-cues.json` |
-| Codex / หนังสือ / บันทึกในเกม | `references/pillar-7-codex-readables.md` + `data/mt-traps.json` (`codex-readable`) |
+| Codex / หนังสือ / บันทึกในเกม | `references/pillar-7-codex-readables.md` + `data/mt-traps.json` (`codex-readable`) + `data/codex-weaving.json` (ตัวอย่างร้อยเรียงย่อหน้า 5 ประเภท) |
 | **ทุกงานที่แตะไฟล์แปลจริง** | ทำตาม 🛠️ Autonomous Execution Workflow ด้านล่างเสมอ |
 | วัดผล / ทดสอบสกิลหรือเครื่องมือ | `eval/run_eval.py` (`selftest`, `checker`, `template`, `translations`) + `eval/cases.json` |
 | ตรวจทานรอบสุดท้ายก่อนส่งมอบ | `references/qa-checklist.md` |
