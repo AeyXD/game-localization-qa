@@ -210,5 +210,5 @@ AI สามารถนำเทคนิคใหม่นั้นมา **ap
 
 ลิขสิทธิ์เผยแพร่ภายใต้สัญญาอนุญาต [MIT License](LICENSE)  
 พัฒนาและเรียบเรียงโดย **Danaiwit (memolyviza2012-max)** & Modder Community  
-ปรับปรุงเวอร์ชัน 1.1.0 (สถาปัตยกรรม data-driven, checker, eval, installer, เทคนิคตรวจคำจาก ThaiW3Setup) โดย **Prawith T (AeyXD)**  
+ปรับปรุงเวอร์ชัน 1.1.0 (สถาปัตยกรรม data-driven, checker, eval, installer, เทคนิคตรวจคำจากงานแปลเกมจริง) โดย **Prawith T (AeyXD)**  
 ดูประวัติเวอร์ชันทั้งหมดได้ที่ [CHANGELOG.md](CHANGELOG.md)

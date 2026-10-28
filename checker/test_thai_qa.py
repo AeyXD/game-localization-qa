@@ -106,7 +106,7 @@ class TestMaiYamok(unittest.TestCase):
         self.assertFalse([i for i in issues if i["rule"].startswith("mai-yamok")])
 
     def test_spaced_yamok_joined(self):
-        """ๆ ๆ คั่นวรรคต้องรวมเป็น ๆๆ (แนวทาง ThaiW3Setup — join ไม่ใช่ flag)"""
+        """ๆ ๆ คั่นวรรคต้องรวมเป็น ๆๆ (แนวทางจากงานแปลเกมจริง — join ไม่ใช่ flag)"""
         fixed, issues = fix("มาก ๆ ๆ")
         self.assertEqual(fixed, "มาก ๆๆ")
         self.assertTrue(any(i["rule"] == "mai-yamok-join" and i["fixed"] for i in issues))
@@ -182,8 +182,8 @@ class TestCommonMisspellings(unittest.TestCase):
         self.assertFalse([i for i in issues if i["fixed"]])
 
 
-class TestThaiW3Rules(unittest.TestCase):
-    """กฎที่ประยุกต์จากโปรเจกต์ ThaiW3Setup (ตัวติดตั้งภาษาไทย The Witcher 3)"""
+class TestRealGameRules(unittest.TestCase):
+    """กฎที่ประยุกต์จากโปรเจกต์แปลเกมจริงแนวแอ็กชัน RPG ดาร์กแฟนตาซี"""
 
     def test_thin_than(self):
         fixed, _ = fix("ชุมชนถิ่งฐานเดิม")
@@ -235,7 +235,7 @@ class TestThaiW3Rules(unittest.TestCase):
 
 
 class TestMispasteDetection(unittest.TestCase):
-    """ตรวจวางคำแปลผิดแถวเชิงสถิติ (แนวทาง mispaste_report.py ของ ThaiW3Setup)"""
+    """ตรวจวางคำแปลผิดแถวเชิงสถิติ (แนวทาง งานแปลเกมจริง)"""
 
     def test_length_anomaly(self):
         issues = q.detect_mispaste([(

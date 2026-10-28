@@ -179,7 +179,7 @@ def check_line(text, data, unknown_rules):
         out, found = handler(out, rule)
         issues.extend(found)
 
-    # 1.5) กฎแก้แบบมีข้อยกเว้น (conditional fixes — แนวทางจากโปรเจกต์ ThaiW3Setup)
+    # 1.5) กฎแก้แบบมีข้อยกเว้น (conditional fixes — แนวทางจากงานแปลเกมจริง)
     for rx, repl, rule in data.conditional_fixes:
         def _cond_repl(m, _rule=rule, _repl=repl):
             issues.append(_issue(_rule["id"], _rule.get("name", _rule["id"]), "error", True,
@@ -198,7 +198,7 @@ def check_line(text, data, unknown_rules):
 
     out = data.pair_pattern.sub(_pair_repl, out)
 
-    # 3) ไม้ยมก (ๆ) — แนวทางกฎครบชุดจากโปรเจกต์ ThaiW3Setup
+    # 3) ไม้ยมก (ๆ) — แนวทางกฎครบชุดจากงานแปลเกมจริง
     # 3.1) เสียงหัวเราะ/เลียนเสียง: เขียนซ้ำเต็มคำตามหลักภาษาไทยทั่วไป (ฮ่า ๆๆ ➔ ฮ่า ฮ่า ฮ่า)
     out, found = _mk_fix(
         RE_LAUGH_YAMOK,
@@ -249,7 +249,7 @@ def check_line(text, data, unknown_rules):
 
 # ---------------------------------------------------------------------------
 # การตรวจ "วางคำแปลผิดแถว" เชิงสถิติ (Statistical Mispaste Detection)
-# แนวทางจาก mispaste_report.py ของโปรเจกต์ ThaiW3Setup (ตัวติดตั้งภาษาไทย The Witcher 3)
+# แนวทางจาก mispaste_report.py ของโปรเจกต์แปลเกมจริงแนวแอ็กชัน RPG ดาร์กแฟนตาซี
 # ---------------------------------------------------------------------------
 
 def _norm_text(s):
