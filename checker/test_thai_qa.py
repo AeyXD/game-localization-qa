@@ -370,5 +370,22 @@ class TestFileSafety(unittest.TestCase):
         self.assertTrue(any("ปรากฎ" in r for r in rows[1:]))
 
 
+class TestListRules(unittest.TestCase):
+    """--list-rules ต้องแสดงสิ่งที่ตรวจครบทั้ง 4 ชั้น — ผู้ใช้ใหม่รู้ขอบเขตก่อนรันจริง"""
+
+    def test_inventory_covers_all_layers(self):
+        import io as _io
+        from contextlib import redirect_stdout
+        buf = _io.StringIO()
+        with redirect_stdout(buf):
+            rc = q.main(["x", "--list-rules"])
+        out = buf.getvalue()
+        self.assertEqual(rc, 0)
+        for section in ("ชั้นแก้อัตโนมัติ", "ชั้นแจ้งเตือน", "โหมด CSV", "ความปลอดภัยไฟล์",
+                        "mai-yamok-laughter", "thue-without-ng-m", "ฎ/ฏ สะกดผิด",
+                        "mispaste-suspect", "กับดัก MT"):
+            self.assertIn(section, out)
+
+
 if __name__ == "__main__":
     unittest.main()

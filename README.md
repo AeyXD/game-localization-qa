@@ -160,7 +160,7 @@ python3 checker/thai_qa.py translation.txt --fix --report review.csv
 # ไฟล์ CSV ระบุคอลัมน์ต้นฉบับ/คำแปล (เปิดการตรวจบทหลุดแปล)
 python3 checker/thai_qa.py strings.csv --csv --source-col 1 --target-col 3 --fix
 
-# ดูกฎทั้งหมดที่โหลดจาก data
+# ดูสิ่งที่ตรวจทั้งหมด 4 ชั้น (auto-fix / แจ้งเตือน / CSV / ความปลอดภัยไฟล์)
 python3 checker/thai_qa.py x --list-rules
 
 # รันชุดทดสอบ

@@ -433,6 +433,64 @@ def write_report(path, report):
     Path(path).write_bytes(buf.getvalue().encode("utf-8-sig"))
 
 
+def print_rule_inventory(data):
+    """แสดงสิ่งที่ checker ตรวจทั้งหมด 4 ชั้น — ให้ผู้ใช้เห็นขอบเขตการตรวจก่อนรันจริง"""
+    from collections import Counter
+
+    print("📋 Thai QA Checker — สิ่งที่ตรวจทั้งหมด (โหลดจาก data/*.json อัตโนมัติ)")
+    print("")
+    print("🔧 ชั้นแก้อัตโนมัติ (auto-fix)")
+    print("  ▸ อักขรวิธีไทย — %d กฎ:" % len(data.ortho["typography_engine"]))
+    for r in data.ortho["typography_engine"]:
+        if r["id"] not in HANDLERS:
+            mark = "❌ ยังไม่มี handler"
+        else:
+            mark = "✅" if r.get("auto_fix", True) else "⚠️ แจ้งเตือนเท่านั้น"
+        print("      %-24s %s %s" % (r["id"], mark, r["name"]))
+
+    print("  ▸ ไม้ยมก (ๆ) — %d กฎ:" % len(data.ortho["mai_yamok"]["rules"]))
+    for r in data.ortho["mai_yamok"]["rules"]:
+        ex = r.get("examples", {})
+        desc = ("%s ➔ %s" % (ex["wrong"][0], ex["right"][0])
+                if ex.get("wrong") and ex.get("right") else r["fix"])
+        print("      %-24s %s %s" % (r["id"], "✅" if r.get("auto_fix") else "⚠️ ", desc))
+
+    print("  ▸ กฎมีข้อยกเว้น — %d กฎ:" % len(data.conditional_fixes))
+    for _rx, repl, rule in data.conditional_fixes:
+        print("      %-24s ✅ %s ➔ %s" % (rule["id"], rule["detect"], repl))
+
+    groups = Counter(rule for _w, _r, rule, _n, _g in data.pair_fixes)
+    labels = {"ror-tor-misspelling": "ฎ/ฏ สะกดผิด",
+              "word-split-rejoining": "ผสานคำที่ถูกวรรคคั่น",
+              "common-misspelling": "คำทับศัพท์สะกดผิด"}
+    print("  ▸ คู่คำสะกดผิด — %d คู่ (แทนที่ single-pass ยาว→สั้น กันกฎทับซ้อน):" % len(data.pair_fixes))
+    for rule, n in groups.most_common():
+        exs = ["%s ➔ %s" % (w, r) for w, r, rl, _n, _g in data.pair_fixes if rl == rule][:2]
+        print("      %-22s %2d คู่ — %s" % (labels.get(rule, rule), n, ", ".join(exs)))
+
+    print("")
+    print("⚠️  ชั้นแจ้งเตือน (flag — แจ้งเพื่อให้คน/AI ตัดสิน ไม่แก้อัตโนมัติ)")
+    print("      (รวมกฎ ⚠️ ในกลุ่มอักขรวิธีข้างบน: orphan-mark, html-tag-separation, mai-yamok-orphan)")
+    cjk_ex = next(iter(data.cjk_hints.items()))
+    print("  ▸ อักษร CJK ตกค้าง — %d คำ พร้อมคำแปลแนะนำ (เช่น %s = %s)"
+          % (len(data.cjk_hints), cjk_ex[0], cjk_ex[1]))
+    cats = Counter(e["category"] for e in data.traps["entries"])
+    print("  ▸ กับดัก MT — %d รายการ (%s)"
+          % (len(data.traps["entries"]),
+             " · ".join("%s %d" % (c, n) for c, n in sorted(cats.items()))))
+
+    print("")
+    print("📄 โหมด CSV (ใช้ --csv --source-col N --target-col M)")
+    print("      empty-target        ช่องคำแปลว่างทั้งที่มีต้นฉบับ")
+    print("      untranslated-leak   คำแปลเหมือนต้นฉบับอังกฤษ 100% (ยังไม่ได้แปล)")
+    print("      length-anomaly      อัตราส่วนความยาว ไทย/อังกฤษ นอกช่วง 0.2-3.5")
+    print("      mispaste-suspect    คำแปลยาวซ้ำกันแต่ต้นฉบับอังกฤษต่างกันชัด (สงสัยวางผิดแถว)")
+
+    print("")
+    print("🛡️  ความปลอดภัยไฟล์ (ทุกโหมด): รักษา BOM/newline เดิม · จำนวนบรรทัดคงเดิม 100% · "
+          "atomic write · ไม่แตะแท็กเกม ({0}, %s, <COLOR>, <br>)")
+
+
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
@@ -455,20 +513,15 @@ def main(argv=None):
                    help="หมายเลขคอลัมน์คำแปล (1-based, default: 2)")
     p.add_argument("--data-dir", default=str(DEFAULT_DATA_DIR), help="โฟลเดอร์ data/*.json")
     p.add_argument("--report", metavar="CSV", help="เขียนรายงาน Audit Trail เป็นไฟล์ CSV")
-    p.add_argument("--list-rules", action="store_true", help="แสดงกฎทั้งหมดที่โหลดจาก data")
+    p.add_argument("--list-rules", action="store_true",
+                   help="แสดงสิ่งที่ตรวจทั้งหมด 4 ชั้น (auto-fix / แจ้งเตือน / โหมด CSV / ความปลอดภัยไฟล์)")
     p.add_argument("--quiet", action="store_true", help="พิมพ์แค่สรุปผล")
     args = p.parse_args(argv)
 
     data = QAData(args.data_dir)
 
     if args.list_rules:
-        print("📋 Typography engine (%d กฎ):" % len(data.ortho["typography_engine"]))
-        for r in data.ortho["typography_engine"]:
-            status = "✅ auto-fix" if r["id"] in HANDLERS and not r.get("auto_fix") is False else \
-                     ("⚠️ flag-only" if r["id"] in HANDLERS else "❌ ยังไม่มี handler")
-            print("  - %-24s %s" % (r["id"], status))
-        print("📋 คู่คำ auto-fix: %d รายการ | กับดัก MT: %d รายการ | CJK: %d รายการ"
-              % (len(data.pair_fixes), len(data.trap_scan), len(data.cjk_hints)))
+        print_rule_inventory(data)
         return 0
 
     report, unknown_rules = [], set()
