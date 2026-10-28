@@ -130,6 +130,25 @@ class TestRejoining(unittest.TestCase):
         self.assertEqual(fixed, "การลอบสังหาร")
 
 
+class TestCommonMisspellings(unittest.TestCase):
+    """คำทับศัพท์สะกดผิดตามหลักเกณฑ์ราชบัณฑิตยสภา 2561 (data/thai-orthography.json)"""
+
+    def test_gam_karan_excess(self):
+        fixed, issues = fix("เปิดเกมม์ใหม่อีกครั้ง")
+        self.assertEqual(fixed, "เปิดเกมใหม่อีกครั้ง")
+        self.assertTrue(any(i["rule"] == "common-misspelling" for i in issues))
+
+    def test_tion_chan(self):
+        fixed, _ = fix("อัปเดตเวอร์ชั่นใหม่ของเกม")
+        self.assertEqual(fixed, "อัปเดตเวอร์ชันใหม่ของเกม")
+
+    def test_correct_karan_not_overfixed(self):
+        text = "โหมดแอ็กชันของเกมเวอร์ชันล่าสุด"
+        fixed, issues = fix(text)
+        self.assertEqual(fixed, text)
+        self.assertFalse([i for i in issues if i["fixed"]])
+
+
 class TestMtTrapScan(unittest.TestCase):
     def test_strike_trap(self):
         _, issues = fix("การโจมตีแบบนัดหยุดงาน")

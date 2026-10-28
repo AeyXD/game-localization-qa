@@ -16,11 +16,11 @@ description: Master protocol for game translation Quality Assurance (The 7 QA Pi
 | ลักษณะงาน | ไฟล์ที่ต้องอ่านก่อนลงมือ |
 | :--- | :--- |
 | สรรพนาม / บุคลิกตัวละคร | `references/pillar-1-persona-pronouns.md` + `data/pronouns-matrix.json` |
-| ขัดเกลาสำนวน / idiom / tone | `references/pillar-2-context-tone.md` + `data/mt-traps.json` (category: `idiom`) |
-| ชื่อสกิล / เวท / กลไกการต่อสู้ | `references/pillar-3-skills-spells.md` + `data/transliteration.json` + `data/mt-traps.json` (`skill-name`, `skill-mechanics`) |
+| ขัดเกลาสำนวน / idiom / tone / cultural review | `references/pillar-2-context-tone.md` + `data/mt-traps.json` (category: `idiom`) |
+| ชื่อสกิล / เวท / ทับศัพท์ / กลไกการต่อสู้ | `references/pillar-3-skills-spells.md` + `data/transliteration.json` + `data/mt-traps.json` (`skill-name`, `skill-mechanics`) |
 | ไอเท็ม / อาวุธปืน / ศัพท์ระบบ / Checkpoint | `references/pillar-4-items-firearms.md` + `data/mt-traps.json` (`checkpoint`, `firearms-item`, `fantasy-item`) |
 | ชื่อเควสต์ / ความสอดคล้อง | `references/pillar-5-quest-consistency.md` + `data/mt-traps.json` (`quest-title`, `quest-rule`) |
-| บทหลุด / สระลอย / ฎ-ฏ / ๆ / CJK | `references/pillar-6-leak-typography.md` + `data/thai-orthography.json` + `data/cjk-residue.json` + `data/sound-cues.json` |
+| บทหลุด / สระลอย / ฎ-ฏ / ๆ / CJK / ความยาว UI / จังหวะซับ | `references/pillar-6-leak-typography.md` + `data/thai-orthography.json` + `data/cjk-residue.json` + `data/sound-cues.json` |
 | Codex / หนังสือ / บันทึกในเกม | `references/pillar-7-codex-readables.md` + `data/mt-traps.json` (`codex-readable`) |
 | **ทุกงานที่แตะไฟล์แปลจริง** | ทำตาม 🛠️ Autonomous Execution Workflow ด้านล่างเสมอ |
 | วัดผล / ทดสอบสกิลหรือเครื่องมือ | `eval/run_eval.py` (`selftest`, `checker`, `template`, `translations`) + `eval/cases.json` |

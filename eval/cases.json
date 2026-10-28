@@ -62,6 +62,9 @@
     { "id": "codex-tusk-ganesh", "pillar": 7, "category": "codex-readable", "source": "The Tusk of Ganesh", "context": "ชื่อวัตถุโบราณในบันทึก", "bad_mt": "ทัสก์ของคเณศ", "accept": ["งาพระคเณศ", "งาพระพิฆเนศ"], "reject": ["ทัสก์"], "checker_testable": true },
     { "id": "codex-hoysala", "pillar": 7, "category": "codex-readable", "source": "Inscriptions from the Hoysala Empire.", "context": "บันทึกประวัติศาสตร์อินเดีย", "bad_mt": "จารึกจากจักรวรรดิฮอยซาลา", "accept": ["โฮยซาลา"], "reject": ["ฮอยซาลา"], "checker_testable": true },
     { "id": "codex-swiftsure", "pillar": 7, "category": "codex-readable", "source": "The pirate warship Swiftsure.", "context": "บันทึกประวัติศาสตร์เรือสลัด", "bad_mt": "เรือแน่นอนของพวกโจรสลัด", "accept": ["สวิฟต์ชัวร์"], "reject": ["แน่นอน"], "checker_testable": true },
-    { "id": "codex-pate-poulet", "pillar": 7, "category": "codex-readable", "source": "mon pâté de poulet <3", "context": "จดหมายรักบอกลาภาษาฝรั่งเศส", "bad_mt": "ไก่พายของฉัน <3", "accept": ["พายไก่น้อยของฉัน"], "reject": ["ไก่พาย"], "checker_testable": true }
+    { "id": "codex-pate-poulet", "pillar": 7, "category": "codex-readable", "source": "mon pâté de poulet <3", "context": "จดหมายรักบอกลาภาษาฝรั่งเศส", "bad_mt": "ไก่พายของฉัน <3", "accept": ["พายไก่น้อยของฉัน"], "reject": ["ไก่พาย"], "checker_testable": true },
+
+    { "id": "cultural-rating-g", "pillar": 2, "category": "cultural", "source": "What the hell is this place?", "context": "เกมเรตทั่วไป (All Ages) — ห้ามคำหยาบทุกรูปตามข้อกำหนดเรตติ้ง", "bad_mt": "มึงดูสิ ที่นี่มันที่ไหนวะเนี่ย", "accept": ["ที่ไหนนะ", "ที่ไหนกัน"], "reject": ["มึง", "วะ"], "checker_testable": false },
+    { "id": "translit-version-chan", "pillar": 3, "category": "transliteration", "source": "New game version available.", "context": "คำลงท้าย -tion ต้องเป็น 'ชัน' ไม่ใช่ 'ชั่น' (หลักเกณฑ์ราชบัณฑิตยสภา 2561)", "bad_mt": "มีเวอร์ชั่นใหม่ของเกมม์พร้อมให้เล่น", "accept": ["เวอร์ชัน"], "reject": ["เวอร์ชั่น", "เกมม์"], "checker_testable": true }
   ]
 }

@@ -125,6 +125,10 @@ class QAData:
         for p in self.ortho["word_split_rejoining"]["known_pairs"]:
             self.pair_fixes.append((p["wrong"], p["right"], "word-split-rejoining",
                                     "คำถูกวรรคคั่นกลางคำ (%s ➔ %s)" % (p["wrong"], p["right"]), ""))
+        for p in self.ortho.get("common_misspellings", {}).get("pairs", []):
+            self.pair_fixes.append((p["wrong"], p["right"], "common-misspelling",
+                                    "คำทับศัพท์สะกดผิด (%s ➔ %s)" % (p["wrong"], p["right"]),
+                                    p.get("guard", "")))
         self.pair_fixes.sort(key=lambda t: len(t[0]), reverse=True)
         self.pair_pattern = re.compile("|".join(
             g + re.escape(w) for w, _, _, _, g in self.pair_fixes))
