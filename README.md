@@ -156,6 +156,27 @@ python3 -m unittest discover -s checker
 
 ---
 
+## 📊 ชุดทดสอบและการวัดผล (Eval Set & Harness)
+
+`eval/cases.json` เก็บเคสทดสอบ 48 เคสครบทั้ง 7 เสาหลัก (ต้นฉบับ + คำแปล MT ที่ตกกับดัก + เกณฑ์ accept/reject) ใช้ได้ 2 วัตถุประสงค์:
+
+**1. Safety net กัน regression เมื่ออัปเกรดกฎ** — วัดว่า checker ยังจับกับดักที่รู้จักทั้งหมดได้ (baseline ปัจจุบัน: **100%**):
+```bash
+python3 eval/run_eval.py selftest    # ตรวจความสอดคล้องของชุดเคสเอง
+python3 eval/run_eval.py checker     # วัด trap-coverage ของ checker (threshold 95%)
+```
+
+**2. วัดผล AI "มีสกิล vs ไม่มีสกิล" (A/B testing):**
+```bash
+python3 eval/run_eval.py template /tmp/no_skill.csv   # ให้ AI ชุด A แปลโดยไม่ให้อ่านสกิล
+python3 eval/run_eval.py template /tmp/with_skill.csv # ให้ AI ชุด B อ่าน SKILL.md + references + data ก่อนแปล
+python3 eval/run_eval.py translations /tmp/no_skill.csv     # ให้คะแนนแต่ละชุดแล้วเทียบกัน
+python3 eval/run_eval.py translations /tmp/with_skill.csv --min-score 90
+```
+เกณฑ์การให้คะแนนอัตโนมัติ: คำแปลต้องมีอย่างน้อยหนึ่งรูปจาก `accept` และไม่มีสตริงใดจาก `reject` — ผลจะแยกตามเสาหลักพร้อมรายละเอียดเคสที่ไม่ผ่าน
+
+---
+
 ## 🔄 Continuous Evolution & Self-Upgrade Protocol
 
 สกิลนี้ถูกออกแบบให้มี **ระบบอัปเกรดตัวเองอย่างต่อเนื่อง (Self-Upgrade Protocol)**  

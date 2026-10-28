@@ -23,6 +23,7 @@ description: Master protocol for game translation Quality Assurance (The 7 QA Pi
 | บทหลุด / สระลอย / ฎ-ฏ / ๆ / CJK | `references/pillar-6-leak-typography.md` + `data/thai-orthography.json` + `data/cjk-residue.json` + `data/sound-cues.json` |
 | Codex / หนังสือ / บันทึกในเกม | `references/pillar-7-codex-readables.md` + `data/mt-traps.json` (`codex-readable`) |
 | **ทุกงานที่แตะไฟล์แปลจริง** | ทำตาม 🛠️ Autonomous Execution Workflow ด้านล่างเสมอ |
+| วัดผล / ทดสอบสกิลหรือเครื่องมือ | `eval/run_eval.py` (`selftest`, `checker`, `template`, `translations`) + `eval/cases.json` |
 
 **⭐ กฎเหล็กสากลที่ต้องยึดทุกงาน (ไม่ต้องรอเปิด reference):**
 1. อ่าน ตรวจ และแปล **ทุกประโยค ทุกบรรทัด 100%** ห้ามข้าม ห้ามย่อความ ห้ามแต่งเติมเอง
@@ -113,4 +114,4 @@ sequenceDiagram
    - 📍 **Global Agent Skill:** ไฟล์ skill ที่ติดตั้งจริงของ agent ที่ใช้งาน เช่น `~/.gemini/config/skills/game-localization-qa/` (Windows: `%USERPROFILE%\.gemini\config\skills\...`) หรือ `~/.claude/skills/game-localization-qa/`
    - 📍 **Central Modding Knowledge:** คลังความรู้กลางของทีม/ส่วนตัว เช่น `<KNOWLEDGE_BASE>/Modding-Knowledge/Skills/game-localization-qa/`
    - 📍 **Master Techniques Guide:** คู่มือเทคนิคหลักของโปรเจกต์ เช่น `<KNOWLEDGE_BASE>/Techniques/Thai_Game_Localization_QA_and_Gaming_Terminology_Guide.md`
-4. **อัปเกรดเครื่องตรวจใน repo นี้ทันที:** กฎแบบคู่คำใหม่ใน `data/*.json` ใช้ได้กับ `checker/thai_qa.py` ทันทีโดยไม่ต้องแก้โค้ด — ส่วนกฎ regex โครงสร้างใหม่ต้องเพิ่ม handler ใน `checker/thai_qa.py` ด้วย แล้วรัน `python3 -m unittest discover -s checker` ยืนยันว่าไม่มี Regression (ผู้ใช้ TStudio ให้อัปเดต `tstudio_lite/qa/thai_checker.py` และ `tstudio-web/src/lib/qa/thaiChecker.ts` ด้วยลอจิกเดียวกัน)
+4. **อัปเกรดเครื่องตรวจใน repo นี้ทันที:** กฎแบบคู่คำใหม่ใน `data/*.json` ใช้ได้กับ `checker/thai_qa.py` ทันทีโดยไม่ต้องแก้โค้ด — ส่วนกฎ regex โครงสร้างใหม่ต้องเพิ่ม handler ใน `checker/thai_qa.py` ด้วย แล้วรัน `python3 -m unittest discover -s checker` ยืนยันว่าไม่มี Regression และรัน `python3 eval/run_eval.py selftest && python3 eval/run_eval.py checker` ยืนยันว่า trap-coverage ไม่ตก (ผู้ใช้ TStudio ให้อัปเดต `tstudio_lite/qa/thai_checker.py` และ `tstudio-web/src/lib/qa/thaiChecker.ts` ด้วยลอจิกเดียวกัน)

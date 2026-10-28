@@ -90,7 +90,7 @@
 
     { "id": "saddle-up-for", "pillar": 5, "category": "quest-title", "source": "Saddle Up for <Location>", "correct": ["มุ่งหน้าสู่...", "เตรียมบุกสู่..."], "forbidden": ["อานม้าสู่..."], "context": "เกมยุคปัจจุบัน/ไม่มีม้า" },
     { "id": "boardwalk", "pillar": 5, "category": "quest-title", "source": "Boardwalk / Boardwalking Dead", "correct": ["ทางเดินเลียบหาด", "ซอมบี้เลียบหาด"], "forbidden": ["เดินกระดาน"] },
-    { "id": "creature-comforts", "pillar": 5, "category": "quest-title", "source": "Creature Comforts", "correct": ["สิ่งอำนวยความสุขสำราญ", "ของใช้สำราญใจ"], "forbidden": ["ความสบายของสัตว์ประหลาย"] },
+    { "id": "creature-comforts", "pillar": 5, "category": "quest-title", "source": "Creature Comforts", "correct": ["สิ่งอำนวยความสุขสำราญ", "ของใช้สำราญใจ"], "forbidden": ["ความสบายของสัตว์ประหลาด"] },
     { "id": "scooped", "pillar": 5, "category": "quest-title", "source": "Scooped!", "correct": "ชิงข่าวเด็ด!", "forbidden": ["ตักมาแล้ว!"], "context": "บริบทนักข่าว/สื่อมวลชน" },
     { "id": "blood-drive", "pillar": 5, "category": "quest-title", "source": "Blood Drive", "correct": ["บลัดไดรฟ์", "ปฏิบัติการบลัดไดรฟ์"], "forbidden": ["เครื่องเจาะเลือด"], "context": "อุปกรณ์ตรวจเลือดทางวิทยาศาสตร์" },
     { "id": "drunk-and-disorderly", "pillar": 5, "category": "quest-title", "source": "Drunk and Disorderly", "correct": "เมาแล้วอาละวาด", "forbidden": ["เมาแล้วไม่เป็นระเบียบ"], "note": "ตามข้อหาคดีอาญา" },
