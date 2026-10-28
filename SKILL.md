@@ -81,6 +81,7 @@ sequenceDiagram
 ```
 
 ### รายการตรวจสอบเชิงเทคนิคสำหรับ Python Script (Technical Checklist)
+- **ใช้เครื่องตรวจสำเร็จรูปก่อนเขียนสคริปต์เอง:** `python3 checker/thai_qa.py <ไฟล์> [--fix] [--csv --source-col N --target-col N] [--report review.csv]` — โหลดกฎทั้งหมดจาก `data/*.json` อัตโนมัติ (ทดสอบด้วย `python3 -m unittest discover -s checker`)
 - **แก้ปัญหา cp1252 บน Windows Terminal:**
   ```python
   import io, sys
@@ -112,4 +113,4 @@ sequenceDiagram
    - 📍 **Global Agent Skill:** ไฟล์ skill ที่ติดตั้งจริงของ agent ที่ใช้งาน เช่น `~/.gemini/config/skills/game-localization-qa/` (Windows: `%USERPROFILE%\.gemini\config\skills\...`) หรือ `~/.claude/skills/game-localization-qa/`
    - 📍 **Central Modding Knowledge:** คลังความรู้กลางของทีม/ส่วนตัว เช่น `<KNOWLEDGE_BASE>/Modding-Knowledge/Skills/game-localization-qa/`
    - 📍 **Master Techniques Guide:** คู่มือเทคนิคหลักของโปรเจกต์ เช่น `<KNOWLEDGE_BASE>/Techniques/Thai_Game_Localization_QA_and_Gaming_Terminology_Guide.md`
-4. **(เมื่อมี QA checker script ในระบบ)** อัปเดต Regex/Auto-fix ใน `tstudio_lite/qa/thai_checker.py` และ `tstudio-web/src/lib/qa/thaiChecker.ts` แล้วรัน Test Suite ยืนยันว่าไม่มี Regression
+4. **อัปเกรดเครื่องตรวจใน repo นี้ทันที:** กฎแบบคู่คำใหม่ใน `data/*.json` ใช้ได้กับ `checker/thai_qa.py` ทันทีโดยไม่ต้องแก้โค้ด — ส่วนกฎ regex โครงสร้างใหม่ต้องเพิ่ม handler ใน `checker/thai_qa.py` ด้วย แล้วรัน `python3 -m unittest discover -s checker` ยืนยันว่าไม่มี Regression (ผู้ใช้ TStudio ให้อัปเดต `tstudio_lite/qa/thai_checker.py` และ `tstudio-web/src/lib/qa/thaiChecker.ts` ด้วยลอจิกเดียวกัน)

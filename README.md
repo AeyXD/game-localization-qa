@@ -129,6 +129,33 @@ Copy-Item "SKILL.md","references","data" -Recurse -Force -Destination "$env:USER
 
 ---
 
+## 🤖 เครื่องมือตรวจสอบอัตโนมัติ (Thai QA Checker)
+
+ตัวสแกน/แก้ไขอัตโนมัติที่โหลดกฎทั้งหมดจาก `data/*.json` — Python 3 มาตรฐาน ไม่ต้องติดตั้ง dependency เพิ่ม:
+
+```bash
+# สแกนอย่างเดียว (dry-run)
+python3 checker/thai_qa.py path/to/translation.txt
+
+# สแกน + แก้อัตโนมัติ + บันทึก Audit Trail
+python3 checker/thai_qa.py translation.txt --fix --report review.csv
+
+# ไฟล์ CSV ระบุคอลัมน์ต้นฉบับ/คำแปล (เปิดการตรวจบทหลุดแปล)
+python3 checker/thai_qa.py strings.csv --csv --source-col 1 --target-col 3 --fix
+
+# ดูกฎทั้งหมดที่โหลดจาก data
+python3 checker/thai_qa.py x --list-rules
+
+# รันชุดทดสอบ
+python3 -m unittest discover -s checker
+```
+
+- **แก้อัตโนมัติ:** สระเอซ้อน (เเ➔แ), วรรณยุกต์สลับที่, วรรณยุกต์หลังสระอำ, สระ/วรรณยุกต์ซ้ำ, ฎ/ฏ, ช่องว่างไม้ยมก (ๆ), การผสานคำที่ถูกวรรคคั่น
+- **แจ้งเตือนให้คน/AI ตัดสิน:** กับดัก MT (เช่น "นัดหยุดงาน" ➔ ฟาดฟัน), อักษร CJK ตกค้าง (พร้อมคำแปลแนะนำ), ๆ ซ้อน, สระลอย, แท็กตัดแยกสระ, ช่องคำแปลว่าง/ไม่ได้แปล (โหมด CSV)
+- **ความปลอดภัยไฟล์:** รักษา BOM/newline เดิม, จำนวนบรรทัดคงเดิม 100%, เขียนทับแบบ atomic write, ไม่แตะแท็กเอนจิ้นเกม (`{0}`, `%s`, `<COLOR>`, `<br>`)
+
+---
+
 ## 🔄 Continuous Evolution & Self-Upgrade Protocol
 
 สกิลนี้ถูกออกแบบให้มี **ระบบอัปเกรดตัวเองอย่างต่อเนื่อง (Self-Upgrade Protocol)**  
