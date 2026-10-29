@@ -134,9 +134,13 @@ Copy-Item "SKILL.md","references","data" -Recurse -Force -Destination "$env:USER
 
 ---
 
-## 💡 ตัวอย่างการสั่งงาน AI (Usage Examples)
+## 📖 วิธีการใช้งาน (How to Use)
 
-เมื่อติดตั้งสกิลแล้ว คุณสามารถเรียกใช้ได้ทันทีด้วย Prompt เช่น:
+สกิลนี้ใช้ได้ 3 โหมดหลัก ขึ้นอยู่กับว่าคุณกำลังทำอะไรกับบทแปล:
+
+### โหมดที่ 1: แปลใหม่ — ให้ AI ใช้สกิลแปลตั้งแต่ต้น
+
+เปิด Claude Code / Gemini / Antigravity แล้วสั่งแปลด้วย prompt แบบนี้:
 
 ```markdown
 กรุณาตรวจแก้และขัดเกลาบทแปลของไฟล์นี้ด้วยสกิล game-localization-qa:
@@ -145,6 +149,84 @@ Copy-Item "SKILL.md","references","data" -Recurse -Force -Destination "$env:USER
 3. แยกแยะ Checkpoint ระหว่าง 'จุดเซฟ' กับ 'ด่านตรวจทหาร' ให้ถูกต้องตามบริบท
 4. ตรวจสอบสระลอย สระเอซ้อน (เ+เ) ฎ/ฏ ไม้ยมก (ๆ) และบทหลุดแปล 100%
 5. ห้ามลบหรือแก้ไขแท็กของ Game Engine เด็ดขาด
+```
+
+AI จะ:
+- เปิดอ่านเฉพาะ reference/data ที่เกี่ยวข้องตาม routing table (ไม่โหลดทุกอย่าง)
+- แปลตามหลักการ 7 เสาหลัก + หลักการแปลกลาง (แปลความ ไม่ใช่แปลทุกคำ)
+- เลือกสรรพนาม/ระดับภาษาตาม persona archetype ที่ใกล้เคียงที่สุด
+- ใช้ transcreation techniques ขัดเกลาประโยค (ตัดประธานซ้ำ, แปล idiom เป็นสำนวนไทย ฯลฯ)
+- รักษาแท็กเอนจิ้นเกม 100%
+
+### โหมดที่ 2: ตรวจแก้บทแปลเดิม — ใช้ checker อัตโนมัติ
+
+**สแกนก่อน (dry-run — ดูว่ามีปัญหาอะไรบ้าง ไม่แก้ไข):**
+
+```bash
+# ไฟล์ข้อความทั่วไป (.txt, .json)
+python3 checker/thai_qa.py ไฟล์แปล.txt
+
+# ไฟล์ CSV ที่มีคอลัมน์ EN + TH
+python3 checker/thai_qa.py strings.csv --csv --source-col 1 --target-col 2
+```
+
+**สแกน + แก้ไขอัตโนมัติ + รายงาน:**
+
+```bash
+python3 checker/thai_qa.py strings.csv \
+    --csv --source-col 1 --target-col 2 \
+    --fix \
+    --report review.csv
+```
+
+สิ่งที่เกิดขึ้น:
+- **แก้อัตโนมัติ:** สระลอย, ฎ/ฏ, ๆ, คำสะกดผิด, เสียงหัวเราะ
+- **แจ้งเตือนให้ตรวด:** กับดัก MT (ตรวจ source context ก่อนแจ้ง), บทหลุด, วางผิดแถว
+- **ปลอดภัย 100%:** BOM/newline/จำนวนบรรทัด/แท็กเกม คงเดิมเป๊ะ
+- **Audit Trail:** `review.csv` บันทึกทุกจุดที่แก้ — เปิดใน Excel ตรวจย้อนได้
+
+**ปิดกับดักที่ไม่เกี่ยวกับเกมของคุณ:**
+
+```bash
+# เช่น เกมแฟนตาซีที่มีแม่มดจริง — ปิดกับดัก winch
+python3 checker/thai_qa.py game.csv --csv --source-col 1 --target-col 2 \
+    --disable-trap winch --disable-trap piton
+```
+
+### โหมดที่ 3: ตรวจรอบสุดท้ายก่อนส่งมอบ
+
+ใช้ checklist มาตรฐานจาก `references/qa-checklist.md`:
+
+```
+□ ความหมาย/Logic ตรงต้นฉบับ 100%
+□ ระดับความแน่นอน ("อาจ" ≠ "จะ")
+□ สรรพนามถูกบุคลิก + สม่ำเสมอทั้งฉาก
+□ "คุณ" เฉพาะ UI/บทช่วยสอน
+□ น้ำเสียงเหมาะประเภทข้อความ
+□ ศัพท์ตรง Glossary ทั้งเกม
+□ ไม้ยมก/เสียงหัวเราะ/ป.ล. ถูกต้อง
+□ แท็ก/Syntax ครบ + [DEBUG] ไม่ต้องแปล
+□ รัน checker แล้วไม่เหลือ error
+□ บันทึกกับดักใหม่ลง data/*.json
+```
+
+### Self-Upgrade Protocol — สกิลโตเองจากการใช้งาน
+
+เมื่อแปลแล้วเจอกับดักใหม่ที่ data ยังไม่มี ให้ append เข้าไฟล์ข้อมูล:
+
+| ชนิดกับดักใหม่ | ไฟล์ที่เพิ่ม | ตัวอย่าง |
+| :--- | :--- | :--- |
+| คำแปลผิด/ศัพท์เกมใหม่ | `data/mt-traps.json` | MT แปล "chop" เป็น "ตะเกียบ" |
+| ชื่อเฉพาะ/ทับศัพท์ใหม่ | `data/transliteration.json` | ชื่อตัวละครใหม่ในเกม |
+| ฎ/ฏ, ๆ, วรรณยุกต์, คำสะกดผิด | `data/thai-orthography.json` | พบคำสะกดผิดใหม่จากงานจริง |
+| สรรพนาม/เสียงระบบใหม่ | `data/pronouns-matrix.json` | พบ pattern สรรพนามใหม่ |
+
+เพิ่ม 1 บรรทัด JSON → checker + eval ใช้กฎใหม่ทันที (ไม่ต้องแก้โค้ด) แล้วรันทดสอบยืนยัน:
+
+```bash
+python3 -m unittest discover -s checker    # 60 tests
+python3 eval/run_eval.py selftest          # 55 cases
+python3 eval/run_eval.py checker           # coverage ≥ 95%
 ```
 
 ---
@@ -178,7 +260,7 @@ python3 -m unittest discover -s checker
 
 ## 📊 ชุดทดสอบและการวัดผล (Eval Set & Harness)
 
-`eval/cases.json` เก็บเคสทดสอบ 48 เคสครบทั้ง 7 เสาหลัก (ต้นฉบับ + คำแปล MT ที่ตกกับดัก + เกณฑ์ accept/reject) ใช้ได้ 2 วัตถุประสงค์:
+`eval/cases.json` เก็บเคสทดสอบ 55 เคสครบทั้ง 7 เสาหลัก (ต้นฉบับ + คำแปล MT ที่ตกกับดัก + เกณฑ์ accept/reject) ใช้ได้ 2 วัตถุประสงค์:
 
 **1. Safety net กัน regression เมื่ออัปเกรดกฎ** — วัดว่า checker ยังจับกับดักที่รู้จักทั้งหมดได้ (baseline ปัจจุบัน: **100%**):
 ```bash
@@ -213,5 +295,5 @@ AI สามารถนำเทคนิคใหม่นั้นมา **ap
 
 ลิขสิทธิ์เผยแพร่ภายใต้สัญญาอนุญาต [MIT License](LICENSE)  
 พัฒนาและเรียบเรียงโดย **Danaiwit (memolyviza2012-max)** & Modder Community  
-ปรับปรุงเวอร์ชัน 1.1.0 (สถาปัตยกรรม data-driven, checker, eval, installer, เทคนิคตรวจคำจากงานแปลเกมจริง) โดย **Prawith T (AeyXD)**  
+ปรับปรุงเวอร์ชัน 1.1.0-1.2.0 (สถาปัตยกรรม data-driven, checker, eval, installer, แกนวรรณศิลป์) โดย **Prawith T (AeyXD)**  
 ดูประวัติเวอร์ชันทั้งหมดได้ที่ [CHANGELOG.md](CHANGELOG.md)
