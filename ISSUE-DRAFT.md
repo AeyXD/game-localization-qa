@@ -1,45 +1,45 @@
-# Issue Draft: ถาม upstream เรื่องความสนใจรับ content contributions
+# ร่าง Issue: สอบถาม upstream เรื่องความสนใจรับ content contributions
 
 > สถานะ: ร่าง — ยังไม่ส่ง
 
 ## Title
 ```
-Interest in content contributions? (ฎ/ฏ rules, cultural review, UI overflow, transliteration standard, translation principles)
+สนใจรับ content contributions ไหมครับ? (กฎ ฎ/ฏ, Cultural Review, หลักเกณฑ์ทับศัพท์, หลักการแปลกลาง)
 ```
 
 ## Body
 
 ---
 
-Hi! I forked this repo and have been working on it extensively. Before submitting PRs, I wanted to check if you're interested in receiving content contributions.
+สวัสดีครับ! ผม fork repo นี้ไปพัฒนาต่อแบบเต็มรูปแบบ ก่อนที่จะส่ง PR อยากถามก่อนว่าสนใจรับการเพิ่มเติมเนื้อหาไหมครับ
 
-**What I can contribute (as separate, focused PRs):**
+**สิ่งที่ผมมี (แยกเป็น PR เล็ก ๆ ได้):**
 
-1. **Thai orthography rules** — ฎ/ฏ misspelling blacklist (14 pairs with zero false-positive scan strings), common transliteration misspellings per Royal Institute 2561 (19 pairs), conditional-fix patterns (ทึ่→ที่ except ทึ่ง/ทึ่ม)
+1. **กฎอักขรวิธีไทย** — บัญชีดำ ฎ/ฏ สะกดผิด 14 คู่ (ปรากฎ→ปรากฏ, กฏ→กฎ ฯลฯ) + คำทับศัพท์สะกดผิดตามหลักเกณฑ์ราชบัณฑิตยสภา 2561 อีก 19 คำ (เกมม์→เกม, เวอร์ชั่น→เวอร์ชัน ฯลฯ) + กฎแก้แบบมีข้อยกเว้น (ทึ่→ที่ ยกเว้น ทึ่ง/ทึ่ม ที่เป็นคำจริง)
 
-2. **Four missing QA dimensions:**
-   - Cultural & Sensitivity Review (rating-aware language, flag topics for Thai market, LGBTQ+ handling)
-   - Royal Institute transliteration reference (การันต์ rules, -tion→ชัน, final-consonant mapping)
-   - UI Text Overflow (character budgets per UI element, meaning-preserving compression)
-   - Subtitle Timing & Reading Speed (Thai CPS ~15-17, line structure)
+2. **4 มิติ QA ที่ยังไม่มีในเวอร์ชันปัจจุบัน:**
+   - Cultural & Sensitivity Review (ระดับภาษาตามเรตติ้ง, หัวข้อต้องแจ้งธงสำหรับตลาดไทย)
+   - หลักเกณฑ์ทับศัพท์ราชบัณฑิตยสภา พ.ศ. 2561 (การันต์, -tion→ชัน, ตัวสะกดท้ายคำ)
+   - UI Text Overflow (งบตัวอักษรต่อองค์ประกอบ UI, เทคนิคย่อโดยคงความหมาย)
+   - Subtitle Timing (CPS สำหรับไทย ~15-17, โครงสร้างบรรทัด)
 
-3. **Universal translation principles** (from real project standards): sense-for-sense translation, modality preservation ("อาจ"≠"จะ"), intentional vs redundant repetition, dialogue choice fidelity, minimal-diff editing
+3. **หลักการแปลกลาง** (จากมาตรฐานโปรเจกต์แปลเกมจริง): แปลความไม่ใช่แปลทุกคำ, รักษาระดับความแน่นอน ("อาจ"≠"จะ"), แยกการซ้ำที่ตั้งใจจากคำซ้ำฟุ่มเฟือย, ตัวเลือกบทสนทนาห้ามเปลี่ยนน้ำหนัก, ตารางระดับภาษาตามประเภทข้อความ 8 ประเภท
 
-4. **Bug fixes** — broken markdown (stray backtick, inconsistent indentation), personal hard-coded paths replaced with portable ones
+4. **Bug fixes** — แก้ markdown เสีย (แบ็คทิกหลุด, ย่อหน้าบัญชีดำไม่สม่ำเสมอ) + เปลี่ยนพาธส่วนตัว (C:\Users\...) เป็นพาธแบบพกพา
 
-**What I kept separate (not PR-ing):**
-- Architecture restructuring (single file → multi-file data-driven)
-- QA checker tool + eval harness
-- Versioning/installer system
+**สิ่งที่แยกไว้ใน fork (ไม่ PR):**
+- ปรับสถาปัตยกรรมจากไฟล์เดียวเป็น multi-file data-driven
+- เครื่องมือ checker + eval harness
+- ระบบ versioning + installer
 
-These are available at my fork if you're interested: https://github.com/AeyXD/game-localization-qa
+ดูได้ที่ fork ของผม: https://github.com/AeyXD/game-localization-qa
 
-Would you prefer I send the content additions as PRs to this repo, or keep them in the fork? Happy to discuss what format works best for you.
+จะเหมาะสมไหมครับถ้าส่งเนื้อหาเพิ่มเติมเป็น PR เข้า repo นี้ หรือให้แยกไว้เป็น fork ต่างหากดี? ยินดีคุยกันครับว่ารูปแบบไหนเหมาะที่สุด
 
 ---
 
 ## หมายเหตุ (ไม่ได้เขียนใน issue แต่บันทึกไว้)
-- ถามก่อนเพื่อไม่เสียเวลาทำ branch ถ้า upstream ไม่สนใจ
-- ใช้ภาษาอังกฤษเพราะ upstream เขียน commit message ภาษาอังกฤษ
+- ใช้ภาษาไทยเพราะ upstream เป็นคนไทย (ชื่อ Danaiwit, commit message ภาษาอังกฤษแต่เนื้อหาโปรเจกต์เป็นไทยทั้งหมด)
 - เอ่ยถึง fork URL ให้ upstream เห็นภาพรวมได้ถ้าอยากดู
-- ไม่กดดัน — ให้ upstream เลือกได้ว่าจะรับ ไม่รับ หรือดูก่อน
+- ไม่กดดัน — ให้ upstream เลือกได้ว่าจะรับ ไม่รับ หรือขอดูก่อน
+- ถ้า upstream ตอบเป็นภาษาอังกฤษก็ switch ได้
