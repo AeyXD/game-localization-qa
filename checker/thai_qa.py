@@ -168,8 +168,14 @@ class QAData:
     def _load(self, name):
         path = self.dir / name
         if not path.exists():
-            sys.exit("❌ ไม่พบไฟล์ข้อมูลกฎ: %s (ใช้ --data-dir ระบุได้)" % path)
+            _fail("❌ ไม่พบไฟล์ข้อมูลกฎ: %s (ใช้ --data-dir ระบุได้)" % path)
         return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _fail(msg):
+    """พิมพ์ข้อผิดพลาดลง stderr แล้วออกด้วยรหัส 2 — แยกจาก 1 ที่สงวนไว้แจ้ง 'พบจุดที่ต้องตรวจในงานแปล'"""
+    print(msg, file=sys.stderr)
+    raise SystemExit(2)
 
 
 # ---------------------------------------------------------------------------
@@ -338,7 +344,7 @@ def read_text_safe(path):
     try:
         text = raw.decode("utf-8-sig" if has_bom else "utf-8")
     except UnicodeDecodeError as e:
-        sys.exit("❌ %s: ไม่ใช่ไฟล์ UTF-8 (%s) — ตรวจ encoding ของไฟล์ก่อนใช้เครื่องมือนี้" % (path, e))
+        _fail("❌ %s: ไม่ใช่ไฟล์ UTF-8 (%s) — ตรวจ encoding ของไฟล์ก่อนใช้เครื่องมือนี้" % (path, e))
     newline = "\r\n" if "\r\n" in text else "\n"
     return text, has_bom, newline
 
@@ -558,7 +564,7 @@ def main(argv=None):
         for f in args.files:
             path = Path(f)
             if not path.exists():
-                sys.exit("❌ ไม่พบไฟล์: %s" % path)
+                _fail("❌ ไม่พบไฟล์: %s" % path)
             if args.csv:
                 n, fixed, flag = run_csv_mode(path, args, data, report, unknown_rules)
                 unit = "แถว"
@@ -580,7 +586,7 @@ def main(argv=None):
     except SystemExit:
         raise
     except Exception as e:
-        sys.exit("❌ ข้อผิดพลาด: %s" % e)
+        _fail("❌ ข้อผิดพลาด: %s" % e)
 
     if unknown_rules:
         print("⚠️  กฎใน data ที่ยังไม่มี handler ใน checker (ต้องอัปเดตโค้ด): %s"

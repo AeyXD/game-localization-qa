@@ -335,6 +335,18 @@ class TestFileSafety(unittest.TestCase):
         rc = q.main([str(f), "--quiet"])
         self.assertEqual(rc, 0)
 
+    def test_missing_file_exits_two(self):
+        with self.assertRaises(SystemExit) as cm:
+            q.main([str(self.dir / "ไม่มีไฟล์นี้.txt")])
+        self.assertEqual(cm.exception.code, 2)
+
+    def test_non_utf8_file_exits_two(self):
+        f = self.dir / "bad_encoding.txt"
+        f.write_bytes(b"\xff\xfe\x00ok")
+        with self.assertRaises(SystemExit) as cm:
+            q.main([str(f)])
+        self.assertEqual(cm.exception.code, 2)
+
     def test_csv_mode_fix_and_leak_detection(self):
         f = self.dir / "t.csv"
         buf = io.StringIO()
