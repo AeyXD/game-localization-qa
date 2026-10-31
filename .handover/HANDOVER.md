@@ -1,0 +1,41 @@
+# HANDOVER — game-localization-qa
+
+**snapshot:** 2026-10-31 (อัปเดตโดย agent session หลัง commit AGENTS.md + .handover/)
+**สถานะ git:** `main` สะอาด sync origin · v1.2.0 · `AGENTS.md` + `.handover/` track ใน repo แล้ว (fork-only)
+
+## งานค้าง (สำคัญที่สุดของ repo นี้)
+
+1. **รอคำสั่งเจ้าของก่อนเริ่ม PR กลับ upstream — ห้าม agent เริ่มเอง** (กฎ ⛔ ใน AGENTS.md ข้อ 5)
+   - แผนพร้อมแล้วแบ่งเป็น 4 PR ตามลำดับ dependency ใน `UPSTREAM-PR-PLAN.md`
+   - ฉบับที่เสนอให้ upstream อ่านอยู่ที่ `ISSUE-DRAFT.md` (ภาษาไทย)
+   - สถานะปัจจุบัน (ตรวจ 2026-10-31): **เปิด issue ถาม upstream แล้ว** —
+     [upstream issue #1](https://github.com/memolyviza2012-max/game-localization-qa/issues/1)
+     "ถามเรื่องการส่ง PR กลับมาครับ..." (เปิด 30/10/2026 08:09 โดย AeyXD) · **OPEN, ยังไม่มีคอมเมนต์ตอบ**
+     → แม้ upstream ตอบตกลง ก็ยังต้องรอคำสั่งเจ้าของอีกชั้นก่อนเริ่ม PR แรก
+     (สร้าง branch จาก `upstream/main` ตามคำสั่งในแผน ไม่ใช่จาก main ของ fork ·
+     `AGENTS.md` + `.handover/` เป็นไฟล์เฉพาะ fork ห้ามรวมใน PR กลับ upstream เด็ดขาด)
+   - สถานะ remote + divergence (ตรวจ 2026-10-30): เพิ่ม remote `upstream`
+     (https://github.com/memolyviza2012-max/game-localization-qa) แล้ว ·
+     **fork นำหน้า 33 commits / ตามหลัง 0** — upstream นิ่งตั้งแต่จุด fork
+   - โครงสร้างเราต่างจาก upstream โดยตั้งใจ: upstream = `SKILL.md` เดี่ยว 429 บรรทัด ·
+     เรา = `SKILL.md` 120 บรรทัด (router) + `references/` + `data/` รวม ~2,793 บรรทัด →
+     ทุก PR ต้อง "แปลงกลับ" เนื้อหาเข้ารูปแบบไฟล์เดียวของ upstream (แผนกำหนดไว้แล้ว)
+2. **เส้นทางในภาพรวม workspace:** เชื่อม `checker/thai_qa.py` เป็นขั้น QA ของ TStudio
+   (หลังแปล ก่อน deploy) — ฝั่ง THub-Launcher task เป็นผู้ integrate ·
+   repo นี้ดูแลด้าน CLI ให้เสถียร/ใช้ง่าย
+
+## สิ่งที่ทำล่าสุด (ก่อน snapshot นี้)
+
+- **2026-10-31:** เจ้าของสั่ง commit `AGENTS.md` + `.handover/` เข้า repo (แบบเดียวกับ THub-Launcher)
+  พร้อมเสริมกฎ ⛔ ลง AGENTS.md ข้อ 5 (รอคำสั่งเจ้าของเท่านั้น + ไฟล์ fork-only) — push origin แล้ว
+- ทยอยขัดเกลาเอกสาร upstream-PR จนครบชุด: แปล issue draft เป็นไทย → ลดความยาว →
+  จัดโครง 4 PR → เพิ่มตัวอย่างจริงทุกหัวข้อ → fix typo ถ่ายทอบ→ถ่ายทอด
+- CI ครบชุด: tests + eval + JSON validation ทุก push/PR
+
+## วิธีทดสอบ (ตรงกับ CI)
+
+```bash
+python3 -m unittest discover -s checker -v
+python3 eval/run_eval.py selftest
+python3 eval/run_eval.py checker --min-coverage 95
+```
