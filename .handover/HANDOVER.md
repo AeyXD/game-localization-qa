@@ -20,12 +20,33 @@
    - โครงสร้างเราต่างจาก upstream โดยตั้งใจ: upstream = `SKILL.md` เดี่ยว 429 บรรทัด ·
      เรา = `SKILL.md` 120 บรรทัด (router) + `references/` + `data/` รวม ~2,793 บรรทัด →
      ทุก PR ต้อง "แปลงกลับ" เนื้อหาเข้ารูปแบบไฟล์เดียวของ upstream (แผนกำหนดไว้แล้ว)
-2. **เส้นทางในภาพรวม workspace:** เชื่อม `checker/thai_qa.py` เป็นขั้น QA ของ TStudio
-   (หลังแปล ก่อน deploy) — ฝั่ง THub-Launcher task เป็นผู้ integrate ·
-   repo นี้ดูแลด้าน CLI ให้เสถียร/ใช้ง่าย
+2. **งานเสริมจากสเปก QA bridge (ไม่ blocking):** เขียน exit-code convention
+   (0 = สะอาด · 1 = มีจุดเตือน · ≥2 = รันไม่สำเร็จ) ลง README — ตรวจ 31/10 ยังไม่มี ·
+   (nice-to-have) flag `--json` คืนสรุป structured เพื่อไม่ต้อง parse stdout
+   (ตอนนี้ฝั่ง TStudio parse บรรทัด "รวม:" จาก stdout — ใช้ได้แต่เปราะถ้า format เปลี่ยน)
+
+## 📨 แจ้งต่อ workspace task → โปรดส่งต่อ THub-Launcher task (พบ 31/10 ค่ำ)
+
+**Bug: dialog ผล QA เปิดไม่ได้ — `QHBoxLayout` ไม่ถูก import (NameError ตอน runtime)**
+
+- **ไฟล์/จุด:** `THub-Launcher/tools/flagship/TStudio/tstudio_qa_bridge.py:125`
+  (`btn_row = QHBoxLayout()`) แต่รายการ import `PyQt6.QtWidgets` (บรรทัด 15–18)
+  ไม่มี `QHBoxLayout` — grep ทั้งไฟล์ยืนยัน คำนี้ปรากฏจุดเดียวคือจุดใช้งาน
+- **อาการ:** กดเมนู Tools → ตรวจ QA คำแปล (dry-run) → `QaResultDialog` สร้างไม่ผ่าน
+  (จุดเรียก `tstudio_app.py:5361` ไม่มี try/except ครอบ) → หน้าต่างผลไม่ขึ้น
+- **ยังทำงานปกติ:** checker subprocess · เส้นทาง `--fix` (ไม่สร้าง dialog) ·
+  QA gate ก่อน deploy (เรียก `run_checker` ตรง ๆ)
+- **วิธีแก้ (บรรทัดเดียว):** เพิ่ม `QHBoxLayout` เข้ารายการ import บรรทัด 15–18
+- **ผลกระทบต่อ acceptance:** ข้อ 1 ของ `docs/spec-qa-bridge.md`
+  (โหลด `development/tests/tstudio_test.csv` → เห็นสรุป 3 จุด) จะไม่ผ่าน —
+  แปลว่ายังไม่เคยรัน acceptance หลังแก้โค้ดรอบสุดท้าย ควรรันให้ครบ 4 ข้อหลังแก้
+- **ที่มา:** GLQA task ทวน bridge ตามบทบาท "ยืนยัน contract" ในสเปก —
+  ไม่แตะ working tree ของ THub-Launcher ตามกฎ hub-and-spoke จึงรายงานช่องทางนี้
 
 ## สิ่งที่ทำล่าสุด (ก่อน snapshot นี้)
 
+- **2026-10-31 ค่ำ:** ทวน QA bridge หลัง THub-Launcher integrate เสร็จ (`2b2d8c6`) —
+  contract ใช้ถูกต้องตามสเปกทั้งหมด แต่พบ bug dialog → รายงานไว้หัวข้อ "แจ้งต่อ" ข้างบน
 - **2026-10-31:** เจ้าของสั่ง commit `AGENTS.md` + `.handover/` เข้า repo (แบบเดียวกับ THub-Launcher)
   พร้อมเสริมกฎ ⛔ ลง AGENTS.md ข้อ 5 (รอคำสั่งเจ้าของเท่านั้น + ไฟล์ fork-only) — push origin แล้ว
 - ทยอยขัดเกลาเอกสาร upstream-PR จนครบชุด: แปล issue draft เป็นไทย → ลดความยาว →
