@@ -85,7 +85,7 @@ sequenceDiagram
 ```
 
 ### รายการตรวจสอบเชิงเทคนิคสำหรับ Python Script (Technical Checklist)
-- **ใช้เครื่องตรวจสำเร็จรูปก่อนเขียนสคริปต์เอง:** `python3 checker/thai_qa.py <ไฟล์> [--fix] [--csv --source-col N --target-col N] [--report review.csv]` — โหลดกฎทั้งหมดจาก `data/*.json` อัตโนมัติ (ทดสอบด้วย `python3 -m unittest discover -s checker`)
+- **ใช้เครื่องตรวจสำเร็จรูปก่อนเขียนสคริปต์เอง:** `python3 checker/thai_qa.py <ไฟล์> [--fix] [--csv --source-col N --target-col N] [--report review.csv] [--json]` — โหลดกฎทั้งหมดจาก `data/*.json` อัตโนมัติ (ทดสอบด้วย `python3 -m unittest discover -s checker`)
 - **แก้ปัญหา cp1252 บน Windows Terminal:**
   ```python
   import io, sys

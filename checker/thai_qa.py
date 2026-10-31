@@ -550,6 +550,8 @@ def main(argv=None):
     p.add_argument("--list-rules", action="store_true",
                    help="แสดงสิ่งที่ตรวจทั้งหมด 4 ชั้น (auto-fix / แจ้งเตือน / โหมด CSV / ความปลอดภัยไฟล์)")
     p.add_argument("--quiet", action="store_true", help="พิมพ์แค่สรุปผล")
+    p.add_argument("--json", action="store_true",
+                   help="พิมพ์ผลสรุปเป็น JSON บน stdout (สำหรับเครื่องมืออื่นเรียกใช้ — ปิดข้อความแบบคนอ่าน)")
     args = p.parse_args(argv)
 
     data = QAData(args.data_dir, disabled_traps=args.disable_trap)
@@ -560,6 +562,7 @@ def main(argv=None):
 
     report, unknown_rules = [], set()
     total_fixed = total_flag = 0
+    files_stats = []
     try:
         for f in args.files:
             path = Path(f)
@@ -573,30 +576,48 @@ def main(argv=None):
                 unit = "บรรทัด"
             total_fixed += fixed
             total_flag += flag
-            if not args.quiet:
-                for iss in report:
-                    if iss["file"] == str(path):
-                        mark = "🔧" if iss["fixed"] else ("⚠️ " if iss["severity"] == "warning" else "❌")
-                        print("  %s [%s] %s: %s%s" % (
-                            mark, iss["location"], iss["rule"], iss["before"][:40],
-                            (" ➔ " + iss["after"]) if iss["fixed"] else
-                            ((" — " + iss["note"]) if iss["note"] else "")))
-            print("%s: ตรวจ %d %s | แก้อัตโนมัติ %d จุด | แจ้งเตือน %d จุด%s"
-                  % (path.name, n, unit, fixed, flag, " (เขียนทับแล้ว)" if args.fix else " (dry-run)"))
+            files_stats.append({"file": path.name, "unit": unit, "checked": n,
+                                "auto_fixed": fixed, "flagged": flag})
+            if not args.json:
+                if not args.quiet:
+                    for iss in report:
+                        if iss["file"] == str(path):
+                            mark = "🔧" if iss["fixed"] else ("⚠️ " if iss["severity"] == "warning" else "❌")
+                            print("  %s [%s] %s: %s%s" % (
+                                mark, iss["location"], iss["rule"], iss["before"][:40],
+                                (" ➔ " + iss["after"]) if iss["fixed"] else
+                                ((" — " + iss["note"]) if iss["note"] else "")))
+                print("%s: ตรวจ %d %s | แก้อัตโนมัติ %d จุด | แจ้งเตือน %d จุด%s"
+                      % (path.name, n, unit, fixed, flag, " (เขียนทับแล้ว)" if args.fix else " (dry-run)"))
     except SystemExit:
         raise
     except Exception as e:
         _fail("❌ ข้อผิดพลาด: %s" % e)
 
-    if unknown_rules:
-        print("⚠️  กฎใน data ที่ยังไม่มี handler ใน checker (ต้องอัปเดตโค้ด): %s"
-              % ", ".join(sorted(unknown_rules)))
-
-    print("─" * 60)
-    print("รวม: แก้อัตโนมัติ %d จุด | แจ้งเตือนอีก %d จุดที่ต้องตรวจด้วยคน/AI" % (total_fixed, total_flag))
     if args.report:
         write_report(args.report, report)
-        print("📄 บันทึก Audit Trail: %s" % args.report)
+
+    if args.json:
+        payload = {
+            "tool": "thai_qa",
+            "fix_mode": bool(args.fix),
+            "files": files_stats,
+            "auto_fixed": total_fixed,
+            "flagged": total_flag,
+            "issues": report,
+            "unknown_rules": sorted(unknown_rules),
+        }
+        if args.report:
+            payload["report"] = args.report
+        print(json.dumps(payload, ensure_ascii=False))
+    else:
+        if unknown_rules:
+            print("⚠️  กฎใน data ที่ยังไม่มี handler ใน checker (ต้องอัปเดตโค้ด): %s"
+                  % ", ".join(sorted(unknown_rules)))
+        print("─" * 60)
+        print("รวม: แก้อัตโนมัติ %d จุด | แจ้งเตือนอีก %d จุดที่ต้องตรวจด้วยคน/AI" % (total_fixed, total_flag))
+        if args.report:
+            print("📄 บันทึก Audit Trail: %s" % args.report)
     return 1 if report else 0
 
 

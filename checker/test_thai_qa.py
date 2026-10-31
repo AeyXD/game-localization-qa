@@ -347,6 +347,37 @@ class TestFileSafety(unittest.TestCase):
             q.main([str(f)])
         self.assertEqual(cm.exception.code, 2)
 
+    def test_json_summary_with_issues(self):
+        import json
+        from contextlib import redirect_stdout
+        f = self.dir / "j.txt"
+        f.write_text("ปรากฎตัว\n", encoding="utf-8")
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            rc = q.main([str(f), "--json"])
+        self.assertEqual(rc, 1)
+        out = json.loads(buf.getvalue())
+        self.assertEqual(out["auto_fixed"], 1)
+        self.assertEqual(out["flagged"], 0)
+        self.assertFalse(out["fix_mode"])
+        self.assertEqual(out["files"][0]["checked"], 1)
+        self.assertEqual(len(out["issues"]), 1)
+        self.assertTrue(out["issues"][0]["fixed"])
+
+    def test_json_summary_clean_file(self):
+        import json
+        from contextlib import redirect_stdout
+        f = self.dir / "jc.txt"
+        f.write_text("ข้อความถูกต้องสมบูรณ์\n", encoding="utf-8")
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            rc = q.main([str(f), "--json"])
+        self.assertEqual(rc, 0)
+        out = json.loads(buf.getvalue())
+        self.assertEqual(out["auto_fixed"], 0)
+        self.assertEqual(out["issues"], [])
+        self.assertEqual(out["files"][0]["auto_fixed"], 0)
+
     def test_csv_mode_fix_and_leak_detection(self):
         f = self.dir / "t.csv"
         buf = io.StringIO()

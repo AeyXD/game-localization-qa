@@ -6,6 +6,9 @@
 
 ## [Unreleased]
 
+### เพิ่ม
+- flag `--json` ของ checker — พิมพ์ผลสรุปเป็น JSON บน stdout (สรุปรวม + รายไฟล์ + issues รายจุด + unknown_rules) แทนข้อความแบบคนอ่าน เพื่อให้เครื่องมืออื่น (เช่น TStudio QA bridge) เรียกใช้โดยไม่ต้อง parse stdout · exit codes คง convention 0/1/≥2 เดิม
+
 ### แก้ไข
 - ถ่ายทอบ→ถ่ายทอด (บ/ด typo) ใน CHANGELOG.md และ data/transcreation.json — พบโดยผู้ดูแล ไม่กระทบการทำงานของ checker
 - แยก exit code ของ checker ให้ชัดเจน: `1` = พบจุดที่ต้องดำเนินการ (คงเดิม) · `≥2` = รันไม่สำเร็จ (ไฟล์ไม่มี / ไม่ใช่ UTF-8 / exception — เดิมออกรหัส 1 ปนกับกรณีพบปัญหาในงานแปล) พร้อมบันทึก convention ลง README — สอดคล้องสัญญาที่ TStudio QA bridge ใช้ตัดสินผลการรัน
