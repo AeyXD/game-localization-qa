@@ -20,10 +20,12 @@
    - โครงสร้างเราต่างจาก upstream โดยตั้งใจ: upstream = `SKILL.md` เดี่ยว 429 บรรทัด ·
      เรา = `SKILL.md` 120 บรรทัด (router) + `references/` + `data/` รวม ~2,793 บรรทัด →
      ทุก PR ต้อง "แปลงกลับ" เนื้อหาเข้ารูปแบบไฟล์เดียวของ upstream (แผนกำหนดไว้แล้ว)
-2. **งานเสริมจากสเปก QA bridge (ไม่ blocking):** เขียน exit-code convention
-   (0 = สะอาด · 1 = มีจุดเตือน · ≥2 = รันไม่สำเร็จ) ลง README — ตรวจ 31/10 ยังไม่มี ·
-   (nice-to-have) flag `--json` คืนสรุป structured เพื่อไม่ต้อง parse stdout
-   (ตอนนี้ฝั่ง TStudio parse บรรทัด "รวม:" จาก stdout — ใช้ได้แต่เปราะถ้า format เปลี่ยน)
+2. **งานเสริมจากสเปก QA bridge:** ✅ exit-code convention เสร็จ 31/10 — พบระหว่างทำว่า
+   behavior จริงไม่ตรงสเปก (error paths เดิมออกรหัส 1 ปนกับ "พบจุดเตือน" ไม่ใช่ ≥2)
+   จึงแก้ checker ให้ออก 2 + tests 62/62 + README + CHANGELOG — ผลพลอยได้ฝั่ง TStudio:
+   checker พังจะถูก bridge ตีเป็น "รันไม่สำเร็จ" ถูกต้อง (เดิม exit 1 ทำให้ bridge เข้าใจว่ารันผ่าน) ·
+   เหลือ (nice-to-have): flag `--json` คืนสรุป structured เพื่อไม่ต้อง parse stdout
+   (ตอนนี้ฝั่ง TStudio parse บรรทัด "รวม:" — ใช้ได้แต่เปราะถ้า format เปลี่ยน)
 
 ## 📨 แจ้งต่อ workspace task → โปรดส่งต่อ THub-Launcher task (พบ 31/10 ค่ำ)
 
