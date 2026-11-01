@@ -1,6 +1,6 @@
 # HANDOVER — game-localization-qa
 
-**snapshot:** 2026-10-31 (อัปเดตโดย agent session หลัง commit AGENTS.md + .handover/)
+**snapshot:** 2026-11-01 (อัปเดตโดย agent session หลังพอร์ต segmenter ตามสเปก workspace)
 **สถานะ git:** `main` สะอาด sync origin · v1.2.0 · `AGENTS.md` + `.handover/` track ใน repo แล้ว (fork-only)
 
 ## งานค้าง (สำคัญที่สุดของ repo นี้)
@@ -47,6 +47,13 @@
   ไม่แตะ working tree ของ THub-Launcher ตามกฎ hub-and-spoke จึงรายงานช่องทางนี้
 
 ## สิ่งที่ทำล่าสุด (ก่อน snapshot นี้)
+
+- **2026-11-01:** พอร์ตตัวตัดคำไทยเข้า checker ตาม `docs/spec-glqa-segmenter.md` (สเปกของ workspace)
+  — `checker/thai_segmenter.py` (พอร์ตจาก ThaiW3Setup · MIT · stdlib ล้วน) + `data/words_th.txt`
+  (65,758 คำ sha256 ตรงต้นทาง) + `NOTICE` เครดิตครบ 3 แหล่ง + กฎ `word_split_rejoining`
+  3 ชั้น (known_pairs → segmenter ยืนยัน = แก้ → กำกวม = เตือนอย่างเดียว) + fallback ไม่มี dict
+  · tests 71/71 (Python 3.9.6) · eval 55/55 + coverage ≥95% · acceptance 6/6 ผ่าน
+  (รวมลบ dict ชั่วคราว — ทุกโหมดไม่ crash, `--json` schema ไม่เปลี่ยน) · CLI/exit codes เท่าเดิม
 
 - **2026-10-31 ค่ำ:** ทวน QA bridge หลัง THub-Launcher integrate เสร็จ (`2b2d8c6`) —
   contract ใช้ถูกต้องตามสเปกทั้งหมด แต่พบ bug dialog → รายงานไว้หัวข้อ "แจ้งต่อ" ข้างบน
