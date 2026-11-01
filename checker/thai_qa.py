@@ -33,6 +33,8 @@ import sys
 import tempfile
 from pathlib import Path
 
+import thai_segmenter
+
 SCRIPT_DIR = Path(__file__).resolve().parent
 DEFAULT_DATA_DIR = SCRIPT_DIR.parent / "data"
 
@@ -57,6 +59,7 @@ RE_YAMOK_NO_SPACE = re.compile("([^\\sๆ])ๆ")
 RE_YAMOK_AFTER = re.compile("(ๆ+)(?=[^\\s.,!?…:;\"”'’)\\]}<ๆ])")  # เติมช่องว่างหลัง ๆ ยกเว้นเครื่องหมาย/แท็ก
 RE_YAMOK_LINE_START = re.compile("^ๆ")
 RE_HAS_LATIN_WORD = re.compile("[A-Za-z]{3}")
+RE_THAI_SPACED = re.compile("([\u0e01-\u0e4e]+) ([\u0e01-\u0e4e]+)")  # ไทย+เว้นวรรค+ไทย — ส่งต่อ segmenter ตัดสิน
 
 
 def _issue(rule, name, severity, fixed, before, after, note=""):
@@ -178,6 +181,46 @@ def _fail(msg):
     raise SystemExit(2)
 
 
+def _split_rejoin_scan(text):
+    """เว้นวรรคกลางคำนอก known_pairs — ตัดสินด้วย segmenter (checker/thai_segmenter.py)
+
+    สามชั้นตาม docs/spec-glqa-segmenter.md (workspace "THub Studio"):
+    1) known_pairs จัดการไปแล้วในขั้น pair_fixes (regression เป๊ะ)
+    2) segmenter พร้อมใช้: ผสานแล้วแตกเป็นคำในพจนานุกรมครบทุกชิ้น + เวอร์ชันเว้นวรรค
+       แตกได้แย่กว่า → แก้อัตโนมัติ · กำกวม (ผสานแล้วยังมีชิ้นที่ไม่ใช่คำ) → แจ้งเตือนเท่านั้น
+    3) ไม่มี dict → available() คืน False คืนข้อความเดิม (ใช้ known_pairs เท่านั้น ห้าม crash)
+    """
+    if not thai_segmenter.available():
+        return text, []
+
+    def _unknown(tokens):
+        return sum(0 if thai_segmenter.is_known(t) else 1 for t in tokens)
+
+    issues = []
+
+    def _repl(m):
+        left, right = m.group(1), m.group(2)
+        merged = left + right
+        u_merged = _unknown(thai_segmenter.tokenize(merged))
+        u_spaced = _unknown(thai_segmenter.tokenize(left)) + _unknown(thai_segmenter.tokenize(right))
+        if u_merged == 0 and u_spaced > 0:
+            issues.append(_issue(
+                "word-split-rejoining",
+                "เว้นวรรคกลางคำ — segmenter ยืนยัน (%s ➔ %s)" % (m.group(0), merged),
+                "error", True, m.group(0), merged,
+                "ผสานแล้วเป็นคำจริงทุกชิ้น (ตัดคำด้วย data/words_th.txt)"))
+            return merged
+        if u_merged > 0 and u_spaced > u_merged:
+            issues.append(_issue(
+                "word-split-rejoining",
+                "เว้นวรรคกลางคำ? (กำกวม: %s)" % m.group(0),
+                "warning", False, m.group(0), "",
+                "ผสานแล้วยังมีชิ้นที่ไม่ใช่คำในพจนานุกรม — ตรวจบริบทก่อนผสาน"))
+        return m.group(0)
+
+    return RE_THAI_SPACED.sub(_repl, text), issues
+
+
 # ---------------------------------------------------------------------------
 # หัวใจ: ตรวจ + แก้ข้อความ "หนึ่งบรรทัด"
 # ---------------------------------------------------------------------------
@@ -218,6 +261,10 @@ def check_line(text, data, unknown_rules, source_text=None):
         return right
 
     out = data.pair_pattern.sub(_pair_repl, out)
+
+    # 2.5) เว้นวรรคกลางคำนอก known_pairs — ตัดสินด้วย segmenter (data/words_th.txt)
+    out, found = _split_rejoin_scan(out)
+    issues.extend(found)
 
     # 3) ไม้ยมก (ๆ) — แนวทางกฎครบชุดจากงานแปลเกมจริง
     # 3.1) เสียงหัวเราะ/เลียนเสียง: เขียนซ้ำเต็มคำตามหลักภาษาไทยทั่วไป (ฮ่า ๆๆ ➔ ฮ่า ฮ่า ฮ่า)

@@ -13,6 +13,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 import thai_qa as q
+import thai_segmenter
 
 DATA = q.QAData(q.DEFAULT_DATA_DIR)
 
@@ -478,6 +479,71 @@ class TestListRules(unittest.TestCase):
                         "mai-yamok-laughter", "thue-without-ng-m", "ฎ/ฏ สะกดผิด",
                         "mispaste-suspect", "กับดัก MT"):
             self.assertIn(section, out)
+
+
+class TestThaiSegmenter(unittest.TestCase):
+    """API ของ thai_segmenter (พอร์ตจาก ThaiW3Setup) — tokenize / is_known / available"""
+
+    def test_available_and_is_known(self):
+        self.assertTrue(thai_segmenter.available())
+        self.assertTrue(thai_segmenter.is_known("เขียน"))
+        self.assertFalse(thai_segmenter.is_known("ซึฟิร์ฮเว่น"))
+
+    def test_tokenize_splits_words_and_keeps_non_thai(self):
+        self.assertEqual(thai_segmenter.tokenize("เขียนนิยาย"), ["เขียน", "นิยาย"])
+        toks = thai_segmenter.tokenize("OK เขียน")
+        self.assertIn("OK ", toks)          # ส่วนที่ไม่ใช่ไทยคืนเป็นชิ้นของมันเอง
+        self.assertIn("เขียน", toks)
+
+
+class TestSegmenterWordSplit(unittest.TestCase):
+    """word_split_rejoining ชั้น segmenter ตาม docs/spec-glqa-segmenter.md (workspace THub Studio)"""
+
+    def test_known_pairs_regression(self):
+        out, issues = q.check_line("ลอบสัง หาร", DATA, set())
+        self.assertEqual(out, "ลอบสังหาร")
+        self.assertTrue(any(i["rule"] == "word-split-rejoining" and i["fixed"] for i in issues))
+
+    def test_segmenter_fixes_split_outside_known_pairs(self):
+        out, issues = q.check_line("เ ขียนบท", DATA, set())
+        self.assertEqual(out, "เขียนบท")
+        fix = next(i for i in issues if i["rule"] == "word-split-rejoining" and i["fixed"])
+        self.assertIn("ผสานแล้วเป็นคำจริงทุกชิ้น", fix["note"])
+
+    def test_ambiguous_split_warns_but_never_fixes(self):
+        out, issues = q.check_line("ซึ ฟิร์ฮเว่น", DATA, set())
+        self.assertEqual(out, "ซึ ฟิร์ฮเว่น")   # ผสานแล้วยังมีชิ้นที่ไม่ใช่คำ — ห้ามแก้
+        warn = next(i for i in issues if i["rule"] == "word-split-rejoining")
+        self.assertFalse(warn["fixed"])
+        self.assertEqual(warn["severity"], "warning")
+
+    def test_legitimate_spacing_untouched(self):
+        for text in ("เขียน นิยาย", "ไป กินข้าวกับเพื่อน"):
+            out, issues = q.check_line(text, DATA, set())
+            self.assertEqual(out, text)
+            self.assertFalse([i for i in issues if i["rule"] == "word-split-rejoining"])
+
+    def test_missing_dict_falls_back_to_known_pairs_only(self):
+        import pathlib
+        from contextlib import redirect_stderr
+        thai_segmenter.reset_cache()
+        orig = thai_segmenter.WORDS_FILE
+        thai_segmenter.WORDS_FILE = pathlib.Path(str(orig) + ".missing")
+        try:
+            buf = io.StringIO()
+            with redirect_stderr(buf):
+                self.assertFalse(thai_segmenter.available())
+                out, issues = q.check_line("เ ขียนบท", DATA, set())
+                out2, issues2 = q.check_line("ลอบสัง หาร", DATA, set())
+            self.assertEqual(out, "เ ขียนบท")            # นอก known_pairs → ไม่แก้
+            self.assertFalse([i for i in issues if i["rule"] == "word-split-rejoining"])
+            self.assertEqual(out2, "ลอบสังหาร")          # known_pairs ยังทำงาน
+            self.assertIn("แบบจำกัด", buf.getvalue())      # บันทึก stderr ครั้งเดียว
+            self.assertEqual(thai_segmenter.tokenize("เขียน"), ["เขียน"])   # fallback ไม่ crash
+            self.assertFalse(thai_segmenter.is_known("เขียน"))
+        finally:
+            thai_segmenter.WORDS_FILE = orig
+            thai_segmenter.reset_cache()
 
 
 if __name__ == "__main__":

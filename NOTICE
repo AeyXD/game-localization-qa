@@ -1,0 +1,15 @@
+game-localization-qa — ส่วนประกอบของบุคคลที่สาม
+
+1) data/words_th.txt
+   คำศัพท์ภาษาไทย 65,758 รายการ — union ของสองแหล่ง:
+   - pythainlp corpus https://github.com/PyThaiNLP/pythainlp (Apache License 2.0)
+   - ICU thaidict http://site.icu-project.org (Unicode License)
+     https://www.unicode.org/license.txt
+   คัดลอกจาก thaiwrap/data/words_th.txt โดยไม่แก้เนื้อหา (รักษา parity ของตัวตัดคำ)
+   ใช้ซ้ำ/แก้ไขได้ตามเงื่อนไขของทั้งสองใบอนุญาต
+
+2) checker/thai_segmenter.py
+   พอร์ตจาก ThaiW3Setup/core/thai_wrap.py (MIT License)
+   https://github.com/AeyXD/ThaiW3Setup
+   ซึ่งเป็นบรรพบุรุษตรงของ ThaiSegmenter.cs ใน thaiwrap ที่พอร์ตต่อ
+   และพิสูจน์ parity ไว้แล้ว — อัลกอริทึม DP + กฎห้ามตัด + merge pass คงเดิมทั้งหมด

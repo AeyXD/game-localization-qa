@@ -7,6 +7,7 @@
 ## [Unreleased]
 
 ### เพิ่ม
+- **ตัวตัดคำไทยจริงใน checker** (ตาม `docs/spec-glqa-segmenter.md` ของ workspace THub Studio): โมดูลใหม่ `checker/thai_segmenter.py` พอร์ตจาก ThaiW3Setup (MIT · stdlib ล้วน — DP + กฎห้ามตัด + merge pass เดิมทั้งหมด) + พจนานุกรม `data/words_th.txt` 65,758 คำ (pythainlp corpus + ICU thaidict — คัดลอกไม่แก้เนื้อหา, เครดิตดู `NOTICE`) · กฎ `word_split_rejoining` ยกระดับเป็น 3 ชั้น: ตรง known_pairs = แก้เหมือนเดิม → นอกคู่คำที่ segmenter ยืนยัน "ผสานแล้วเป็นคำทุกชิ้น" = แก้ (`เ ขียน` ➔ `เขียน`) → กำกวม = แจ้งเตือนเท่านั้น · ไม่มี dict = fallback ใช้ known_pairs เท่านั้น ไม่ crash · CLI / exit codes / `--json` payload ไม่เปลี่ยนแปลง
 - flag `--json` ของ checker — พิมพ์ผลสรุปเป็น JSON บน stdout (สรุปรวม + รายไฟล์ + issues รายจุด + unknown_rules) แทนข้อความแบบคนอ่าน เพื่อให้เครื่องมืออื่น (เช่น TStudio QA bridge) เรียกใช้โดยไม่ต้อง parse stdout · exit codes คง convention 0/1/≥2 เดิม
 
 ### แก้ไข
