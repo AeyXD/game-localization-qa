@@ -11,6 +11,11 @@ __pycache__/
 .env
 venv/
 env/
+.venv/
+
+# Checker output — ชื่อไฟล์ตามตัวอย่างใน README (--report review.csv / qa_audit.csv ของ TStudio bridge)
+review.csv
+qa_audit.csv
 
 # Editor / IDE
 .vscode/
