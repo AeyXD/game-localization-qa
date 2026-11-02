@@ -1,6 +1,6 @@
 # AGENTS.md — คู่มือสำหรับ AI agent ที่ทำงานใน repo นี้
 
-> อ่านก่อนแตะเนื้อหาทุกครั้ง · สถานะงานล่าสุดดู `.handover/HANDOVER.md` · แผนที่ ecosystem ดู `../docs/architecture.md` (workspace "THub Studio")
+> อ่านก่อนแตะเนื้อหาทุกครั้ง · สถานะงานล่าสุดดู `.handover/HANDOVER.md` (symlink ไป repo private `AeyXD/handover-notes` — **commit HANDOVER ที่ repo นั้น** · แนวทางเขียน: `GUIDE.md` ใน repo รวม) · แผนที่ ecosystem ดู `../docs/architecture.md` (workspace "THub Studio")
 
 ## repo นี้คืออะไร
 
@@ -33,11 +33,14 @@ Agent Skill **"7 QA Pillars"** สำหรับขัดเกลาบทแ�
    `memolyviza2012-max/game-localization-qa` ด้วย PR เท่านั้น ตามแผนใน `UPSTREAM-PR-PLAN.md`
    **⛔ ต้องรอคำสั่งเจ้าของเท่านั้น — ห้าม agent สร้าง/ส่ง/เตรียม PR เองไม่ว่ากรณีใด**
    (แม้ upstream จะตอบตกลงใน issue #1 ก็ยังต้องรอคำสั่งเจ้าของก่อนเริ่ม PR แรก) ·
-   `AGENTS.md` + `.handover/` เป็นไฟล์เฉพาะ fork — ห้ามรวมใน PR กลับ upstream เด็ดขาด
+   `AGENTS.md` เป็นไฟล์เฉพาะ fork — ห้ามรวมใน PR กลับ upstream เด็ดขาด ·
+   `.handover` เป็น symlink ไป repo private `AeyXD/handover-notes` (ไม่อยู่ใน git ของ repo นี้ — กันไว้ใน `.gitignore`)
 6. **ขอบเขตการทำงาน** — แตะเฉพาะไฟล์ใน repo นี้ (เอกสาร workspace เป็นของ workspace task) ·
-   จบ session ที่กระทบงาน → อัปเดต `.handover/HANDOVER.md` ของ repo นี้
+   จบ session ที่กระทบงาน → อัปเดต `.handover/HANDOVER.md` (commit ใน repo รวม handover-notes —
+   แก้เฉพาะโฟลเดอร์ `game-localization-qa/` ของเรา หรือ Inbox ของโปรเจกต์อื่นตาม GUIDE)
 
 ## บทบาทในภาพรวม workspace
 
-มีแผน (ยังไม่ลงมือ) ให้ `checker/thai_qa.py` กลายเป็นขั้น QA ใน TStudio หลังแปลก่อน deploy —
-ฝั่ง THub-Launcher เป็นผู้ integrate · repo นี้ดูแลให้ CLI เสถียรและใช้งานง่ายเพื่อรองรับจุดนั้น
+`checker/thai_qa.py` เป็นขั้น QA ใน TStudio หลังแปลก่อน deploy แล้ว (THub-Launcher `2b2d8c6` · 31/10 —
+เรียกผ่าน subprocess + CSV contract) — repo นี้ดูแลให้ CLI เสถียรและใช้งานง่าย
+(contract ที่ฝั่งนั้นพึ่งพอ: exit codes 0/1/≥2 · `--json` schema · `--csv --source-col 2 --target-col 3`)

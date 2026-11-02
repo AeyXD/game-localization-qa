@@ -16,3 +16,6 @@ env/
 .vscode/
 .idea/
 *.swp
+
+# Handover — symlink ไป repo private AeyXD/handover-notes (ต้องไม่มี / ท้าย เพราะ git มอง symlink เป็นไฟล์)
+.handover
