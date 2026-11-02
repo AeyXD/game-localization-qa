@@ -9,24 +9,27 @@ Agent Skill **"7 QA Pillars"** สำหรับขัดเกลาบทแ�
 | ส่วน | หน้าที่ |
 |---|---|
 | `SKILL.md` | 📖 คู่มือหลัก — 7 เสาหลัก + ตาราง routing ไป `references/` และ `data/` · **อ่านก่อนแตะเนื้อหา QA ทุกครั้ง** |
-| `checker/thai_qa.py` | CLI ตรวจคุณภาพเชิงโค้ด (+ `test_thai_qa.py`) |
-| `data/*.json` | คลังกฎ canonical เชิงเครื่อง (เป้าหมายของ self-upgrade protocol) |
-| `references/` | คู่มือเชิงลึกรายเสาหลัก (7 ไฟล์) |
+| `checker/thai_qa.py` | CLI ตรวจคุณภาพเชิงโค้ด (+ `test_thai_qa.py`) · `thai_segmenter.py` = ตัวตัดคำไทย (พอร์ตจาก ThaiW3Setup) |
+| `data/*.json` | คลังกฎ canonical เชิงเครื่อง (เป้าหมายของ self-upgrade protocol) · `words_th.txt` = พจนานุกรมตัดคำ 65,758 คำ |
+| `references/` | คู่มือเชิงลึกรายเสาหลัก (7 ไฟล์) + `qa-checklist.md` ตรวจรอบสุดท้ายก่อนส่งมอบ |
 | `eval/` | ชุดวัดคุณภาพ: `cases.json` + `run_eval.py` |
-| `UPSTREAM-PR-PLAN.md`, `ISSUE-DRAFT.md` | แผนส่ง PR กลับ upstream (สถานะ: ยังไม่ตัดสินใจ) |
+| `NOTICE` | เครดิตส่วนประกอบบุคคลที่สาม (pythainlp · ICU thaidict · ThaiW3Setup) |
+| `UPSTREAM-PR-PLAN.md`, `ISSUE-DRAFT.md` | แผนส่ง PR กลับ upstream — **รอ upstream ตอบ issue #1 + รอคำสั่งเจ้าของ** (⛔ กฎข้อ 5) |
 
 ## กฎเหล็ก
 
 1. **แก้เนื้อหา QA = แก้ให้สอดคล้องทั้ง 3 ชั้น** (SKILL.md / `references/` / `data/*.json`)
    ตามตาราง routing ใน SKILL.md — ห้ามแก้ชั้นเดียวทิ้งชั้นอื่นให้ขัดแย้งกัน
-2. **`data/*.json` คือของเครื่องอ่าน** — schema ต้องตรงกับที่ `checker` ใช้ และต้องผ่าน JSON validation
+2. **`data/*.json` คือของเครื่องอ่าน** — schema ต้องตรงกับที่ `checker` ใช้ และต้องผ่าน JSON validation ·
+   `data/words_th.txt` **ห้ามแก้เนื้อหาเด็ดขาด** (sha256 `9cc63523…` — แก้ = พัง parity กับ thaiwrap
+   ที่พิสูจน์ precision ไว้แล้ว) · เครดิตแหล่งที่มาทั้งหมดอยู่ที่ `NOTICE`
 3. **ทดสอบก่อนส่งมอบตามที่ CI ทำ** (`.github/workflows/ci.yml` รันทุก push/PR):
    ```bash
    python3 -m unittest discover -s checker -v     # unit tests
    python3 eval/run_eval.py selftest              # eval selftest
    python3 eval/run_eval.py checker --min-coverage 95   # trap-coverage ≥ 95%
    ```
-   รองรับ Python 3.9 / 3.11 / 3.12 — อย่าใช้ syntax ที่เกิน 3.9
+   รองรับ Python 3.9 / 3.11 / 3.12 — อย่าใช้ syntax ที่เกิน 3.9 · checker เป็น **stdlib ล้วน** ห้ามเพิ่ม dependency
 4. **commit ใช้ conventional style** (`fix:` `docs:` `ci:` `feat:`) ตามที่ repo ใช้อยู่ ·
    งานที่ผู้ใช้เห็นต้องอัปเดต `CHANGELOG.md` ด้วย
 5. **fork ↔ upstream** — push ได้เฉพาะ origin (`AeyXD/game-localization-qa`) · ส่งกลับ
@@ -38,6 +41,9 @@ Agent Skill **"7 QA Pillars"** สำหรับขัดเกลาบทแ�
 6. **ขอบเขตการทำงาน** — แตะเฉพาะไฟล์ใน repo นี้ (เอกสาร workspace เป็นของ workspace task) ·
    จบ session ที่กระทบงาน → อัปเดต `.handover/HANDOVER.md` (commit ใน repo รวม handover-notes —
    แก้เฉพาะโฟลเดอร์ `game-localization-qa/` ของเรา หรือ Inbox ของโปรเจกต์อื่นตาม GUIDE)
+7. **contract ภายนอก = ของสาธารณะ** — exit codes (0 = สะอาด · 1 = พบจุด · ≥2 = รันไม่สำเร็จ) ·
+   `--json` schema · ชุด flag CSV ที่ TStudio เรียกใช้ (ดูหัวข้อบทบาท) — เปลี่ยนแปลงต้องแจ้งฝั่งใช้ก่อน
+   ห้ามแก้เงียบ ๆ และเมื่อเปลี่ยนต้องเพิ่ม test กำกับ
 
 ## บทบาทในภาพรวม workspace
 
